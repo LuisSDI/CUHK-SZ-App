@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1041933186975",
+    "firebase_url": "https://cuhk-shenzhen-app.firebaseio.com",
+    "project_id": "cuhk-shenzhen-app",
+    "storage_bucket": "cuhk-shenzhen-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041933186975:android:a06053486a74c4a31d6faa",
+        "android_client_info": {
+          "package_name": "altapps.example.cuhkszapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041933186975-ivpqns6aj3tnlrq7vsoq0ulj3j4ug6ns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYFAmta0eJKgvFdrQQsylkdbxFlQF2hWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041933186975-ivpqns6aj3tnlrq7vsoq0ulj3j4ug6ns.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

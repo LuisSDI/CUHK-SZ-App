@@ -1,0 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
+
+class AuthService with ChangeNotifier {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  ///
+  /// return the Future with firebase user object FirebaseUser if one exists
+  ///
+  Future<FirebaseUser> getUser() {
+    return _auth.currentUser();
+  }
+
+  // wrapping the firebase calls
+  Future logout() async {
+    var result = FirebaseAuth.instance.signOut();
+    notifyListeners();
+    print("Sucess");
+    return result;
+  }
+}
