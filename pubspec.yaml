@@ -1,5 +1,5 @@
 
-name: cuhksz_app
+name: cuhkszapp
 description: App of The Chinese University of Hong Kong, Shenzhen
 
 # The following line prevents the package from being accidentally published to
@@ -36,6 +36,7 @@ dependencies:
   flutter_icons: ^1.1.0
   cloud_firestore: ^0.13.6
   shared_preferences: ^0.5.7+3
+  country_list_pick: ^1.0.0+3
 
 
 
