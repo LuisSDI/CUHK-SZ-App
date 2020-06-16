@@ -37,6 +37,8 @@ dependencies:
   cloud_firestore: ^0.13.6
   shared_preferences: ^0.5.7+3
   country_list_pick: ^1.0.0+3
+  carousel_slider: ^2.1.0
+  url_launcher: ^5.4.10
 
 
 
