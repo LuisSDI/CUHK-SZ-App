@@ -4,9 +4,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
 import 'package:cuhkszapp/Services/User/repository/auth_repository.dart';
-import 'package:cuhkszapp/Services/User/repository/cloud_firestore_api.dart';
 import 'package:cuhkszapp/Services/User/repository/cloud_firestore_repository.dart';
+import 'package:cuhkszapp/Services/User/repository/firebase_storage_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 class UserBloc implements Bloc {
@@ -50,6 +51,14 @@ class UserBloc implements Bloc {
   Stream<DocumentSnapshot> listenUserData(String userUid) {
     return _cloudFirestoreRepository.listenUserData(userUid);
   }
+
+  //4. Firebase Storage
+
+  final _firebaseStorageRepository = FirebaseStorageRepository();
+
+  Future<StorageUploadTask> uploadFile(String path, File image) => _firebaseStorageRepository.uploadFile(path, image);
+  Future<String> getImageUrl(String imageId) => _firebaseStorageRepository.getImageUrl(imageId);
+
 
   signOut() {
     _auth_repository.signOut();

@@ -123,24 +123,32 @@ class ProfileTab extends StatelessWidget {
                   padding: EdgeInsets.only(top: scaler.getHeight(2)),
                   child: Container(
                     height: scaler.getWidth(40),
+                    width: scaler.getWidth(40),
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(
                           Radius.circular(scaler.getWidth(20))),
-                      child: Image(
+                      child: FittedBox(
                         fit: BoxFit.cover,
-                        image: NetworkImage(user.photoUrL),
-                        loadingBuilder: (BuildContext context, Widget child,
-                            ImageChunkEvent loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
+                        child: Image(
+                          image: NetworkImage(user.photoUrL),
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Container(
+                              height: scaler.getWidth(40),
+                              width: scaler.getWidth(40),
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                      null
+                                      ? loadingProgress.cumulativeBytesLoaded /
                                       loadingProgress.expectedTotalBytes
-                                  : null,
-                            ),
-                          );
-                        },
+                                      : null,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
