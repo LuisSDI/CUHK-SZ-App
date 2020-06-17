@@ -3,7 +3,6 @@ import 'package:country_pickers/country.dart';
 import 'package:country_pickers/utils/utils.dart';
 import 'package:cuhkszapp/MainPages/edit_profile.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
-import 'package:cuhkszapp/Services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -386,10 +385,7 @@ class ProfileTab extends StatelessWidget {
                         await FirebaseAuth.instance
                             .signOut()
                             .then((value) => print("Sesion Cerrada"));
-
-                        //Navigator.of(context).pop();
-                        //Navigator.of(context).pushReplacementNamed('/');
-                      },
+                        },
                       icon: Icon(
                         Icons.exit_to_app,
                         color: Colors.white,

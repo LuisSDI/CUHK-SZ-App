@@ -1,11 +1,8 @@
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:country_pickers/country.dart';
-import 'package:country_pickers/country_picker_dropdown.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -331,7 +328,6 @@ class _EditProfileState extends State<EditProfile> {
                               onChanged: (String newValue) {
                                 setState(() {
                                   dropdownValue = newValue;
-                                  print(dropdownValue);
                                 });
                               },
                               items: <String>[
@@ -405,7 +401,6 @@ class _EditProfileState extends State<EditProfile> {
                               },
                               onSaved: (input) {
                                 description = input;
-                                print(description);
                               },
                               maxLength: 170,
                               maxLines: 4,

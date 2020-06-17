@@ -2,7 +2,6 @@ import 'package:cuhkszapp/Login/sign_in_page.dart';
 import 'package:cuhkszapp/MainPages/home_page.dart';
 import 'package:cuhkszapp/Onboarding/onboarding_main.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
-import 'package:cuhkszapp/Services/User/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
