@@ -1,3 +1,4 @@
+import 'package:cuhkszapp/Login/forgot_password_screen.dart';
 import 'package:cuhkszapp/Login/sign_in_page.dart';
 import 'package:cuhkszapp/MainPages/home_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
@@ -186,18 +187,26 @@ class _SignInContentState extends State<SignInContent> {
               height: scaler.getWidth(10),
             ),
             // Forgot password Text
-            Container(
-              alignment: Alignment.centerLeft,
-              height: scaler.getWidth(4),
-              margin: EdgeInsets.only(bottom: scaler.getWidth(3.5)),
-              child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(
-                    'Forgot password?',
-                    style: GoogleFonts.lato(
-                        textStyle:
-                            TextStyle(fontSize: 16, color: Color(0xff62626C))),
-                  )),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen()));
+              },
+              child: Container(
+                alignment: Alignment.centerLeft,
+                height: scaler.getWidth(4),
+                margin: EdgeInsets.only(bottom: scaler.getWidth(3.5)),
+                child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      'Forgot password?',
+                      style: GoogleFonts.lato(
+                          textStyle:
+                              TextStyle(fontSize: 16, color: Color(0xff62626C))),
+                    )),
+              ),
             ),
           ],
         ),

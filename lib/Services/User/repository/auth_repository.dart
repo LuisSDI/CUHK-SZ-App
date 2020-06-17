@@ -18,5 +18,8 @@ class AuthRepository {
   Future<AuthCredential> credentialFacebook() =>
       _firebaseAuthAPI.credentialFacebook();
 
+  Future sendRecoveryPassword(String email) => _firebaseAuthAPI.sendRecoveryPassword(email);
+
+
   signOut() => _firebaseAuthAPI.signOut();
 }

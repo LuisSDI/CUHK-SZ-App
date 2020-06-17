@@ -21,8 +21,8 @@ class UserBloc implements Bloc {
   Stream<FirebaseUser> get authStatus => streamFirebase;
   Future<FirebaseUser> get currentUser => FirebaseAuth.instance.currentUser();
 
-  //Casos uso
-  //1.SignIn a la aplicacion
+  //Firebase Auth
+  //1.SignIn
   Future<FirebaseUser> signIn(String email, String password) =>
       _auth_repository.signInFirebase(email, password);
   //2.SignIn Credential
@@ -38,7 +38,10 @@ class UserBloc implements Bloc {
   Future<FirebaseUser> signUp(String email, String password) =>
       _auth_repository.signUpFirebase(email, password);
 
-  //2. Registrar usuario en base de datos
+  Future sendRecoveryPassword(String email) => _auth_repository.sendRecoveryPassword(email);
+
+  // Firebase Cloud Firestore
+  
   final _cloudFirestoreRepository = CloudFirestoreRepository();
   void setUserData(User user) =>
       _cloudFirestoreRepository.setUserDataFirestore(user);
@@ -52,7 +55,7 @@ class UserBloc implements Bloc {
     return _cloudFirestoreRepository.listenUserData(userUid);
   }
 
-  //4. Firebase Storage
+  //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 

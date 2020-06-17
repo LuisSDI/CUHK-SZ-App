@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -66,7 +65,7 @@ class FirebaseAuthAPI {
       if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
         FacebookAccessToken facebookAccessToken =
             facebookLoginResult.accessToken;
-        final AuthCredential credential = FacebookAuthProvider.getCredential(
+        credential = FacebookAuthProvider.getCredential(
             accessToken: facebookAccessToken.token);
         facebookLogin.logOut();
       }
@@ -75,6 +74,10 @@ class FirebaseAuthAPI {
       print(e);
       return credential;
     }
+  }
+
+  Future sendRecoveryPassword(String email) async {
+    return await _auth.sendPasswordResetEmail(email: email);
   }
 
   void signOut() async {
