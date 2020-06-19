@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+
 
 class CloudFireStoreAPI {
-  final Firestore _db = Firestore.instance;
   final CollectionReference userInfo =
       Firestore.instance.collection('userInfo');
 
@@ -26,6 +23,25 @@ class CloudFireStoreAPI {
     });
     return user;
   }
+
+  Future<List<User>> getListUsers (String userUid) async {
+    List<User> users = List<User>();
+    var querySnapshot = await userInfo.getDocuments();
+    querySnapshot.documents.forEach((value) {
+          User user = User(
+            name: value.data['full name'],
+            type: value.data['type'],
+            phone: value.data['phone'],
+            description: value.data['description'],
+            country: value.data['country'],
+            uid: value.data['uid'],
+            photoUrL: value.data['photoURL'],
+            email: value.data['email'],
+          );
+          users.add(user);
+        });
+    return users;
+}
 
   Stream<DocumentSnapshot> listenUserData(String userUid) {
     return userInfo.document(userUid).snapshots();

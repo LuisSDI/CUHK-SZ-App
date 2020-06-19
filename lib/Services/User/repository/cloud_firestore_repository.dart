@@ -17,4 +17,7 @@ class CloudFirestoreRepository {
   Stream<DocumentSnapshot> listenUserData(String userUid) {
     return _cloudFirestoreAPI.listenUserData(userUid);
   }
+
+  Future<List<User>> getListUsers(String userUid) =>
+      _cloudFirestoreAPI.getListUsers(userUid);
 }

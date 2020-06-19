@@ -1,8 +1,7 @@
+import 'package:cuhkszapp/MainPages/chat_tab.dart';
 import 'package:cuhkszapp/MainPages/discover_tab.dart';
 import 'package:cuhkszapp/MainPages/explore_tab.dart';
 import 'package:cuhkszapp/MainPages/profile_tab.dart';
-import 'package:cuhkszapp/Services/AuthServices.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -10,9 +9,7 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
-  final FirebaseUser user;
 
-  const HomePage({Key key, this.user}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -23,9 +20,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _children = [
     ExploreTab(),
     DiscoverTab(),
-    Container(
-      decoration: BoxDecoration(color: Colors.orange),
-    ),
+    ChatTab(),
     Container(
       decoration: BoxDecoration(color: Colors.yellow),
     ),

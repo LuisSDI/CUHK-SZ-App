@@ -1,7 +1,6 @@
 import 'package:cuhkszapp/Login/create_profile_page.dart';
 import 'package:cuhkszapp/Login/sign_in_content.dart';
 import 'package:cuhkszapp/Login/sign_up_content.dart';
-import 'package:cuhkszapp/MainPages/home_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:flutter/cupertino.dart';

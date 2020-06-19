@@ -55,6 +55,8 @@ class UserBloc implements Bloc {
     return _cloudFirestoreRepository.listenUserData(userUid);
   }
 
+  Future<List<User>> getListUsers(String userUid) => _cloudFirestoreRepository.getListUsers(userUid);
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
