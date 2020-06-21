@@ -1,3 +1,4 @@
+import 'package:cuhkszapp/MainPages/ChatPages/chat_screen.dart';
 import 'package:cuhkszapp/MainPages/ChatPages/show_profile_screen.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
 import 'package:flutter/material.dart';
@@ -85,11 +86,19 @@ class ChatButton extends StatelessWidget {
             ),
           ),
           //Open Chat
-          Container(
-            child: Icon(
-              Ionicons.ios_arrow_forward,
-              color: Color(0xff6747CD),
-              size: 40,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => ChatScreen(
+                user: user,
+              )));
+            },
+            child: Container(
+              child: Icon(
+                Ionicons.ios_arrow_forward,
+                color: Color(0xff6747CD),
+                size: 40,
+              ),
             ),
           )
         ],

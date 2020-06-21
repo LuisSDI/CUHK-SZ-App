@@ -10,7 +10,7 @@ class ShowProfileScreen extends StatelessWidget {
 
   final User user;
 
-  const ShowProfileScreen({Key key, this.user}) : super(key: key);
+  const ShowProfileScreen({Key key, @required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class ShowProfileScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  // Title Row
                   Padding(
                     padding: EdgeInsets.only(
                         top: scaler.getHeight(7),
