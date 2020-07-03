@@ -8,8 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ChatButton extends StatelessWidget {
   final User user;
+  final String currentUserUid;
 
-  const ChatButton({Key key, @required this.user}) : super(key: key);
+  const ChatButton({Key key, @required this.user, this.currentUserUid}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     ScreenScaler scaler = ScreenScaler()..init(context);
@@ -91,6 +92,7 @@ class ChatButton extends StatelessWidget {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => ChatScreen(
                 user: user,
+                currentUserUid: currentUserUid,
               )));
             },
             child: Container(

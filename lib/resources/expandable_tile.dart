@@ -29,7 +29,6 @@ class ExpansionItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(0),
             ),
             child: ExpansionTile(
-              tilePadding: EdgeInsets.all(0),
               trailing: Padding(
                 padding: EdgeInsets.only(
                   right: scaler.getHeight(2),

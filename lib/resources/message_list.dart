@@ -1,40 +1,56 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuhkszapp/Services/User/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MessageList extends StatelessWidget {
+
+  final String currentUserId;
+  final User receiverUser;
+
+  const MessageList({Key key, this.currentUserId, this.receiverUser}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemBuilder: (context, index){
-      return chatMessageItem(context);
-    },
-    itemCount: 6,
-    padding: EdgeInsets.all(10),
+    ScreenScaler scaler = ScreenScaler()..init(context);
+    return StreamBuilder(
+      stream: Firestore.instance.collection('messages').document(currentUserId)
+          .collection(receiverUser.uid).orderBy('timeStamp',descending: true).snapshots()
+      ,
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+        if(snapshot.data == null){
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+         return ListView.builder(
+           padding: EdgeInsets.all(scaler.getWidth(2)),
+           itemBuilder: (context, index) {
+             return chatMessageItem(context, snapshot.data.documents[index]);
+           },
+           itemCount: snapshot.data.documents.length,
+           reverse: true,
+         );
+      },
     );
   }
 
-  Widget chatMessageItem(BuildContext context){
+  Widget chatMessageItem(BuildContext context, DocumentSnapshot snapshot){
     return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: senderLayout(context),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: recieverLayout(context),
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: snapshot['senderId'] == currentUserId ? senderLayout(context , snapshot , Alignment.centerRight) :
+        recieverLayout(context,snapshot, Alignment.centerLeft),
       ),
     );
   }
 
-  Widget senderLayout(BuildContext context  ) {
+  Widget senderLayout(BuildContext context , DocumentSnapshot snapshot , Alignment alignment) {
     ScreenScaler scaler = ScreenScaler()..init(context);
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: alignment,
       child: Container(
         constraints: BoxConstraints(
           maxWidth: scaler.getWidth(60)
@@ -42,7 +58,7 @@ class MessageList extends StatelessWidget {
         child:Padding(
           padding: EdgeInsets.all(scaler.getHeight(1)),
           child: Text(
-            'Hello',
+            snapshot['message'],
             style: GoogleFonts.lato(
                 textStyle: TextStyle(
                     fontSize: 16,
@@ -59,10 +75,10 @@ class MessageList extends StatelessWidget {
     );
   }
 
-  Widget recieverLayout(BuildContext context  ) {
+  Widget recieverLayout(BuildContext context,DocumentSnapshot snapshot, Alignment alignment ) {
     ScreenScaler scaler = ScreenScaler()..init(context);
     return Align(
-      alignment: Alignment.centerLeft,
+      alignment: alignment,
       child: Container(
         constraints: BoxConstraints(
             maxWidth: scaler.getWidth(60)
@@ -70,7 +86,7 @@ class MessageList extends StatelessWidget {
         child:Padding(
           padding: EdgeInsets.all(scaler.getHeight(1)),
           child: Text(
-            'Hello ',
+            snapshot['message'],
             style: GoogleFonts.lato(
                 textStyle: TextStyle(
                   fontSize: 16,

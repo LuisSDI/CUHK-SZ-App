@@ -1,10 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuhkszapp/Services/User/model/messages.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
 
 
 class CloudFireStoreAPI {
   final CollectionReference userInfo =
       Firestore.instance.collection('userInfo');
+
+  final CollectionReference messages =
+  Firestore.instance.collection('messages');
+
 
   Future<User> getUserData(String userUid) async {
     User user;
@@ -74,4 +79,17 @@ class CloudFireStoreAPI {
       'lastSignIn': DateTime.now()
     });
   }
-}
+
+  Future<void> addMessage( Message message, User sender , User receiver)
+async {
+    Map map = message.toMap();
+
+    await messages.document(message.senderId)
+    .collection(message.receiverId)
+    .add(map);
+
+    return await messages.document(message.receiverId)
+        .collection(message.senderId)
+        .add(map);
+
+} }

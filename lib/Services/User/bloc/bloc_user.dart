@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuhkszapp/Services/User/model/messages.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
 import 'package:cuhkszapp/Services/User/repository/auth_repository.dart';
 import 'package:cuhkszapp/Services/User/repository/cloud_firestore_repository.dart';
@@ -56,6 +57,9 @@ class UserBloc implements Bloc {
   }
 
   Future<List<User>> getListUsers(String userUid) => _cloudFirestoreRepository.getListUsers(userUid);
+
+  Future<void> addMessage( Message message, User sender , User receiver) => _cloudFirestoreRepository.addMessage(message, sender, receiver);
+
 
   //Firebase Storage
 
