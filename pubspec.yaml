@@ -39,6 +39,7 @@ dependencies:
   country_list_pick: ^1.0.0+3
   carousel_slider: ^2.1.0
   url_launcher: ^5.4.10
+  date_field: ^0.1.2
 
 
 
