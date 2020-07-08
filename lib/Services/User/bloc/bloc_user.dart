@@ -77,6 +77,13 @@ class UserBloc implements Bloc {
   Stream <DocumentSnapshot> getContactDetails(String userID)
   => _cloudFirestoreRepository.getContactDetails(userID);
 
+
+  Stream <DocumentSnapshot> getPersonalQuestion(String userID)
+  => _cloudFirestoreRepository.getPersonalQuestion(userID);
+
+  Future<void> registerPersonalQuestionnaires (String userID, String questionOne, String questionTwo, String questionThree)
+  => _cloudFirestoreRepository.registerPersonalQuestionnaires(userID, questionOne, questionTwo, questionThree);
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();

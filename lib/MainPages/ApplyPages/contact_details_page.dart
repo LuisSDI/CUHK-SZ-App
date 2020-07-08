@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
+import 'package:cuhkszapp/MainPages/ApplyPages/personal_questions_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,6 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active){
               if(snapshot.hasData){
-                print(snapshot.data.data);
                 Map contactDetails = snapshot.data.data;
                 email = contactDetails['email'];
                 otherEmail = contactDetails['other email'];
@@ -1832,7 +1832,10 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
         formState.save();
         try {
           widget.userBloc.registerContactDetails(widget.userId, email, otherEmail, phoneNum, mobileNum, residentialAddress, cityResident, stateResident, countryResident, postcodeResident, postalAddress, cityPostal, statePostal, countryPostal, postcodePostal, emergencyContact, emergencyRel, mobileInt);
-          Navigator.of(context).pop();
+          Navigator.push(context,MaterialPageRoute(
+              builder: (context) => PersonalQuestionsPage(
+                userId: widget.userId,
+              )));
         } catch (e) {
           print(e.message);
           Navigator.of(context).pop();

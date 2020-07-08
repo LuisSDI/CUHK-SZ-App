@@ -34,12 +34,19 @@ class CloudFirestoreRepository {
       String emergencyContact, String emergencyRel, String mobileInt)
   => _cloudFirestoreAPI.registerContactDetails(userID, email, otherEmail, phone, mobile, residentialAddress, residentialCity, residentialState, residentialCountry, residentialPostcode, postalAddress, postalCity, postalState, postalCountry, postalPostcode, emergencyContact, emergencyRel, mobileInt) ;
 
+  Future<void> registerPersonalQuestionnaires (String userID, String questionOne, String questionTwo, String questionThree)
+  => _cloudFirestoreAPI.registerPersonalQuestionnaires(userID, questionOne, questionTwo, questionThree);
+
   Stream <DocumentSnapshot> getContactDetails(String userID)
   => _cloudFirestoreAPI.getContactDetails(userID);
 
   Stream <DocumentSnapshot> getPersonalDetails(String userID) =>
   _cloudFirestoreAPI.getPersonalDetails(userID);
 
-  Future<List<User>> getListUsers(String userUid) =>
+  Stream <DocumentSnapshot> getPersonalQuestion(String userID) =>
+  _cloudFirestoreAPI.getPersonalQuestion(userID);
+
+
+    Future<List<User>> getListUsers(String userUid) =>
       _cloudFirestoreAPI.getListUsers(userUid);
 }

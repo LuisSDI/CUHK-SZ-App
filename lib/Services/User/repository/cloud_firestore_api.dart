@@ -41,6 +41,11 @@ class CloudFireStoreAPI {
         .document(userID).snapshots();
   }
 
+  Stream <DocumentSnapshot> getPersonalQuestion(String userID) {
+    return applications.document(userID).collection('Personal Questionnaires')
+        .document(userID).snapshots();
+  }
+
 
   Future<List<User>> getListUsers (String userUid) async {
     List<User> users = List<User>();
@@ -143,6 +148,16 @@ class CloudFireStoreAPI {
       'mobile for interview': mobileInt,
     }, merge: true);
 
+  }
+
+  Future<void> registerPersonalQuestionnaires (String userID, String questionOne, String questionTwo, String questionThree)
+  async {
+    return await applications.document(userID).collection('Personal Questionnaires')
+        .document(userID).setData({
+      'attributes question': questionOne,
+      'why china question': questionTwo,
+      'ambitions question': questionThree,
+    }, merge: true);
   }
   
   Future<void> addMessage( Message message, User sender , User receiver)
