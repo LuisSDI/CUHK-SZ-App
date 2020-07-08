@@ -40,6 +40,7 @@ dependencies:
   carousel_slider: ^2.1.0
   url_launcher: ^5.4.10
   date_field: ^0.1.2
+  dotted_border: ^1.0.5
 
 
 
@@ -71,6 +72,7 @@ flutter:
     - assets/images_onboarding/
     - assets/images_students_pictures/
     - assets/images_why_screen/
+    - assets/images_application/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

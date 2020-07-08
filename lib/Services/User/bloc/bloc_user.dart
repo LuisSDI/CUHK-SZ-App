@@ -93,13 +93,23 @@ class UserBloc implements Bloc {
   Stream <DocumentSnapshot> getAdditionalDetails(String userID)
   => _cloudFirestoreRepository.getAdditionalDetails(userID);
 
+  Future<void> registerApplicationPhoto (String userID, String photoUrl)
+  => _cloudFirestoreRepository.registerApplicationPhoto(userID, photoUrl);
+
+  Stream <DocumentSnapshot> getApplicationPhoto(String userID)
+  => _cloudFirestoreRepository.getApplicationPhoto(userID);
+
+
+
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 
   Future<StorageUploadTask> uploadFile(String path, File image) => _firebaseStorageRepository.uploadFile(path, image);
   Future<String> getImageUrl(String imageId) => _firebaseStorageRepository.getImageUrl(imageId);
-
+  Future<String> getApplicationPhotoUrl(String imageId) => _firebaseStorageRepository.getApplicationPhotoUrl(imageId);
+  Future<void> deleteApplicationPhoto(String path) => _firebaseStorageRepository.deleteApplicationPhoto(path);
 
   signOut() {
     _auth_repository.signOut();

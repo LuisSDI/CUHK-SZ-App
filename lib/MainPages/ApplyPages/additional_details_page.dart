@@ -6,6 +6,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'application_photo_page.dart';
 
 class AdditionalDetailsPage extends StatefulWidget {
   UserBloc userBloc;
@@ -1199,7 +1200,12 @@ through an agent?'''.trim(),
         try {
           widget.userBloc.registerAdditionalDetails(widget.userId, dropdownTuition, dropdownNeeds,
               needsDetails, dropdownCriminal, criminalDetails, dropdownAgent, nameAgent, emailAgent);
-          Navigator.of(context).pop();
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ApplicationPhotoPage(
+                    userId: widget.userId,
+                  )));
         } catch (e) {
           print(e.message);
           Navigator.of(context).pop();

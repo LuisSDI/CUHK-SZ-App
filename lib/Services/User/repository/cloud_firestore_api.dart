@@ -51,6 +51,11 @@ class CloudFireStoreAPI {
         .document(userID).snapshots();
   }
 
+  Stream <DocumentSnapshot> getApplicationPhoto(String userID) {
+    return applications.document(userID).collection('Application Photo')
+        .document(userID).snapshots();
+  }
+
   Future<List<User>> getListUsers (String userUid) async {
     List<User> users = List<User>();
     var querySnapshot = await userInfo.getDocuments();
@@ -178,6 +183,14 @@ class CloudFireStoreAPI {
       'uses agent': dropdownAgent,
       'name of agent' : nameAgent,
       'email of agent': emailAgent,
+    }, merge: true);
+  }
+
+  Future<void> registerApplicationPhoto (String userID, String photoUrl)
+  async {
+    return await applications.document(userID).collection('Application Photo')
+        .document(userID).setData({
+      'photoUrl': photoUrl
     }, merge: true);
   }
   

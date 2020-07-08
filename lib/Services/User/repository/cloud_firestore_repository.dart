@@ -47,6 +47,10 @@ class CloudFirestoreRepository {
   => _cloudFirestoreAPI.registerAdditionalDetails(userID, dropdownTuition, dropdownNeeds,
       needsDetails, dropdownCriminal, criminalDetails, dropdownAgent, nameAgent, emailAgent);
 
+  Future<void> registerApplicationPhoto (String userID, String photoUrl)
+  => _cloudFirestoreAPI.registerApplicationPhoto(userID, photoUrl);
+
+
   Stream <DocumentSnapshot> getContactDetails(String userID)
   => _cloudFirestoreAPI.getContactDetails(userID);
 
@@ -58,6 +62,9 @@ class CloudFirestoreRepository {
 
   Stream <DocumentSnapshot> getAdditionalDetails(String userID) =>
   _cloudFirestoreAPI.getAdditionalDetails(userID);
+
+  Stream <DocumentSnapshot> getApplicationPhoto(String userID) =>
+  _cloudFirestoreAPI.getApplicationPhoto(userID);
 
 
     Future<List<User>> getListUsers(String userUid) =>
