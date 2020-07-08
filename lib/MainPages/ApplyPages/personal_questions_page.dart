@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuhkszapp/MainPages/ApplyPages/additional_details_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:flutter/material.dart';
@@ -438,7 +439,7 @@ career goals.)'''.trim(),
                               ),
                               ArrowButtom(
                                 onTap: () async {
-                                  await registerContactDetails();
+                                  await registerPersonalQuestions();
                                 },
                               )
                             ],
@@ -456,7 +457,7 @@ career goals.)'''.trim(),
     );
   }
 
-  Future<void> registerContactDetails() async {
+  Future<void> registerPersonalQuestions() async {
     {
       final formState = _formKey.currentState;
       widget.userBloc = BlocProvider.of(context);
@@ -464,7 +465,10 @@ career goals.)'''.trim(),
         formState.save();
         try {
           widget.userBloc.registerPersonalQuestionnaires(widget.userId, questionOne, questionTwo, questionThree);
-          Navigator.of(context).pop();
+          Navigator.push(context,MaterialPageRoute(
+              builder: (context) => AdditionalDetailsPage(
+                userId: widget.userId,
+              )));
         } catch (e) {
           print(e.message);
           Navigator.of(context).pop();

@@ -84,6 +84,15 @@ class UserBloc implements Bloc {
   Future<void> registerPersonalQuestionnaires (String userID, String questionOne, String questionTwo, String questionThree)
   => _cloudFirestoreRepository.registerPersonalQuestionnaires(userID, questionOne, questionTwo, questionThree);
 
+  Future<void> registerAdditionalDetails (String userID, String dropdownTuition, String dropdownNeeds,
+      String needsDetails,String dropdownCriminal, String criminalDetails, String dropdownAgent,
+      String nameAgent, String emailAgent)
+  => _cloudFirestoreRepository.registerAdditionalDetails(userID, dropdownTuition, dropdownNeeds,
+      needsDetails, dropdownCriminal, criminalDetails, dropdownAgent, nameAgent, emailAgent);
+
+  Stream <DocumentSnapshot> getAdditionalDetails(String userID)
+  => _cloudFirestoreRepository.getAdditionalDetails(userID);
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();

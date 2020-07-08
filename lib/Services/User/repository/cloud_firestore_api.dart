@@ -46,6 +46,10 @@ class CloudFireStoreAPI {
         .document(userID).snapshots();
   }
 
+  Stream <DocumentSnapshot> getAdditionalDetails(String userID) {
+    return applications.document(userID).collection('Additional Details')
+        .document(userID).snapshots();
+  }
 
   Future<List<User>> getListUsers (String userUid) async {
     List<User> users = List<User>();
@@ -157,6 +161,23 @@ class CloudFireStoreAPI {
       'attributes question': questionOne,
       'why china question': questionTwo,
       'ambitions question': questionThree,
+    }, merge: true);
+  }
+
+  Future<void> registerAdditionalDetails (String userID, String dropdownTuition, String dropdownNeeds,
+      String needsDetails,String dropdownCriminal, String criminalDetails, String dropdownAgent,
+      String nameAgent, String emailAgent)
+  async {
+    return await applications.document(userID).collection('Additional Details')
+        .document(userID).setData({
+      'source of tuition': dropdownTuition,
+      'special needs' : dropdownNeeds,
+      'needs details' : needsDetails,
+      'criminal convictions' : dropdownCriminal,
+      'criminal details': criminalDetails,
+      'uses agent': dropdownAgent,
+      'name of agent' : nameAgent,
+      'email of agent': emailAgent,
     }, merge: true);
   }
   
