@@ -57,18 +57,21 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
             if (snapshot.connectionState == ConnectionState.active){
               if(snapshot.hasData){
                 Map personalDetails = snapshot.data.data;
-                dropdownTitle ??= personalDetails['title'];
-                givenName = personalDetails['given name'];
-                middleName = personalDetails['middle name'];
-                familyName = personalDetails['family name'];
-                dropdownGender ??= personalDetails['gender'];
-                birthDate ??= DateTime.parse(personalDetails['date of birth']);
-                expireDate ??= DateTime.parse(personalDetails['date of expire']);
-                countryField ??= personalDetails['nationality'];
-                passportNum = personalDetails['passport'];
-                placeIssue = personalDetails['place of issue'];
-                religion = personalDetails['religion'];
-                placeBirth = personalDetails['place of birth'];
+                if (personalDetails != null) {
+                  dropdownTitle ??= personalDetails['title'];
+                  givenName = personalDetails['given name'];
+                  middleName = personalDetails['middle name'];
+                  familyName = personalDetails['family name'];
+                  dropdownGender ??= personalDetails['gender'];
+                  birthDate ??= DateTime.parse(personalDetails['date of birth']);
+                  expireDate ??= DateTime.parse(personalDetails['date of expire']);
+                  countryField ??= personalDetails['nationality'];
+                  passportNum = personalDetails['passport'];
+                  placeIssue = personalDetails['place of issue'];
+                  religion = personalDetails['religion'];
+                  placeBirth = personalDetails['place of birth'];
+                }
+
               }
               ScreenScaler scaler = ScreenScaler()..init(context);
               dropdownGender ??= 'Male';

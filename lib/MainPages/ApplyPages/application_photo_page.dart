@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ApplicationPhotoPage extends StatefulWidget {
   UserBloc userBloc;
@@ -19,8 +22,8 @@ class ApplicationPhotoPage extends StatefulWidget {
 class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
 
   GlobalKey<ScaffoldState> _scaffkey = GlobalKey();
-  String photoUrl;
-
+  String photoUrl = '';
+  File image;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,9 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
               if (snapshot.hasData) {
                 print(snapshot.data.data);
                 Map photoApplication = snapshot.data.data;
-                photoUrl = photoApplication['photoUrl'];
+                if(photoApplication != null){
+                  photoUrl = photoApplication['photoUrl'];
+                }
               }
               photoUrl ??= '';
               ScreenScaler scaler = ScreenScaler()..init(context);
@@ -176,8 +181,13 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: GestureDetector(
-                                          onTap: () {
-                                            uploadApplicationPhoto();
+                                          onTap: () async {
+                                            ImagePicker picker = ImagePicker();
+                                            await picker.getImage(source: ImageSource.gallery,imageQuality: 80,).then((imagePicked) {
+                                              image = File(imagePicked.path);
+                                              uploadApplicationPhoto(image);
+                                            });
+
                                           },
                                           child: Container(
                                             height: scaler.getWidth(15),
@@ -214,38 +224,34 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
                                           width: scaler.getWidth(30),
                                           height: scaler.getHeight(25),
                                           decoration: BoxDecoration(
-                                            borderRadius:BorderRadius.all(Radius.circular(5)),
+                                            //borderRadius:BorderRadius.all(Radius.circular(5)),
                                             border: Border.all(color: Color(0xff6747CD),
                                             width: 2),
                                           ),
-                                          child: ClipRRect(
-                                            borderRadius:BorderRadius.all(Radius.circular(5)),
-                                            child:Image(
-                                              image: NetworkImage(photoUrl),
-                                              fit: BoxFit.cover,
-                                              loadingBuilder: (BuildContext context,
-                                                  Widget child,
-                                                  ImageChunkEvent loadingProgress) {
-                                                if (loadingProgress == null) return child;
-                                                return Container(
-                                                  height: scaler.getWidth(40),
-                                                  width: scaler.getWidth(40),
-                                                  child: Center(
-                                                    child: CircularProgressIndicator(
-                                                      value: loadingProgress
-                                                          .expectedTotalBytes !=
-                                                          null
-                                                          ? loadingProgress
-                                                          .cumulativeBytesLoaded /
-                                                          loadingProgress
-                                                              .expectedTotalBytes
-                                                          : null,
-                                                    ),
+                                          child:Image(
+                                            image: NetworkImage(photoUrl),
+                                            fit: BoxFit.cover,
+                                            loadingBuilder: (BuildContext context,
+                                                Widget child,
+                                                ImageChunkEvent loadingProgress) {
+                                              if (loadingProgress == null) return child;
+                                              return Container(
+                                                height: scaler.getWidth(40),
+                                                width: scaler.getWidth(40),
+                                                child: Center(
+                                                  child: CircularProgressIndicator(
+                                                    value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                        null
+                                                        ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes
+                                                        : null,
                                                   ),
-                                                );
-                                              },
-                                            ),
-
+                                                ),
+                                              );
+                                            },
                                           ),
                                         ),
                                       ),
@@ -270,6 +276,22 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
                                               widget.userBloc = BlocProvider.of(context);
                                               widget.userBloc.registerApplicationPhoto(widget.userId, '');
                                               widget.userBloc.deleteApplicationPhoto(widget.userId);
+                                              image = null;
+                                              _scaffkey.currentState.showSnackBar(SnackBar(
+                                                duration: Duration(seconds: 1),
+                                                content: Container(
+                                                  alignment: Alignment.center,
+                                                  height: MediaQuery.of(context).size.height * 0.05,
+                                                  child: Text(
+                                                    "The photo has been deleted from the server",
+                                                    style: GoogleFonts.lato(
+                                                        textStyle: TextStyle(
+                                                          fontSize: 14,
+                                                        )),
+                                                  ),
+                                                ),
+                                              ));
+
                                             },
                                             icon: Icon(
                                               Icons.clear,
@@ -290,7 +312,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
                           ),
                           ArrowButtom(
                             onTap: () async {
-                              await uploadApplicationPhoto();
+                              //await uploadApplicationPhoto(image);
                             },
                           )
                         ],
@@ -306,12 +328,45 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
     );
   }
 
-  Future<void> uploadApplicationPhoto() async {
+  Future<void> uploadApplicationPhoto(File imageFile) async {
     {
       widget.userBloc = BlocProvider.of(context);
         try {
-          photoUrl = await widget.userBloc.getApplicationPhotoUrl(widget.userId);
-          widget.userBloc.registerApplicationPhoto(widget.userId, photoUrl);
+          if ( imageFile == null) {
+            _scaffkey.currentState.showSnackBar(SnackBar(
+              duration: Duration(seconds: 1),
+              content: Container(
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.height * 0.05,
+                child: Text(
+                  "Please select a photo",
+                  style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                      )),
+                ),
+              ),
+            ));
+          }
+          else{
+            photoUrl = await widget.userBloc.getApplicationPhotoUrl(widget.userId, imageFile);
+            widget.userBloc.registerApplicationPhoto(widget.userId, photoUrl);
+            _scaffkey.currentState.showSnackBar(SnackBar(
+              duration: Duration(seconds: 1),
+              content: Container(
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.height * 0.05,
+                child: Text(
+                  "The selected has been upload to the server",
+                  style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                      )),
+                ),
+              ),
+            ));
+
+          }
         } catch (e) {
           print(e.message);
           Navigator.of(context).pop();

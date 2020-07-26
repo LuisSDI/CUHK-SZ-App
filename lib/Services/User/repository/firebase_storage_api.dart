@@ -27,11 +27,8 @@ class FirebaseStorageAPI{
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }
 
-  Future<String> getApplicationPhotoUrl(String imageId)
+  Future<String> getApplicationPhotoUrl(String imageId, File imageFile)
   async {
-    ImagePicker picker = ImagePicker();
-    PickedFile imagePicked = await picker.getImage(source: ImageSource.gallery,imageQuality: 80,);
-    File imageFile = File(imagePicked.path);
     StorageUploadTask uploadTask = await uploadApplicationPhoto(imageId, imageFile);
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }

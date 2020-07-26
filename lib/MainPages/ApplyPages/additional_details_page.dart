@@ -47,16 +47,18 @@ class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                print(snapshot.data.data);
                 Map additionalDetails = snapshot.data.data;
-                dropdownTuition ??= additionalDetails['source of tuition'];
-                dropdownNeeds ??= additionalDetails['special needs'];
-                dropdownCriminal ??= additionalDetails['criminal convictions'];
-                dropdownAgent ??= additionalDetails['uses agent'];
-                needsDetails = additionalDetails['needs details'];
-                criminalDetails = additionalDetails['criminal details'];
-                nameAgent = additionalDetails['name of agent'];
-                emailAgent = additionalDetails['email of agent'];
+                if( additionalDetails != null){
+                  dropdownTuition ??= additionalDetails['source of tuition'];
+                  dropdownNeeds ??= additionalDetails['special needs'];
+                  dropdownCriminal ??= additionalDetails['criminal convictions'];
+                  dropdownAgent ??= additionalDetails['uses agent'];
+                  needsDetails = additionalDetails['needs details'];
+                  criminalDetails = additionalDetails['criminal details'];
+                  nameAgent = additionalDetails['name of agent'];
+                  emailAgent = additionalDetails['email of agent'];
+                }
+
               }
               dropdownTuition ??= 'Self-Support or Family Support';
               dropdownNeeds ??= 'No';
@@ -191,7 +193,6 @@ class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
                                             elevation: 16,
                                             onChanged: (String newValue) {
                                               setState(() {
-                                                print(newValue);
                                                 dropdownTuition = newValue;
                                               });
                                             },
@@ -312,7 +313,6 @@ support needs.'''
                                             elevation: 16,
                                             onChanged: (String newValue) {
                                               setState(() {
-                                                print(newValue);
                                                 dropdownNeeds = newValue;
                                                 if(dropdownNeeds == 'No'){
                                                   needsDetails = '';
@@ -609,7 +609,6 @@ crime?'''
                                             elevation: 16,
                                             onChanged: (String newValue) {
                                               setState(() {
-                                                print(newValue);
                                                 dropdownCriminal = newValue;
                                                 if(dropdownCriminal == 'No'){
                                                   criminalDetails = '';
@@ -908,7 +907,6 @@ through an agent?'''.trim(),
                                             elevation: 16,
                                             onChanged: (String newValue) {
                                               setState(() {
-                                                print(newValue);
                                                 dropdownAgent = newValue;
                                                 if(dropdownAgent == 'No'){
                                                   nameAgent = null;

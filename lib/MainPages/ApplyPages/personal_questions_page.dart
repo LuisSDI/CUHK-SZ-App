@@ -46,11 +46,12 @@ class _PersonalQuestionsPageState extends State<PersonalQuestionsPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active){
               if(snapshot.hasData){
-                print(snapshot.data.data);
                 Map personalQuestion = snapshot.data.data;
-                questionOne = personalQuestion['attributes question'];
-                questionTwo = personalQuestion['why china question'];
-                questionThree = personalQuestion['ambitions question'];
+                if(personalQuestion != null){
+                  questionOne = personalQuestion['attributes question'];
+                  questionTwo = personalQuestion['why china question'];
+                  questionThree = personalQuestion['ambitions question'];
+                }
               }
               ScreenScaler scaler = ScreenScaler()..init(context);
               return Scaffold(

@@ -108,7 +108,7 @@ class UserBloc implements Bloc {
 
   Future<StorageUploadTask> uploadFile(String path, File image) => _firebaseStorageRepository.uploadFile(path, image);
   Future<String> getImageUrl(String imageId) => _firebaseStorageRepository.getImageUrl(imageId);
-  Future<String> getApplicationPhotoUrl(String imageId) => _firebaseStorageRepository.getApplicationPhotoUrl(imageId);
+  Future<String> getApplicationPhotoUrl(String imageId, File imageFile) => _firebaseStorageRepository.getApplicationPhotoUrl(imageId,imageFile);
   Future<void> deleteApplicationPhoto(String path) => _firebaseStorageRepository.deleteApplicationPhoto(path);
 
   signOut() {

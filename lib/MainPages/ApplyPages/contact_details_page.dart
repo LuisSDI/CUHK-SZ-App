@@ -62,23 +62,26 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             if (snapshot.connectionState == ConnectionState.active){
               if(snapshot.hasData){
                 Map contactDetails = snapshot.data.data;
-                email = contactDetails['email'];
-                otherEmail = contactDetails['other email'];
-                countryResident ??= contactDetails['residential country'];
-                phoneNum = contactDetails['phone'];
-                mobileNum = contactDetails['mobile'];
-                residentialAddress = contactDetails['residential address'];
-                cityResident = contactDetails['residential city'];
-                stateResident = contactDetails['residential state'];
-                postcodeResident = contactDetails['residential postcode'];
-                postalAddress = contactDetails['postal address'];
-                cityPostal = contactDetails['postal city'];
-                statePostal= contactDetails['postal state'];
-                postcodePostal = contactDetails['postal postcode'];
-                countryPostal ??= contactDetails['postal country'];
-                emergencyContact = contactDetails['emergency contact name'];
-                emergencyRel = contactDetails['emergency relationship'];
-                mobileInt = contactDetails['mobile for interview'];
+                if(contactDetails != null) {
+                  email = contactDetails['email'];
+                  otherEmail = contactDetails['other email'];
+                  countryResident ??= contactDetails['residential country'];
+                  phoneNum = contactDetails['phone'];
+                  mobileNum = contactDetails['mobile'];
+                  residentialAddress = contactDetails['residential address'];
+                  cityResident = contactDetails['residential city'];
+                  stateResident = contactDetails['residential state'];
+                  postcodeResident = contactDetails['residential postcode'];
+                  postalAddress = contactDetails['postal address'];
+                  cityPostal = contactDetails['postal city'];
+                  statePostal= contactDetails['postal state'];
+                  postcodePostal = contactDetails['postal postcode'];
+                  countryPostal ??= contactDetails['postal country'];
+                  emergencyContact = contactDetails['emergency contact name'];
+                  emergencyRel = contactDetails['emergency relationship'];
+                  mobileInt = contactDetails['mobile for interview'];
+                }
+
               }
               ScreenScaler scaler = ScreenScaler()..init(context);
               countryResident ??= 'China';
