@@ -99,6 +99,11 @@ class UserBloc implements Bloc {
   Stream <DocumentSnapshot> getApplicationPhoto(String userID)
   => _cloudFirestoreRepository.getApplicationPhoto(userID);
 
+  Future<void> registerSelectedMajor (String userID, String majorSelected)
+  => _cloudFirestoreRepository.registerSelectedMajor(userID, majorSelected);
+
+  Stream <DocumentSnapshot> getSelectedMajor(String userID)
+  => _cloudFirestoreRepository.getSelectedMajor(userID);
 
 
 

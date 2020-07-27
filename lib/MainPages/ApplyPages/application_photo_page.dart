@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cuhkszapp/MainPages/ApplyPages/study_preference_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -278,7 +279,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
                                               widget.userBloc.deleteApplicationPhoto(widget.userId);
                                               image = null;
                                               _scaffkey.currentState.showSnackBar(SnackBar(
-                                                duration: Duration(seconds: 1),
+                                                duration: Duration(seconds: 2),
                                                 content: Container(
                                                   alignment: Alignment.center,
                                                   height: MediaQuery.of(context).size.height * 0.05,
@@ -312,6 +313,13 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
                           ),
                           ArrowButtom(
                             onTap: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => StudyPreferencePage(
+                                        userId: widget.userId,
+                                      )));
+
                               //await uploadApplicationPhoto(image);
                             },
                           )
@@ -334,7 +342,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
         try {
           if ( imageFile == null) {
             _scaffkey.currentState.showSnackBar(SnackBar(
-              duration: Duration(seconds: 1),
+              duration: Duration(seconds: 2),
               content: Container(
                 alignment: Alignment.center,
                 height: MediaQuery.of(context).size.height * 0.05,
@@ -352,7 +360,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
             photoUrl = await widget.userBloc.getApplicationPhotoUrl(widget.userId, imageFile);
             widget.userBloc.registerApplicationPhoto(widget.userId, photoUrl);
             _scaffkey.currentState.showSnackBar(SnackBar(
-              duration: Duration(seconds: 1),
+              duration: Duration(seconds: 2),
               content: Container(
                 alignment: Alignment.center,
                 height: MediaQuery.of(context).size.height * 0.05,
