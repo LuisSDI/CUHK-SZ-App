@@ -42,6 +42,7 @@ dependencies:
   date_field: ^0.1.2
   dotted_border: ^1.0.5
   grouped_buttons: ^1.0.4
+  file_picker: ^1.13.0+1
 
 
 

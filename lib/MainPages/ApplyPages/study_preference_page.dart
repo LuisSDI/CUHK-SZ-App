@@ -1,3 +1,4 @@
+import 'package:cuhkszapp/MainPages/ApplyPages/school_transcript_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:cuhkszapp/resources/expandable_tile.dart';
@@ -60,6 +61,7 @@ class _StudyPreferencePageState extends State<StudyPreferencePage> {
                 print(snapshot.data.data);
                 Map selectMajor = snapshot.data.data;
                 if (selectMajor != null) {
+                  selectedMajor.clear();
                   selectedMajor.add(selectMajor['selected major']);
                 }
               }
@@ -298,12 +300,12 @@ class _StudyPreferencePageState extends State<StudyPreferencePage> {
       if (selectedMajor.length == 1) {
         try {
           widget.userBloc.registerSelectedMajor(widget.userId, selectedMajor.first);
-//          Navigator.push(
-//              context,
-//              MaterialPageRoute(
-//                  builder: (context) => ContactDetailsPage(
-//                    userId: widget.userId,
-//                  )));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SchoolTranscriptPage(
+                    userId: widget.userId,
+                  )));
 
         } catch (e) {
           print(e.message);

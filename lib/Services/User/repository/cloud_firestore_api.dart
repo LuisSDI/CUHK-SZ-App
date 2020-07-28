@@ -61,6 +61,12 @@ class CloudFireStoreAPI {
         .document(userID).snapshots();
   }
 
+  Stream <DocumentSnapshot> getTranscriptsUrlsNames(String userID) {
+    return applications.document(userID).collection('School Transcripts')
+        .document(userID).snapshots();
+  }
+
+
   Future<List<User>> getListUsers (String userUid) async {
     List<User> users = List<User>();
     var querySnapshot = await userInfo.getDocuments();
@@ -204,6 +210,15 @@ class CloudFireStoreAPI {
     return await applications.document(userID).collection('Selected Major')
         .document(userID).setData({
       'selected major': majorSelected
+    }, merge: true);
+  }
+
+  Future<void> registerSchoolTranscripts (String userID, List<String> transcriptUrls, List<String> transcriptsNames)
+  async {
+    return await applications.document(userID).collection('School Transcripts')
+        .document(userID).setData({
+      'school transcripts urls': transcriptUrls,
+      'school transcripts name': transcriptsNames
     }, merge: true);
   }
   

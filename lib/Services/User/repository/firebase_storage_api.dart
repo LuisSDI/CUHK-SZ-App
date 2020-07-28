@@ -7,11 +7,19 @@ class FirebaseStorageAPI{
 
   final StorageReference _storageReference = FirebaseStorage.instance.ref();
 
-  Future<StorageUploadTask> uploadFile(String path, File image) async {
+  Future<StorageUploadTask> uploadProfilePic(String path, File image) async {
     return _storageReference.child('profile_pictures/$path').putFile(image);
   }
   Future<StorageUploadTask> uploadApplicationPhoto(String path, File image) async {
     return _storageReference.child('application_pictures/$path').putFile(image);
+  }
+
+  Future<StorageUploadTask> uploadTranscriptFile(String userId,String path, File file) async {
+    return _storageReference.child('school_transcripts/$userId/$path').putFile(file);
+  }
+
+  Future<void> deleteTranscriptFile(String userId,String path) async {
+    return _storageReference.child('school_transcripts/$userId/$path').delete();
   }
 
   Future<void> deleteApplicationPhoto(String path)
@@ -23,7 +31,7 @@ class FirebaseStorageAPI{
     ImagePicker picker = ImagePicker();
     PickedFile imagePicked = await picker.getImage(source: ImageSource.gallery,imageQuality: 80);
     File imageFile = File(imagePicked.path);
-    StorageUploadTask uploadTask = await uploadFile(imageId, imageFile);
+    StorageUploadTask uploadTask = await uploadProfilePic(imageId, imageFile);
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }
 
@@ -32,4 +40,23 @@ class FirebaseStorageAPI{
     StorageUploadTask uploadTask = await uploadApplicationPhoto(imageId, imageFile);
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }
+
+  Future<List<String>> getUploadTranscriptsUrl(String userId,List <String> filename, List<File> files)
+  async {
+    List<String> urls = [];
+    for (int item = 0 ; item < files.length; item++){
+      StorageUploadTask uploadTask = await uploadTranscriptFile(userId,filename[item],files[item]);
+        urls.add(await (await uploadTask.onComplete).ref.getDownloadURL());
+    }
+    return urls;
+  }
+
+  Future<List<String>> getOnlyTranscriptsUrl(String userId,List <String> path) async {
+    List<String> urls = [];
+    for ( var filename in path){
+      urls.add(await _storageReference.child('school_transcripts/$userId/$filename').getDownloadURL());
+    }
+    return urls;
+  }
+
 }
