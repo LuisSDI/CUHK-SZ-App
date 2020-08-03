@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:path/path.dart' as path;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,8 +14,9 @@ class FirebaseStorageAPI{
     return _storageReference.child('application_pictures/$path').putFile(image);
   }
 
-  Future<StorageUploadTask> uploadTranscriptFile(String userId,String path, File file) async {
-    return _storageReference.child('school_transcripts/$userId/$path').putFile(file);
+  Future<StorageUploadTask> uploadTranscriptFile(String userId, File file) async {
+    String filename = path.basename(file.path);
+    return _storageReference.child('school_transcripts/$userId/$filename').putFile(file);
   }
 
   Future<void> deleteTranscriptFile(String userId,String path) async {
@@ -41,14 +42,10 @@ class FirebaseStorageAPI{
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }
 
-  Future<List<String>> getUploadTranscriptsUrl(String userId,List <String> filename, List<File> files)
+  Future<String> getUploadTranscriptsUrl(String userId, File files)
   async {
-    List<String> urls = [];
-    for (int item = 0 ; item < files.length; item++){
-      StorageUploadTask uploadTask = await uploadTranscriptFile(userId,filename[item],files[item]);
-        urls.add(await (await uploadTask.onComplete).ref.getDownloadURL());
-    }
-    return urls;
+    StorageUploadTask uploadTask = await uploadTranscriptFile(userId,files);
+    return await (await uploadTask.onComplete).ref.getDownloadURL();
   }
 
   Future<List<String>> getOnlyTranscriptsUrl(String userId,List <String> path) async {

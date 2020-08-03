@@ -215,6 +215,7 @@ class CloudFireStoreAPI {
 
   Future<void> registerSchoolTranscripts (String userID, List<String> transcriptUrls, List<String> transcriptsNames)
   async {
+    print(transcriptsNames);
     return await applications.document(userID).collection('School Transcripts')
         .document(userID).setData({
       'school transcripts urls': transcriptUrls,
