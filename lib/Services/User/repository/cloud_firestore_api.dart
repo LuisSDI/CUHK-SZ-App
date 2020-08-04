@@ -66,6 +66,10 @@ class CloudFireStoreAPI {
         .document(userID).snapshots();
   }
 
+  Stream <DocumentSnapshot> getEducationHistory(String userID) {
+    return applications.document(userID).collection('Education History')
+        .document(userID).snapshots();
+  }
 
   Future<List<User>> getListUsers (String userUid) async {
     List<User> users = List<User>();
@@ -220,6 +224,28 @@ class CloudFireStoreAPI {
         .document(userID).setData({
       'school transcripts urls': transcriptUrls,
       'school transcripts name': transcriptsNames
+    }, merge: true);
+  }
+
+  Future<void> registerEducationHistory(
+    String userID,
+    String awardingInstitution,
+    String countryInstitution,
+    String attendenceTo,
+    String attendenceFrom,
+    String gradesRecord,
+    String nationalExam,
+    String dropdownStudy,
+  ) async {
+    return await applications.document(userID).collection('Education History')
+        .document(userID).setData({
+      'national exam': nationalExam,
+      'awarding institution': awardingInstitution,
+      'country of qualification': countryInstitution,
+      'study mode': dropdownStudy,
+      'date of attendence (From)' : attendenceFrom,
+      'date of attendence (To)': attendenceTo,
+      'grades record' : gradesRecord
     }, merge: true);
   }
   

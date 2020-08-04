@@ -112,6 +112,18 @@ class UserBloc implements Bloc {
   Stream <DocumentSnapshot> getTranscriptsUrlsNames(String userID)
   => _cloudFirestoreRepository.getTranscriptsUrlsNames(userID);
 
+  Future<void> registerEducationHistory(
+      String userID, String awardingInstitution,
+      String countryInstitution, String attendenceTo,
+      String attendenceFrom, String gradesRecord, String nationalExam,
+      String dropdownStudy,
+      ) => _cloudFirestoreRepository.registerEducationHistory(userID,
+      awardingInstitution, countryInstitution, attendenceTo, attendenceFrom,
+      gradesRecord, nationalExam, dropdownStudy);
+
+  Stream <DocumentSnapshot> getEducationHistory(String userID)
+  => _cloudFirestoreRepository.getEducationHistory(userID);
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();

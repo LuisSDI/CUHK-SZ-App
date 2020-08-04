@@ -11,6 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:path/path.dart' as path;
 
+import 'education_history_page.dart';
+
 class SchoolTranscriptPage extends StatefulWidget {
   UserBloc userBloc;
   final String userId;
@@ -40,7 +42,6 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                print(snapshot.data.data);
                 transcriptsUrlName = snapshot.data.data;
                 if (transcriptsUrlName != null) {
                   transcriptFilenames =
@@ -81,7 +82,6 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                             );
                             List<File> filesToUpload = [];
                             for (var file in files) {
-                              print(file.path);
                               String filename = path.basename(file.path);
                               if(transcriptFilenames.contains(filename)){
 
@@ -91,10 +91,7 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                               filesToUpload.add(file);
                               }
                             }
-                            print('Files:');
-                            print(filesToUpload);
                             uploadTranscripts(filesToUpload, transcriptFilenames);
-                            print('Here');
                           },
                           child: Container(
                             height: scaler.getWidth(10),
@@ -123,8 +120,6 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                   ),
                 ),
               );
-              print(transcriptFilenames);
-              print(transcriptUrls);
               gridItems.clear();
               for (var filename in transcriptFilenames) {
                 gridItems.insert(0, fileWidget(filename, scaler));
@@ -213,6 +208,7 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                                     )
                                   ])),
                             ),
+                            //Files Grid
                             GridView.builder(
                               padding: EdgeInsets.zero,
                               shrinkWrap: true,
@@ -228,7 +224,9 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                                 return gridItems[index];
                               },
                             ),
-
+                            SizedBox(
+                              height: scaler.getHeight(7.1),
+                            ),
                             //Padding
                             //Padding
                           ],
@@ -236,14 +234,13 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                       ),
                       ArrowButtom(
                         onTap: () async {
-//                              Navigator.push(
-//                                  context,
-//                                  MaterialPageRoute(
-//                                      builder: (context) => StudyPreferencePage(
-//                                        userId: widget.userId,
-//                                      )));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EducationHistoryPage(
+                                        userId: widget.userId,
+                                      )));
 
-                          //await uploadApplicationPhoto(image);
                         },
                       )
                     ],

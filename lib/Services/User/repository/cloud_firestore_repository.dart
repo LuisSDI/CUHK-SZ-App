@@ -57,6 +57,14 @@ class CloudFirestoreRepository {
       List<String> transcriptsNames)
   => _cloudFirestoreAPI.registerSchoolTranscripts(userID, transcriptUrls, transcriptsNames);
 
+  Future<void> registerEducationHistory(
+      String userID, String awardingInstitution,
+      String countryInstitution, String attendenceTo,
+      String attendenceFrom, String gradesRecord,
+      String nationalExam, String dropdownStudy,
+      ) => _cloudFirestoreAPI.registerEducationHistory(userID,
+      awardingInstitution, countryInstitution, attendenceTo,
+      attendenceFrom, gradesRecord, nationalExam, dropdownStudy);
 
   Stream <DocumentSnapshot> getContactDetails(String userID)
   => _cloudFirestoreAPI.getContactDetails(userID);
@@ -78,6 +86,9 @@ class CloudFirestoreRepository {
 
   Stream <DocumentSnapshot> getTranscriptsUrlsNames(String userID) =>
   _cloudFirestoreAPI.getTranscriptsUrlsNames(userID);
+
+  Stream <DocumentSnapshot> getEducationHistory(String userID) =>
+  _cloudFirestoreAPI.getEducationHistory(userID);
 
 
   Future<List<User>> getListUsers(String userUid) =>

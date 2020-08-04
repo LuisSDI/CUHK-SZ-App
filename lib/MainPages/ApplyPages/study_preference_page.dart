@@ -58,7 +58,6 @@ class _StudyPreferencePageState extends State<StudyPreferencePage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                print(snapshot.data.data);
                 Map selectMajor = snapshot.data.data;
                 if (selectMajor != null) {
                   selectedMajor.clear();

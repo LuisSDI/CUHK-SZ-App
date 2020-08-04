@@ -35,7 +35,6 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                print(snapshot.data.data);
                 Map photoApplication = snapshot.data.data;
                 if(photoApplication != null){
                   photoUrl = photoApplication['photoUrl'];
