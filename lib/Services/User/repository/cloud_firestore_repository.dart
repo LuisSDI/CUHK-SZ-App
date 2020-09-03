@@ -66,6 +66,25 @@ class CloudFirestoreRepository {
       awardingInstitution, countryInstitution, attendenceTo,
       attendenceFrom, gradesRecord, nationalExam, dropdownStudy);
 
+  Future<void> registerLanguageQualifications(
+      String userID,
+      String dropdownEnglish,
+      String dropdownQualificationState,
+      String selectEnglishTest,
+      String dateTaken,
+      String totalScore,
+      String tentativeEnglishTest,
+      String dropdownChinese,
+      String lengthChineseStudy,
+      String placeStudy,
+      String dropdownProficiency,
+      String otherLanguages,
+      )
+    => _cloudFirestoreAPI.registerLanguageQualifications(userID, dropdownEnglish,
+        dropdownQualificationState, selectEnglishTest, dateTaken, totalScore,
+        tentativeEnglishTest, dropdownChinese, lengthChineseStudy, placeStudy,
+        dropdownProficiency, otherLanguages);
+
   Stream <DocumentSnapshot> getContactDetails(String userID)
   => _cloudFirestoreAPI.getContactDetails(userID);
 
@@ -90,7 +109,11 @@ class CloudFirestoreRepository {
   Stream <DocumentSnapshot> getEducationHistory(String userID) =>
   _cloudFirestoreAPI.getEducationHistory(userID);
 
+  Stream<DocumentSnapshot> getLanguageQualifications(String userID) =>
+      _cloudFirestoreAPI.getLanguageQualifications(userID);
 
   Future<List<User>> getListUsers(String userUid) =>
   _cloudFirestoreAPI.getListUsers(userUid);
+
+
 }

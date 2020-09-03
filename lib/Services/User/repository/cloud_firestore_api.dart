@@ -2,16 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cuhkszapp/Services/User/model/messages.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
 
-
 class CloudFireStoreAPI {
   final CollectionReference userInfo =
       Firestore.instance.collection('userInfo');
 
   final CollectionReference messages =
-  Firestore.instance.collection('messages');
+      Firestore.instance.collection('messages');
 
   final CollectionReference applications =
-  Firestore.instance.collection('applications');
+      Firestore.instance.collection('applications');
 
   Future<User> getUserData(String userUid) async {
     User user;
@@ -31,64 +30,96 @@ class CloudFireStoreAPI {
     return user;
   }
 
-  Stream <DocumentSnapshot> getPersonalDetails(String userID) {
-     return applications.document(userID).collection('Personal Details')
-        .document(userID).snapshots();
+  Stream<DocumentSnapshot> getPersonalDetails(String userID) {
+    return applications
+        .document(userID)
+        .collection('Personal Details')
+        .document(userID)
+        .snapshots();
   }
 
-  Stream <DocumentSnapshot> getContactDetails(String userID) {
-    return applications.document(userID).collection('Contact Details')
-        .document(userID).snapshots();
+  Stream<DocumentSnapshot> getContactDetails(String userID) {
+    return applications
+        .document(userID)
+        .collection('Contact Details')
+        .document(userID)
+        .snapshots();
   }
 
-  Stream <DocumentSnapshot> getPersonalQuestion(String userID) {
-    return applications.document(userID).collection('Personal Questionnaires')
-        .document(userID).snapshots();
+  Stream<DocumentSnapshot> getPersonalQuestion(String userID) {
+    return applications
+        .document(userID)
+        .collection('Personal Questionnaires')
+        .document(userID)
+        .snapshots();
   }
 
-  Stream <DocumentSnapshot> getAdditionalDetails(String userID) {
-    return applications.document(userID).collection('Additional Details')
-        .document(userID).snapshots();
+  Stream<DocumentSnapshot> getAdditionalDetails(String userID) {
+    return applications
+        .document(userID)
+        .collection('Additional Details')
+        .document(userID)
+        .snapshots();
   }
 
-  Stream <DocumentSnapshot> getApplicationPhoto(String userID) {
-    return applications.document(userID).collection('Application Photo')
-        .document(userID).snapshots();
+  Stream<DocumentSnapshot> getApplicationPhoto(String userID) {
+    return applications
+        .document(userID)
+        .collection('Application Photo')
+        .document(userID)
+        .snapshots();
   }
 
-  Stream <DocumentSnapshot> getSelectedMajor(String userID) {
-    return applications.document(userID).collection('Selected Major')
-        .document(userID).snapshots();
+  Stream<DocumentSnapshot> getSelectedMajor(String userID) {
+    return applications
+        .document(userID)
+        .collection('Selected Major')
+        .document(userID)
+        .snapshots();
   }
 
-  Stream <DocumentSnapshot> getTranscriptsUrlsNames(String userID) {
-    return applications.document(userID).collection('School Transcripts')
-        .document(userID).snapshots();
+  Stream<DocumentSnapshot> getTranscriptsUrlsNames(String userID) {
+    return applications
+        .document(userID)
+        .collection('School Transcripts')
+        .document(userID)
+        .snapshots();
   }
 
-  Stream <DocumentSnapshot> getEducationHistory(String userID) {
-    return applications.document(userID).collection('Education History')
-        .document(userID).snapshots();
+  Stream<DocumentSnapshot> getEducationHistory(String userID) {
+    return applications
+        .document(userID)
+        .collection('Education History')
+        .document(userID)
+        .snapshots();
   }
 
-  Future<List<User>> getListUsers (String userUid) async {
+  Stream<DocumentSnapshot> getLanguageQualifications(String userID) {
+    return applications
+        .document(userID)
+        .collection('Language Qualifications')
+        .document(userID)
+        .snapshots();
+  }
+
+  Future<List<User>> getListUsers(String userUid) async {
     List<User> users = List<User>();
     var querySnapshot = await userInfo.getDocuments();
     querySnapshot.documents.forEach((value) {
-          User user = User(
-            name: value.data['full name'],
-            type: value.data['type'],
-            phone: value.data['phone'],
-            description: value.data['description'],
-            country: value.data['country'],
-            uid: value.data['uid'],
-            photoUrL: value.data['photoURL'],
-            email: value.data['email'],
-          );
-          users.add(user);
-        });
+      User user = User(
+        name: value.data['full name'],
+        type: value.data['type'],
+        phone: value.data['phone'],
+        description: value.data['description'],
+        country: value.data['country'],
+        uid: value.data['uid'],
+        photoUrL: value.data['photoURL'],
+        email: value.data['email'],
+      );
+      users.add(user);
+    });
     return users;
-}
+  }
 
   Stream<DocumentSnapshot> listenUserData(String userUid) {
     return userInfo.document(userUid).snapshots();
@@ -122,14 +153,27 @@ class CloudFireStoreAPI {
     });
   }
 
-  Future<void> registerPersonalDetails ( String userID, String title, String givenName, String middleName,
-      String familyName, String gender, String dateBirth, String placeBirth, String nationality,
-      String passport, String dateExpire, String placeIssue, String religion)
-  async {
-    return await applications.document(userID).collection('Personal Details')
-    .document(userID).setData({
+  Future<void> registerPersonalDetails(
+      String userID,
+      String title,
+      String givenName,
+      String middleName,
+      String familyName,
+      String gender,
+      String dateBirth,
+      String placeBirth,
+      String nationality,
+      String passport,
+      String dateExpire,
+      String placeIssue,
+      String religion) async {
+    return await applications
+        .document(userID)
+        .collection('Personal Details')
+        .document(userID)
+        .setData({
       'title': title,
-      'given name': givenName ,
+      'given name': givenName,
       'middle name': middleName,
       'family name': familyName,
       'gender': gender,
@@ -139,22 +183,36 @@ class CloudFireStoreAPI {
       'date of expire': dateExpire,
       'place of issue': placeIssue,
       'religion': religion,
-      'nationality' : nationality
+      'nationality': nationality
     }, merge: true);
-
   }
 
-
-  Future<void> registerContactDetails ( String userID, String email, String otherEmail, String phone,
+  Future<void> registerContactDetails(
+      String userID,
+      String email,
+      String otherEmail,
+      String phone,
       String mobile,
-      String residentialAddress, String residentialCity, String residentialState, String residentialCountry, String residentialPostcode,
-      String postalAddress, String postalCity, String postalState, String postalCountry, String postalPostcode,
-      String emergencyContact, String emergencyRel, String mobileInt)
-  async {
-    return await applications.document(userID).collection('Contact Details')
-        .document(userID).setData({
+      String residentialAddress,
+      String residentialCity,
+      String residentialState,
+      String residentialCountry,
+      String residentialPostcode,
+      String postalAddress,
+      String postalCity,
+      String postalState,
+      String postalCountry,
+      String postalPostcode,
+      String emergencyContact,
+      String emergencyRel,
+      String mobileInt) async {
+    return await applications
+        .document(userID)
+        .collection('Contact Details')
+        .document(userID)
+        .setData({
       'email': email,
-      'other email': otherEmail ,
+      'other email': otherEmail,
       'phone': phone,
       'mobile': mobile,
       'residential address': residentialAddress,
@@ -171,57 +229,72 @@ class CloudFireStoreAPI {
       'emergency relationship': emergencyRel,
       'mobile for interview': mobileInt,
     }, merge: true);
-
   }
 
-  Future<void> registerPersonalQuestionnaires (String userID, String questionOne, String questionTwo, String questionThree)
-  async {
-    return await applications.document(userID).collection('Personal Questionnaires')
-        .document(userID).setData({
+  Future<void> registerPersonalQuestionnaires(String userID, String questionOne,
+      String questionTwo, String questionThree) async {
+    return await applications
+        .document(userID)
+        .collection('Personal Questionnaires')
+        .document(userID)
+        .setData({
       'attributes question': questionOne,
       'why china question': questionTwo,
       'ambitions question': questionThree,
     }, merge: true);
   }
 
-  Future<void> registerAdditionalDetails (String userID, String dropdownTuition, String dropdownNeeds,
-      String needsDetails,String dropdownCriminal, String criminalDetails, String dropdownAgent,
-      String nameAgent, String emailAgent)
-  async {
-    return await applications.document(userID).collection('Additional Details')
-        .document(userID).setData({
+  Future<void> registerAdditionalDetails(
+      String userID,
+      String dropdownTuition,
+      String dropdownNeeds,
+      String needsDetails,
+      String dropdownCriminal,
+      String criminalDetails,
+      String dropdownAgent,
+      String nameAgent,
+      String emailAgent) async {
+    return await applications
+        .document(userID)
+        .collection('Additional Details')
+        .document(userID)
+        .setData({
       'source of tuition': dropdownTuition,
-      'special needs' : dropdownNeeds,
-      'needs details' : needsDetails,
-      'criminal convictions' : dropdownCriminal,
+      'special needs': dropdownNeeds,
+      'needs details': needsDetails,
+      'criminal convictions': dropdownCriminal,
       'criminal details': criminalDetails,
       'uses agent': dropdownAgent,
-      'name of agent' : nameAgent,
+      'name of agent': nameAgent,
       'email of agent': emailAgent,
     }, merge: true);
   }
 
-  Future<void> registerApplicationPhoto (String userID, String photoUrl)
-  async {
-    return await applications.document(userID).collection('Application Photo')
-        .document(userID).setData({
-      'photoUrl': photoUrl
-    }, merge: true);
+  Future<void> registerApplicationPhoto(String userID, String photoUrl) async {
+    return await applications
+        .document(userID)
+        .collection('Application Photo')
+        .document(userID)
+        .setData({'photoUrl': photoUrl}, merge: true);
   }
 
-  Future<void> registerSelectedMajor (String userID, String majorSelected)
-  async {
-    return await applications.document(userID).collection('Selected Major')
-        .document(userID).setData({
-      'selected major': majorSelected
-    }, merge: true);
+  Future<void> registerSelectedMajor(
+      String userID, String majorSelected) async {
+    return await applications
+        .document(userID)
+        .collection('Selected Major')
+        .document(userID)
+        .setData({'selected major': majorSelected}, merge: true);
   }
 
-  Future<void> registerSchoolTranscripts (String userID, List<String> transcriptUrls, List<String> transcriptsNames)
-  async {
+  Future<void> registerSchoolTranscripts(String userID,
+      List<String> transcriptUrls, List<String> transcriptsNames) async {
     print(transcriptsNames);
-    return await applications.document(userID).collection('School Transcripts')
-        .document(userID).setData({
+    return await applications
+        .document(userID)
+        .collection('School Transcripts')
+        .document(userID)
+        .setData({
       'school transcripts urls': transcriptUrls,
       'school transcripts name': transcriptsNames
     }, merge: true);
@@ -237,28 +310,65 @@ class CloudFireStoreAPI {
     String nationalExam,
     String dropdownStudy,
   ) async {
-    return await applications.document(userID).collection('Education History')
-        .document(userID).setData({
+    return await applications
+        .document(userID)
+        .collection('Education History')
+        .document(userID)
+        .setData({
       'national exam': nationalExam,
       'awarding institution': awardingInstitution,
       'country of qualification': countryInstitution,
       'study mode': dropdownStudy,
-      'date of attendence (From)' : attendenceFrom,
+      'date of attendence (From)': attendenceFrom,
       'date of attendence (To)': attendenceTo,
-      'grades record' : gradesRecord
+      'grades record': gradesRecord
     }, merge: true);
   }
-  
-  Future<void> addMessage( Message message, User sender , User receiver)
-async {
+
+  Future<void> registerLanguageQualifications(
+    String userID,
+    String dropdownEnglish,
+    String dropdownQualificationState,
+    String selectEnglishTest,
+    String dateTaken,
+    String totalScore,
+    String tentativeEnglishTest,
+    String dropdownChinese,
+    String lengthChineseStudy,
+    String placeStudy,
+    String dropdownProficiency,
+    String otherLanguages,
+  ) async {
+    return await applications
+        .document(userID)
+        .collection('Language Qualifications')
+        .document(userID)
+        .setData({
+      'english first language': dropdownEnglish,
+      'has english qualification': dropdownQualificationState,
+      'english qualification': selectEnglishTest,
+      'date taken': dateTaken,
+      'total score': totalScore,
+      'tentative english qualification': tentativeEnglishTest,
+      'has chinese experience': dropdownChinese,
+      'length chinese study': lengthChineseStudy,
+      'place chinese study': placeStudy,
+      'chinese proficiency': dropdownProficiency,
+      'other languages': otherLanguages,
+    }, merge: true);
+  }
+
+  Future<void> addMessage(Message message, User sender, User receiver) async {
     Map map = message.toMap();
 
-    await messages.document(message.senderId)
-    .collection(message.receiverId)
-    .add(map);
-
-    return await messages.document(message.receiverId)
-        .collection(message.senderId)
+    await messages
+        .document(message.senderId)
+        .collection(message.receiverId)
         .add(map);
 
-} }
+    return await messages
+        .document(message.receiverId)
+        .collection(message.senderId)
+        .add(map);
+  }
+}

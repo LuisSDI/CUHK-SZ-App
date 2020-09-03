@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
+import 'package:cuhkszapp/MainPages/ApplyPages/language_qualifications_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:flutter/gestures.dart';
@@ -947,12 +948,12 @@ class _EducationHistoryPageState extends State<EducationHistoryPage> {
         formState.save();
         try {
           widget.userBloc.registerEducationHistory(widget.userId, awardingInstitution, countryInstitution, "${attendenceTo.toLocal()}".split(' ')[0], "${attendenceFrom.toLocal()}".split(' ')[0], gradesRecord, nationalExam, dropdownStudy);
-//          Navigator.push(
-//              context,
-//              MaterialPageRoute(
-//                  builder: (context) => ContactDetailsPage(
-//                    userId: widget.userId,
-//                  )));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => LanguageQualificationsPage(
+                    userId: widget.userId,
+                  )));
 
         } catch (e) {
           print(e.message);

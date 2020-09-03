@@ -124,6 +124,22 @@ class UserBloc implements Bloc {
   Stream <DocumentSnapshot> getEducationHistory(String userID)
   => _cloudFirestoreRepository.getEducationHistory(userID);
 
+  Future<void> registerLanguageQualifications(
+      String userID, String dropdownEnglish,
+      String dropdownQualificationState,
+      String selectEnglishTest, String dateTaken,
+      String totalScore, String tentativeEnglishTest,
+      String dropdownChinese, String lengthChineseStudy,
+      String placeStudy, String dropdownProficiency,
+      String otherLanguages,
+      )
+  => _cloudFirestoreRepository.registerLanguageQualifications(userID, dropdownEnglish,
+      dropdownQualificationState, selectEnglishTest, dateTaken, totalScore,
+      tentativeEnglishTest, dropdownChinese, lengthChineseStudy, placeStudy,
+      dropdownProficiency, otherLanguages);
+
+  Stream<DocumentSnapshot> getLanguageQualifications(String userID) =>
+      _cloudFirestoreRepository.getLanguageQualifications(userID);
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
