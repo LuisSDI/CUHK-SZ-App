@@ -358,6 +358,18 @@ class CloudFireStoreAPI {
     }, merge: true);
   }
 
+  Future<void> registerLanguageUrl(String userID, List<String> languageUrls,
+      List<String> languageNames) async {
+    return await applications
+        .document(userID)
+        .collection('Language Qualifications')
+        .document(userID)
+        .setData({
+      'language qualifications urls': languageUrls,
+      'language qualifications name': languageNames
+    }, merge: true);
+  }
+
   Future<void> addMessage(Message message, User sender, User receiver) async {
     Map map = message.toMap();
 

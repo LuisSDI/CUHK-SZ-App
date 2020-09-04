@@ -39,10 +39,11 @@ class UserBloc implements Bloc {
   Future<FirebaseUser> signUp(String email, String password) =>
       _auth_repository.signUpFirebase(email, password);
 
-  Future sendRecoveryPassword(String email) => _auth_repository.sendRecoveryPassword(email);
+  Future sendRecoveryPassword(String email) =>
+      _auth_repository.sendRecoveryPassword(email);
 
   // Firebase Cloud Firestore
-  
+
   final _cloudFirestoreRepository = CloudFirestoreRepository();
   void setUserData(User user) =>
       _cloudFirestoreRepository.setUserDataFirestore(user);
@@ -56,87 +57,193 @@ class UserBloc implements Bloc {
     return _cloudFirestoreRepository.listenUserData(userUid);
   }
 
-  Future<List<User>> getListUsers(String userUid) => _cloudFirestoreRepository.getListUsers(userUid);
+  Future<List<User>> getListUsers(String userUid) =>
+      _cloudFirestoreRepository.getListUsers(userUid);
 
-  Future<void> addMessage( Message message, User sender , User receiver) => _cloudFirestoreRepository.addMessage(message, sender, receiver);
+  Future<void> addMessage(Message message, User sender, User receiver) =>
+      _cloudFirestoreRepository.addMessage(message, sender, receiver);
 
-  Future<void> registerPersonalDetails ( String userID, String title, String givenName, String middleName,
-      String familyName, String gender, String dateBirth, String placeBirth, String nationality,
-      String passport, String dateExpire, String placeIssue, String religion) =>
-      _cloudFirestoreRepository.registerPersonalDetails(userID, title, givenName, middleName, familyName, gender, dateBirth, placeBirth, nationality, passport, dateExpire, placeIssue, religion);
+  Future<void> registerPersonalDetails(
+          String userID,
+          String title,
+          String givenName,
+          String middleName,
+          String familyName,
+          String gender,
+          String dateBirth,
+          String placeBirth,
+          String nationality,
+          String passport,
+          String dateExpire,
+          String placeIssue,
+          String religion) =>
+      _cloudFirestoreRepository.registerPersonalDetails(
+          userID,
+          title,
+          givenName,
+          middleName,
+          familyName,
+          gender,
+          dateBirth,
+          placeBirth,
+          nationality,
+          passport,
+          dateExpire,
+          placeIssue,
+          religion);
 
-  Stream <DocumentSnapshot> getPersonalDetails(String userID) => _cloudFirestoreRepository.getPersonalDetails(userID);
+  Stream<DocumentSnapshot> getPersonalDetails(String userID) =>
+      _cloudFirestoreRepository.getPersonalDetails(userID);
 
-  Future<void> registerContactDetails ( String userID, String email, String otherEmail, String phone,
-      String mobile,
-      String residentialAddress, String residentialCity, String residentialState, String residentialCountry, String residentialPostcode,
-      String postalAddress, String postalCity, String postalState, String postalCountry, String postalPostcode,
-      String emergencyContact, String emergencyRel, String mobileInt)
-  => _cloudFirestoreRepository.registerContactDetails(userID, email, otherEmail, phone, mobile, residentialAddress, residentialCity, residentialState, residentialCountry, residentialPostcode, postalAddress, postalCity, postalState, postalCountry, postalPostcode, emergencyContact, emergencyRel, mobileInt) ;
+  Future<void> registerContactDetails(
+          String userID,
+          String email,
+          String otherEmail,
+          String phone,
+          String mobile,
+          String residentialAddress,
+          String residentialCity,
+          String residentialState,
+          String residentialCountry,
+          String residentialPostcode,
+          String postalAddress,
+          String postalCity,
+          String postalState,
+          String postalCountry,
+          String postalPostcode,
+          String emergencyContact,
+          String emergencyRel,
+          String mobileInt) =>
+      _cloudFirestoreRepository.registerContactDetails(
+          userID,
+          email,
+          otherEmail,
+          phone,
+          mobile,
+          residentialAddress,
+          residentialCity,
+          residentialState,
+          residentialCountry,
+          residentialPostcode,
+          postalAddress,
+          postalCity,
+          postalState,
+          postalCountry,
+          postalPostcode,
+          emergencyContact,
+          emergencyRel,
+          mobileInt);
 
-  Stream <DocumentSnapshot> getContactDetails(String userID)
-  => _cloudFirestoreRepository.getContactDetails(userID);
+  Stream<DocumentSnapshot> getContactDetails(String userID) =>
+      _cloudFirestoreRepository.getContactDetails(userID);
 
+  Stream<DocumentSnapshot> getPersonalQuestion(String userID) =>
+      _cloudFirestoreRepository.getPersonalQuestion(userID);
 
-  Stream <DocumentSnapshot> getPersonalQuestion(String userID)
-  => _cloudFirestoreRepository.getPersonalQuestion(userID);
+  Future<void> registerPersonalQuestionnaires(String userID, String questionOne,
+          String questionTwo, String questionThree) =>
+      _cloudFirestoreRepository.registerPersonalQuestionnaires(
+          userID, questionOne, questionTwo, questionThree);
 
-  Future<void> registerPersonalQuestionnaires (String userID, String questionOne, String questionTwo, String questionThree)
-  => _cloudFirestoreRepository.registerPersonalQuestionnaires(userID, questionOne, questionTwo, questionThree);
+  Future<void> registerAdditionalDetails(
+          String userID,
+          String dropdownTuition,
+          String dropdownNeeds,
+          String needsDetails,
+          String dropdownCriminal,
+          String criminalDetails,
+          String dropdownAgent,
+          String nameAgent,
+          String emailAgent) =>
+      _cloudFirestoreRepository.registerAdditionalDetails(
+          userID,
+          dropdownTuition,
+          dropdownNeeds,
+          needsDetails,
+          dropdownCriminal,
+          criminalDetails,
+          dropdownAgent,
+          nameAgent,
+          emailAgent);
 
-  Future<void> registerAdditionalDetails (String userID, String dropdownTuition, String dropdownNeeds,
-      String needsDetails,String dropdownCriminal, String criminalDetails, String dropdownAgent,
-      String nameAgent, String emailAgent)
-  => _cloudFirestoreRepository.registerAdditionalDetails(userID, dropdownTuition, dropdownNeeds,
-      needsDetails, dropdownCriminal, criminalDetails, dropdownAgent, nameAgent, emailAgent);
+  Stream<DocumentSnapshot> getAdditionalDetails(String userID) =>
+      _cloudFirestoreRepository.getAdditionalDetails(userID);
 
-  Stream <DocumentSnapshot> getAdditionalDetails(String userID)
-  => _cloudFirestoreRepository.getAdditionalDetails(userID);
+  Future<void> registerApplicationPhoto(String userID, String photoUrl) =>
+      _cloudFirestoreRepository.registerApplicationPhoto(userID, photoUrl);
 
-  Future<void> registerApplicationPhoto (String userID, String photoUrl)
-  => _cloudFirestoreRepository.registerApplicationPhoto(userID, photoUrl);
+  Stream<DocumentSnapshot> getApplicationPhoto(String userID) =>
+      _cloudFirestoreRepository.getApplicationPhoto(userID);
 
-  Stream <DocumentSnapshot> getApplicationPhoto(String userID)
-  => _cloudFirestoreRepository.getApplicationPhoto(userID);
+  Future<void> registerSelectedMajor(String userID, String majorSelected) =>
+      _cloudFirestoreRepository.registerSelectedMajor(userID, majorSelected);
 
-  Future<void> registerSelectedMajor (String userID, String majorSelected)
-  => _cloudFirestoreRepository.registerSelectedMajor(userID, majorSelected);
+  Stream<DocumentSnapshot> getSelectedMajor(String userID) =>
+      _cloudFirestoreRepository.getSelectedMajor(userID);
 
-  Stream <DocumentSnapshot> getSelectedMajor(String userID)
-  => _cloudFirestoreRepository.getSelectedMajor(userID);
+  Future<void> registerSchoolTranscripts(String userID,
+          List<String> transcriptUrls, List<String> transcriptsNames) =>
+      _cloudFirestoreRepository.registerSchoolTranscripts(
+          userID, transcriptUrls, transcriptsNames);
 
-  Future<void> registerSchoolTranscripts (String userID, List<String> transcriptUrls,
-      List<String> transcriptsNames)
-  => _cloudFirestoreRepository.registerSchoolTranscripts(userID, transcriptUrls, transcriptsNames);
-
-  Stream <DocumentSnapshot> getTranscriptsUrlsNames(String userID)
-  => _cloudFirestoreRepository.getTranscriptsUrlsNames(userID);
+  Stream<DocumentSnapshot> getTranscriptsUrlsNames(String userID) =>
+      _cloudFirestoreRepository.getTranscriptsUrlsNames(userID);
 
   Future<void> registerEducationHistory(
-      String userID, String awardingInstitution,
-      String countryInstitution, String attendenceTo,
-      String attendenceFrom, String gradesRecord, String nationalExam,
-      String dropdownStudy,
-      ) => _cloudFirestoreRepository.registerEducationHistory(userID,
-      awardingInstitution, countryInstitution, attendenceTo, attendenceFrom,
-      gradesRecord, nationalExam, dropdownStudy);
+    String userID,
+    String awardingInstitution,
+    String countryInstitution,
+    String attendenceTo,
+    String attendenceFrom,
+    String gradesRecord,
+    String nationalExam,
+    String dropdownStudy,
+  ) =>
+      _cloudFirestoreRepository.registerEducationHistory(
+          userID,
+          awardingInstitution,
+          countryInstitution,
+          attendenceTo,
+          attendenceFrom,
+          gradesRecord,
+          nationalExam,
+          dropdownStudy);
 
-  Stream <DocumentSnapshot> getEducationHistory(String userID)
-  => _cloudFirestoreRepository.getEducationHistory(userID);
+  Stream<DocumentSnapshot> getEducationHistory(String userID) =>
+      _cloudFirestoreRepository.getEducationHistory(userID);
 
   Future<void> registerLanguageQualifications(
-      String userID, String dropdownEnglish,
-      String dropdownQualificationState,
-      String selectEnglishTest, String dateTaken,
-      String totalScore, String tentativeEnglishTest,
-      String dropdownChinese, String lengthChineseStudy,
-      String placeStudy, String dropdownProficiency,
-      String otherLanguages,
-      )
-  => _cloudFirestoreRepository.registerLanguageQualifications(userID, dropdownEnglish,
-      dropdownQualificationState, selectEnglishTest, dateTaken, totalScore,
-      tentativeEnglishTest, dropdownChinese, lengthChineseStudy, placeStudy,
-      dropdownProficiency, otherLanguages);
+    String userID,
+    String dropdownEnglish,
+    String dropdownQualificationState,
+    String selectEnglishTest,
+    String dateTaken,
+    String totalScore,
+    String tentativeEnglishTest,
+    String dropdownChinese,
+    String lengthChineseStudy,
+    String placeStudy,
+    String dropdownProficiency,
+    String otherLanguages,
+  ) =>
+      _cloudFirestoreRepository.registerLanguageQualifications(
+          userID,
+          dropdownEnglish,
+          dropdownQualificationState,
+          selectEnglishTest,
+          dateTaken,
+          totalScore,
+          tentativeEnglishTest,
+          dropdownChinese,
+          lengthChineseStudy,
+          placeStudy,
+          dropdownProficiency,
+          otherLanguages);
+
+  Future<void> registerLanguageUrl(String userID, List<String> languageUrls,
+          List<String> languageNames) =>
+      _cloudFirestoreRepository.registerLanguageUrl(
+          userID, languageUrls, languageNames);
 
   Stream<DocumentSnapshot> getLanguageQualifications(String userID) =>
       _cloudFirestoreRepository.getLanguageQualifications(userID);
@@ -144,13 +251,27 @@ class UserBloc implements Bloc {
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 
-  Future<StorageUploadTask> uploadFile(String path, File image) => _firebaseStorageRepository.uploadProfilePic(path, image);
-  Future<String> getImageUrl(String imageId) => _firebaseStorageRepository.getImageUrl(imageId);
-  Future<String> getApplicationPhotoUrl(String imageId, File imageFile) => _firebaseStorageRepository.getApplicationPhotoUrl(imageId,imageFile);
-  Future<String> getUploadTranscriptsUrl(String userId, File files) => _firebaseStorageRepository.getUploadTranscriptsUrl(userId, files);
-  Future<List<String>> getOnlyTranscriptsUrl(String userId,List <String> path) => _firebaseStorageRepository.getOnlyTranscriptsUrl(userId, path);
-  Future<void> deleteApplicationPhoto(String path) => _firebaseStorageRepository.deleteApplicationPhoto(path);
-  Future<void> deleteTranscriptFile(String userId,String path) => _firebaseStorageRepository.deleteTranscriptFile(userId, path);
+  Future<StorageUploadTask> uploadFile(String path, File image) =>
+      _firebaseStorageRepository.uploadProfilePic(path, image);
+  Future<String> getImageUrl(String imageId) =>
+      _firebaseStorageRepository.getImageUrl(imageId);
+  Future<String> getApplicationPhotoUrl(String imageId, File imageFile) =>
+      _firebaseStorageRepository.getApplicationPhotoUrl(imageId, imageFile);
+  Future<String> getUploadTranscriptsUrl(String userId, File files) =>
+      _firebaseStorageRepository.getUploadTranscriptsUrl(userId, files);
+  Future<List<String>> getOnlyTranscriptsUrl(
+          String userId, List<String> path) =>
+      _firebaseStorageRepository.getOnlyTranscriptsUrl(userId, path);
+  Future<String> getUploadLanguageUrl(String userId, File files) =>
+      _firebaseStorageRepository.getUploadLanguageUrl(userId, files);
+  Future<List<String>> getOnlyLanguageUrl(String userId, List<String> path) =>
+      _firebaseStorageRepository.getOnlyLanguageUrl(userId, path);
+  Future<void> deleteApplicationPhoto(String path) =>
+      _firebaseStorageRepository.deleteApplicationPhoto(path);
+  Future<void> deleteTranscriptFile(String userId, String path) =>
+      _firebaseStorageRepository.deleteTranscriptFile(userId, path);
+  Future<void> deleteLanguageFile(String userId, String path) =>
+      _firebaseStorageRepository.deleteLanguageFile(userId, path);
   signOut() {
     _auth_repository.signOut();
   }
