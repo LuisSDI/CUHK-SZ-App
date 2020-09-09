@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuhkszapp/MainPages/ApplyPages/references_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -1715,12 +1716,12 @@ Qualifications'''
               dropdownProficiency,
               otherLanguages);
           print('Success');
-//          Navigator.push(
-//              context,
-//              MaterialPageRoute(
-//                  builder: (context) => ApplicationPhotoPage(
-//                    userId: widget.userId,
-//                  )));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ReferencesPage(
+                        userId: widget.userId,
+                      )));
         } catch (e) {
           print(e.message);
           Navigator.of(context).pop();
