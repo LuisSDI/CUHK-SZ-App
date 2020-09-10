@@ -180,6 +180,60 @@ class CloudFirestoreRepository {
       _cloudFirestoreAPI.registerLanguageUrl(
           userID, languageUrls, languageNames);
 
+  Future<void> registerReferences(
+    String userID,
+    String dropdownTitleFirst,
+    String givenNameFirst,
+    String familyNameFirst,
+    String organizationFirst,
+    String jobFirst,
+    String emailFirst,
+    String phoneFirst,
+    String residentialFirst,
+    String cityFirst,
+    String stateFirst,
+    String postcodeFirst,
+    String countryFirst,
+    String dropdownTitleSecond,
+    String givenNameSecond,
+    String familyNameSecond,
+    String organizationSecond,
+    String jobSecond,
+    String emailSecond,
+    String phoneSecond,
+    String residentialSecond,
+    String citySecond,
+    String stateSecond,
+    String postcodeSecond,
+    String countrySecond,
+  ) =>
+      _cloudFirestoreAPI.registerReferences(
+          userID,
+          dropdownTitleFirst,
+          givenNameFirst,
+          familyNameFirst,
+          organizationFirst,
+          jobFirst,
+          emailFirst,
+          phoneFirst,
+          residentialFirst,
+          cityFirst,
+          stateFirst,
+          postcodeFirst,
+          countryFirst,
+          dropdownTitleSecond,
+          givenNameSecond,
+          familyNameSecond,
+          organizationSecond,
+          jobSecond,
+          emailSecond,
+          phoneSecond,
+          residentialSecond,
+          citySecond,
+          stateSecond,
+          postcodeSecond,
+          countrySecond);
+
   Stream<DocumentSnapshot> getContactDetails(String userID) =>
       _cloudFirestoreAPI.getContactDetails(userID);
 
@@ -206,6 +260,9 @@ class CloudFirestoreRepository {
 
   Stream<DocumentSnapshot> getLanguageQualifications(String userID) =>
       _cloudFirestoreAPI.getLanguageQualifications(userID);
+
+  Stream<DocumentSnapshot> getReferences(String userID) =>
+      _cloudFirestoreAPI.getReferences(userID);
 
   Future<List<User>> getListUsers(String userUid) =>
       _cloudFirestoreAPI.getListUsers(userUid);

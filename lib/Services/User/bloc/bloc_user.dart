@@ -247,31 +247,99 @@ class UserBloc implements Bloc {
 
   Stream<DocumentSnapshot> getLanguageQualifications(String userID) =>
       _cloudFirestoreRepository.getLanguageQualifications(userID);
+
+  Future<void> registerReferences(
+    String userID,
+    String dropdownTitleFirst,
+    String givenNameFirst,
+    String familyNameFirst,
+    String organizationFirst,
+    String jobFirst,
+    String emailFirst,
+    String phoneFirst,
+    String residentialFirst,
+    String cityFirst,
+    String stateFirst,
+    String postcodeFirst,
+    String countryFirst,
+    String dropdownTitleSecond,
+    String givenNameSecond,
+    String familyNameSecond,
+    String organizationSecond,
+    String jobSecond,
+    String emailSecond,
+    String phoneSecond,
+    String residentialSecond,
+    String citySecond,
+    String stateSecond,
+    String postcodeSecond,
+    String countrySecond,
+  ) =>
+      _cloudFirestoreRepository.registerReferences(
+          userID,
+          dropdownTitleFirst,
+          givenNameFirst,
+          familyNameFirst,
+          organizationFirst,
+          jobFirst,
+          emailFirst,
+          phoneFirst,
+          residentialFirst,
+          cityFirst,
+          stateFirst,
+          postcodeFirst,
+          countryFirst,
+          dropdownTitleSecond,
+          givenNameSecond,
+          familyNameSecond,
+          organizationSecond,
+          jobSecond,
+          emailSecond,
+          phoneSecond,
+          residentialSecond,
+          citySecond,
+          stateSecond,
+          postcodeSecond,
+          countrySecond);
+
+  Stream<DocumentSnapshot> getReferences(String userID) =>
+      _cloudFirestoreRepository.getReferences(userID);
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 
   Future<StorageUploadTask> uploadFile(String path, File image) =>
       _firebaseStorageRepository.uploadProfilePic(path, image);
+
   Future<String> getImageUrl(String imageId) =>
       _firebaseStorageRepository.getImageUrl(imageId);
+
   Future<String> getApplicationPhotoUrl(String imageId, File imageFile) =>
       _firebaseStorageRepository.getApplicationPhotoUrl(imageId, imageFile);
+
   Future<String> getUploadTranscriptsUrl(String userId, File files) =>
       _firebaseStorageRepository.getUploadTranscriptsUrl(userId, files);
+
   Future<List<String>> getOnlyTranscriptsUrl(
           String userId, List<String> path) =>
       _firebaseStorageRepository.getOnlyTranscriptsUrl(userId, path);
+
   Future<String> getUploadLanguageUrl(String userId, File files) =>
       _firebaseStorageRepository.getUploadLanguageUrl(userId, files);
+
   Future<List<String>> getOnlyLanguageUrl(String userId, List<String> path) =>
       _firebaseStorageRepository.getOnlyLanguageUrl(userId, path);
+
   Future<void> deleteApplicationPhoto(String path) =>
       _firebaseStorageRepository.deleteApplicationPhoto(path);
+
   Future<void> deleteTranscriptFile(String userId, String path) =>
       _firebaseStorageRepository.deleteTranscriptFile(userId, path);
+
   Future<void> deleteLanguageFile(String userId, String path) =>
       _firebaseStorageRepository.deleteLanguageFile(userId, path);
+
   signOut() {
     _auth_repository.signOut();
   }

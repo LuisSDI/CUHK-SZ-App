@@ -25,8 +25,6 @@ class _ReferencesPageState extends State<ReferencesPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   GlobalKey<ScaffoldState> scaffkey = GlobalKey();
-  DateTime birthDate;
-  DateTime expireDate;
   String dropdownTitleFirst;
   String givenNameFirst;
   String familyNameFirst;
@@ -51,11 +49,6 @@ class _ReferencesPageState extends State<ReferencesPage> {
   String stateSecond;
   String postcodeSecond;
   String countrySecond;
-  String dropdownGender;
-  String placeBirth;
-  String passportNum;
-  String placeIssue;
-  String religion;
   GlobalKey<ScaffoldState> _scaffkey = GlobalKey();
 
   Stream<DocumentSnapshot> _stream;
@@ -63,7 +56,7 @@ class _ReferencesPageState extends State<ReferencesPage> {
   @override
   void initState() {
     // Only create the stream once
-    _stream = UserBloc().getPersonalDetails(widget.userId);
+    _stream = UserBloc().getReferences(widget.userId);
     super.initState();
   }
 
@@ -76,25 +69,39 @@ class _ReferencesPageState extends State<ReferencesPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                Map personalDetails = snapshot.data.data;
-                if (personalDetails != null) {
-                  dropdownTitleFirst ??= personalDetails['title'];
-                  givenNameFirst = personalDetails['given name'];
-                  familyNameFirst = personalDetails['family name'];
-                  dropdownGender ??= personalDetails['gender'];
-                  birthDate ??=
-                      DateTime.parse(personalDetails['date of birth']);
-                  expireDate ??=
-                      DateTime.parse(personalDetails['date of expire']);
-                  //countryField ??= personalDetails['nationality'];
-                  passportNum = personalDetails['passport'];
-                  placeIssue = personalDetails['place of issue'];
-                  religion = personalDetails['religion'];
-                  placeBirth = personalDetails['place of birth'];
+                Map referencesDocument = snapshot.data.data;
+                if (referencesDocument != null) {
+                  Map firstReferee = referencesDocument['first referee'];
+                  Map secondReferee = referencesDocument['second referee'];
+                  print(referencesDocument);
+                  dropdownTitleFirst ??= firstReferee['title'];
+                  givenNameFirst = firstReferee['given name'];
+                  familyNameFirst = firstReferee['family name'];
+                  organizationFirst = firstReferee['organization name'];
+                  jobFirst = firstReferee['job title'];
+                  emailFirst = firstReferee['email'];
+                  phoneFirst = firstReferee['phone number'];
+                  residentialFirst = firstReferee['street address'];
+                  cityFirst = firstReferee['city'];
+                  stateFirst = firstReferee['state'];
+                  postcodeFirst = firstReferee['postcode'];
+                  countryFirst = firstReferee['country'];
+
+                  dropdownTitleSecond ??= secondReferee['title'];
+                  givenNameSecond = secondReferee['given name'];
+                  familyNameSecond = secondReferee['family name'];
+                  organizationSecond = secondReferee['organization name'];
+                  jobSecond = secondReferee['job title'];
+                  emailSecond = secondReferee['email'];
+                  phoneSecond = secondReferee['phone number'];
+                  residentialSecond = secondReferee['street address'];
+                  citySecond = secondReferee['city'];
+                  stateSecond = secondReferee['state'];
+                  postcodeSecond = secondReferee['postcode'];
+                  countrySecond = secondReferee['country'];
                 }
               }
               ScreenScaler scaler = ScreenScaler()..init(context);
-              dropdownGender ??= 'Male';
               dropdownTitleFirst ??= 'Mr';
               Country countryF;
               if (countryFirst != null) {
@@ -2650,34 +2657,6 @@ class _ReferencesPageState extends State<ReferencesPage> {
     return regExp.hasMatch(value);
   }
 
-  Future<Null> _selectBirth(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: birthDate,
-        firstDate: DateTime(1960, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != birthDate) {
-      setState(() {
-        birthDate = picked;
-        print("${birthDate.toLocal()}".split(' ')[0]);
-      });
-    }
-  }
-
-  Future<Null> _selectExpire(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: expireDate,
-        firstDate: DateTime(1960, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != expireDate) {
-      setState(() {
-        expireDate = picked;
-        print("${expireDate.toLocal()}".split(' ')[0]);
-      });
-    }
-  }
-
   Future<void> registerPersonalDetails() async {
     {
       final formState = _formKey.currentState;
@@ -2685,28 +2664,32 @@ class _ReferencesPageState extends State<ReferencesPage> {
       if (formState.validate()) {
         formState.save();
         try {
-          // widget.userBloc.registerPersonalDetails(
-          //     widget.userId,
-          //     dropdownTitleFirst,
-          //     givenNameFirst,
-          //     middleName,
-          //     familyNameFirst,
-          //     dropdownGender,
-          //     "${birthDate.toLocal()}".split(' ')[0],
-          //     placeBirth,
-          //     countryField,
-          //     passportNum,
-          //     "${expireDate.toLocal()}".split(' ')[0],
-          //     placeIssue,
-          //     religion);
-
-          // // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => ContactDetailsPage(
-          //           userId: widget.userId,
-          //         )));
-
+          widget.userBloc.registerReferences(
+              widget.userId,
+              dropdownTitleFirst,
+              givenNameFirst,
+              familyNameFirst,
+              organizationFirst,
+              jobFirst,
+              emailFirst,
+              phoneFirst,
+              residentialFirst,
+              cityFirst,
+              stateFirst,
+              postcodeFirst,
+              countryFirst,
+              dropdownTitleSecond,
+              givenNameSecond,
+              familyNameSecond,
+              organizationSecond,
+              jobSecond,
+              emailSecond,
+              phoneSecond,
+              residentialSecond,
+              citySecond,
+              stateSecond,
+              postcodeSecond,
+              countrySecond);
         } catch (e) {
           print(e.message);
           Navigator.of(context).pop();

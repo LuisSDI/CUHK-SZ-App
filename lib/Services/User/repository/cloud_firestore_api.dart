@@ -102,6 +102,14 @@ class CloudFireStoreAPI {
         .snapshots();
   }
 
+  Stream<DocumentSnapshot> getReferences(String userID) {
+    return applications
+        .document(userID)
+        .collection('References')
+        .document(userID)
+        .snapshots();
+  }
+
   Future<List<User>> getListUsers(String userUid) async {
     List<User> users = List<User>();
     var querySnapshot = await userInfo.getDocuments();
@@ -355,6 +363,69 @@ class CloudFireStoreAPI {
       'place chinese study': placeStudy,
       'chinese proficiency': dropdownProficiency,
       'other languages': otherLanguages,
+    }, merge: true);
+  }
+
+  Future<void> registerReferences(
+    String userID,
+    String dropdownTitleFirst,
+    String givenNameFirst,
+    String familyNameFirst,
+    String organizationFirst,
+    String jobFirst,
+    String emailFirst,
+    String phoneFirst,
+    String residentialFirst,
+    String cityFirst,
+    String stateFirst,
+    String postcodeFirst,
+    String countryFirst,
+    String dropdownTitleSecond,
+    String givenNameSecond,
+    String familyNameSecond,
+    String organizationSecond,
+    String jobSecond,
+    String emailSecond,
+    String phoneSecond,
+    String residentialSecond,
+    String citySecond,
+    String stateSecond,
+    String postcodeSecond,
+    String countrySecond,
+  ) async {
+    return await applications
+        .document(userID)
+        .collection('References')
+        .document(userID)
+        .setData({
+      'first referee': {
+        'title': dropdownTitleFirst,
+        'given name': givenNameFirst,
+        'family name': familyNameFirst,
+        'organization name': organizationFirst,
+        'job title': jobFirst,
+        'email': emailFirst,
+        'phone number': phoneFirst,
+        'street address': residentialFirst,
+        'city': cityFirst,
+        'state': stateFirst,
+        'postcode': postcodeFirst,
+        'country': countryFirst
+      },
+      'second referee': {
+        'title': dropdownTitleSecond,
+        'given name': givenNameSecond,
+        'family name': familyNameSecond,
+        'organization name': organizationSecond,
+        'job title': jobSecond,
+        'email': emailSecond,
+        'phone number': phoneSecond,
+        'street address': residentialSecond,
+        'city': citySecond,
+        'state': stateSecond,
+        'postcode': postcodeSecond,
+        'country': countrySecond
+      },
     }, merge: true);
   }
 
