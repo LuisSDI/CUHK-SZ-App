@@ -441,6 +441,18 @@ class CloudFireStoreAPI {
     }, merge: true);
   }
 
+  Future<void> registerReferenceUrl(String userID, List<String> referenceUrls,
+      List<String> referenceNames) async {
+    return await applications
+        .document(userID)
+        .collection('References')
+        .document(userID)
+        .setData({
+      'reference letter urls': referenceUrls,
+      'reference letter name': referenceNames
+    }, merge: true);
+  }
+
   Future<void> addMessage(Message message, User sender, User receiver) async {
     Map map = message.toMap();
 

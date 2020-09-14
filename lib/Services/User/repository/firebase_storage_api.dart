@@ -30,10 +30,22 @@ class FirebaseStorageAPI {
         .putFile(file);
   }
 
+  Future<StorageUploadTask> uploadReferenceFile(
+      String userId, File file) async {
+    String filename = path.basename(file.path);
+    return _storageReference
+        .child('references/$userId/$filename')
+        .putFile(file);
+  }
+
   Future<void> deleteLanguageFile(String userId, String path) async {
     return _storageReference
         .child('language_qualifications/$userId/$path')
         .delete();
+  }
+
+  Future<void> deleteReferenceFile(String userId, String path) async {
+    return _storageReference.child('references/$userId/$path').delete();
   }
 
   Future<void> deleteTranscriptFile(String userId, String path) async {
@@ -69,6 +81,11 @@ class FirebaseStorageAPI {
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }
 
+  Future<String> getUploadReferenceUrl(String userId, File files) async {
+    StorageUploadTask uploadTask = await uploadReferenceFile(userId, files);
+    return await (await uploadTask.onComplete).ref.getDownloadURL();
+  }
+
   Future<List<String>> getOnlyTranscriptsUrl(
       String userId, List<String> path) async {
     List<String> urls = [];
@@ -86,6 +103,17 @@ class FirebaseStorageAPI {
     for (var filename in path) {
       urls.add(await _storageReference
           .child('language_qualifications/$userId/$filename')
+          .getDownloadURL());
+    }
+    return urls;
+  }
+
+  Future<List<String>> getOnlyReferenceUrl(
+      String userId, List<String> path) async {
+    List<String> urls = [];
+    for (var filename in path) {
+      urls.add(await _storageReference
+          .child('references/$userId/$filename')
           .getDownloadURL());
     }
     return urls;

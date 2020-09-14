@@ -302,6 +302,11 @@ class UserBloc implements Bloc {
           postcodeSecond,
           countrySecond);
 
+  Future<void> registerReferenceUrl(String userID, List<String> referenceUrls,
+          List<String> referenceNames) =>
+      _cloudFirestoreRepository.registerReferenceUrl(
+          userID, referenceUrls, referenceNames);
+
   Stream<DocumentSnapshot> getReferences(String userID) =>
       _cloudFirestoreRepository.getReferences(userID);
 
@@ -331,6 +336,12 @@ class UserBloc implements Bloc {
   Future<List<String>> getOnlyLanguageUrl(String userId, List<String> path) =>
       _firebaseStorageRepository.getOnlyLanguageUrl(userId, path);
 
+  Future<String> getUploadReferenceUrl(String userId, File files) =>
+      _firebaseStorageRepository.getUploadReferenceUrl(userId, files);
+
+  Future<List<String>> getOnlyReferenceUrl(String userId, List<String> path) =>
+      _firebaseStorageRepository.getOnlyReferenceUrl(userId, path);
+
   Future<void> deleteApplicationPhoto(String path) =>
       _firebaseStorageRepository.deleteApplicationPhoto(path);
 
@@ -339,6 +350,9 @@ class UserBloc implements Bloc {
 
   Future<void> deleteLanguageFile(String userId, String path) =>
       _firebaseStorageRepository.deleteLanguageFile(userId, path);
+
+  Future<void> deleterReferenceFile(String userId, String path) =>
+      _firebaseStorageRepository.deleteReferenceFile(userId, path);
 
   signOut() {
     _auth_repository.signOut();

@@ -234,6 +234,11 @@ class CloudFirestoreRepository {
           postcodeSecond,
           countrySecond);
 
+  Future<void> registerReferenceUrl(String userID, List<String> referenceUrls,
+          List<String> referenceNames) =>
+      _cloudFirestoreAPI.registerReferenceUrl(
+          userID, referenceUrls, referenceNames);
+
   Stream<DocumentSnapshot> getContactDetails(String userID) =>
       _cloudFirestoreAPI.getContactDetails(userID);
 
