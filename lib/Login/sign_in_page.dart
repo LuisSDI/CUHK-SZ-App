@@ -40,9 +40,7 @@ class SignInPageState extends State<SignInPage> {
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              //TODO: implement key
               children: <Widget>[
-                //TODO: Implement fields
                 Container(
                   margin: EdgeInsets.only(
                       top: scaler.getHeight(5), bottom: scaler.getWidth(2)),
@@ -177,8 +175,6 @@ class SignInPageState extends State<SignInPage> {
         print(e.message);
       }
     }
-
-    //TODO login to firebase
   }
 
   Future<void> signUp() async {
@@ -193,8 +189,6 @@ class SignInPageState extends State<SignInPage> {
                     password: password,
                     auth: FirebaseAuth.instance,
                   )));
-
-      //TODO login to firebase
     }
   }
 }

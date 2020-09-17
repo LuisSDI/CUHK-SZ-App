@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+import 'package:cuhkszapp/MainPages/ApplyPages/work_experience_page.dart';
 
 import 'package:path/path.dart' as path;
 
@@ -2930,6 +2931,13 @@ class _ReferencesPageState extends State<ReferencesPage> {
               stateSecond,
               postcodeSecond,
               countrySecond);
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => WorkExpiriencePage(
+                        userId: widget.userId,
+                      )));
         } catch (e) {
           print(e.message);
           Navigator.of(context).pop();

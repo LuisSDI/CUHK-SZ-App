@@ -110,6 +110,14 @@ class CloudFireStoreAPI {
         .snapshots();
   }
 
+  Stream<DocumentSnapshot> getWorkExpirience(String userID) {
+    return applications
+        .document(userID)
+        .collection('Work Expirience')
+        .document(userID)
+        .snapshots();
+  }
+
   Future<List<User>> getListUsers(String userUid) async {
     List<User> users = List<User>();
     var querySnapshot = await userInfo.getDocuments();
@@ -450,6 +458,39 @@ class CloudFireStoreAPI {
         .setData({
       'reference letter urls': referenceUrls,
       'reference letter name': referenceNames
+    }, merge: true);
+  }
+
+  Future<void> registerWorkExperience(
+    String userID,
+    String employersName,
+    String positionHeld,
+    String dropdownIsEmployer,
+    String email,
+    String startDate,
+    String toDate,
+    String residential,
+    String city,
+    String state,
+    String postcode,
+    String countryFirst,
+  ) async {
+    return await applications
+        .document(userID)
+        .collection('Work Expirience')
+        .document(userID)
+        .setData({
+      'employers name': employersName,
+      'position held': positionHeld,
+      'is this your employee? ': dropdownIsEmployer,
+      'email': email,
+      'start date': startDate,
+      'to date': toDate,
+      'street address': residential,
+      'city': city,
+      'state': state,
+      'postcode': postcode,
+      'country': countryFirst
     }, merge: true);
   }
 

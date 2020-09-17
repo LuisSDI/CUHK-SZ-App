@@ -239,6 +239,34 @@ class CloudFirestoreRepository {
       _cloudFirestoreAPI.registerReferenceUrl(
           userID, referenceUrls, referenceNames);
 
+  Future<void> registerWorkExperience(
+    String userID,
+    String employersName,
+    String positionHeld,
+    String dropdownIsEmployer,
+    String email,
+    String startDate,
+    String toDate,
+    String residential,
+    String city,
+    String state,
+    String postcode,
+    String countryFirst,
+  ) =>
+      _cloudFirestoreAPI.registerWorkExperience(
+          userID,
+          employersName,
+          positionHeld,
+          dropdownIsEmployer,
+          email,
+          startDate,
+          toDate,
+          residential,
+          city,
+          state,
+          postcode,
+          countryFirst);
+
   Stream<DocumentSnapshot> getContactDetails(String userID) =>
       _cloudFirestoreAPI.getContactDetails(userID);
 
@@ -268,6 +296,9 @@ class CloudFirestoreRepository {
 
   Stream<DocumentSnapshot> getReferences(String userID) =>
       _cloudFirestoreAPI.getReferences(userID);
+
+  Stream<DocumentSnapshot> getWorkExpirience(String userID) =>
+      _cloudFirestoreAPI.getWorkExpirience(userID);
 
   Future<List<User>> getListUsers(String userUid) =>
       _cloudFirestoreAPI.getListUsers(userUid);

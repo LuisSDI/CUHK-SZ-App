@@ -310,6 +310,37 @@ class UserBloc implements Bloc {
   Stream<DocumentSnapshot> getReferences(String userID) =>
       _cloudFirestoreRepository.getReferences(userID);
 
+  Future<void> registerWorkExperience(
+    String userID,
+    String employersName,
+    String positionHeld,
+    String dropdownIsEmployer,
+    String email,
+    String startDate,
+    String toDate,
+    String residential,
+    String city,
+    String state,
+    String postcode,
+    String countryFirst,
+  ) =>
+      _cloudFirestoreRepository.registerWorkExperience(
+          userID,
+          employersName,
+          positionHeld,
+          dropdownIsEmployer,
+          email,
+          startDate,
+          toDate,
+          residential,
+          city,
+          state,
+          postcode,
+          countryFirst);
+
+  Stream<DocumentSnapshot> getWorkExpirience(String userID) =>
+      _cloudFirestoreRepository.getWorkExpirience(userID);
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
