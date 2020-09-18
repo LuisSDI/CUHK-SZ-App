@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dialog.dart';
 import 'package:country_pickers/utils/utils.dart';
+import 'package:cuhkszapp/MainPages/ApplyPages/supporting_documents_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:flutter/material.dart';
@@ -1208,12 +1209,12 @@ class _WorkExpiriencePageState extends State<WorkExpiriencePage> {
                 countryFirst);
           }
           print('Success');
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => LanguageQualificationsPage(
-          //               userId: widget.userId,
-          //             )));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SupportingDocumentsPage(
+                        userId: widget.userId,
+                      )));
         } catch (e) {
           print(e.message);
           Navigator.of(context).pop();

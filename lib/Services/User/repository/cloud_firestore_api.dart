@@ -118,6 +118,14 @@ class CloudFireStoreAPI {
         .snapshots();
   }
 
+  Stream<DocumentSnapshot> getSupportingMaterials(String userID) {
+    return applications
+        .document(userID)
+        .collection('Supporting Materials')
+        .document(userID)
+        .snapshots();
+  }
+
   Future<List<User>> getListUsers(String userUid) async {
     List<User> users = List<User>();
     var querySnapshot = await userInfo.getDocuments();
@@ -494,6 +502,51 @@ class CloudFireStoreAPI {
     }, merge: true);
   }
 
+  //Supporting Material Methods
+
+  Future<void> registerPassportUrl(String userID, List<String> referenceUrls,
+      List<String> referenceNames) async {
+    return await applications
+        .document(userID)
+        .collection('Supporting Materials')
+        .document(userID)
+        .setData({
+      'passport': {
+        'passport urls': referenceUrls,
+        'passport name': referenceNames
+      },
+    }, merge: true);
+  }
+
+  Future<void> registerStatementUrl(String userID, List<String> referenceUrls,
+      List<String> referenceNames) async {
+    return await applications
+        .document(userID)
+        .collection('Supporting Materials')
+        .document(userID)
+        .setData({
+      'personal statements': {
+        'personal statements urls': referenceUrls,
+        'personal statements name': referenceNames
+      },
+    }, merge: true);
+  }
+
+  Future<void> registerOtherUrl(String userID, List<String> referenceUrls,
+      List<String> referenceNames) async {
+    return await applications
+        .document(userID)
+        .collection('Supporting Materials')
+        .document(userID)
+        .setData({
+      'other material': {
+        'other material urls': referenceUrls,
+        'other material name': referenceNames
+      },
+    }, merge: true);
+  }
+
+  //Ends Here
   Future<void> addMessage(Message message, User sender, User receiver) async {
     Map map = message.toMap();
 

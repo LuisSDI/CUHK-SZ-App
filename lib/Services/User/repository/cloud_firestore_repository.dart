@@ -302,4 +302,26 @@ class CloudFirestoreRepository {
 
   Future<List<User>> getListUsers(String userUid) =>
       _cloudFirestoreAPI.getListUsers(userUid);
+
+  //Supporting Material Methods
+
+  Future<void> registerPassportUrl(String userID, List<String> referenceUrls,
+          List<String> referenceNames) =>
+      _cloudFirestoreAPI.registerPassportUrl(
+          userID, referenceUrls, referenceNames);
+
+  Future<void> registerStatementUrl(String userID, List<String> referenceUrls,
+          List<String> referenceNames) =>
+      _cloudFirestoreAPI.registerStatementUrl(
+          userID, referenceUrls, referenceNames);
+
+  Future<void> registerOtherUrl(String userID, List<String> referenceUrls,
+          List<String> referenceNames) =>
+      _cloudFirestoreAPI.registerOtherUrl(
+          userID, referenceUrls, referenceNames);
+
+  Stream<DocumentSnapshot> getSupportingMaterials(String userID) =>
+      _cloudFirestoreAPI.getSupportingMaterials(userID);
+
+  //Ends Here
 }

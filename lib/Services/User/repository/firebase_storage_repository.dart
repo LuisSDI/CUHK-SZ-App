@@ -35,4 +35,35 @@ class FirebaseStorageRepository {
 
   Future<void> deleteReferenceFile(String userId, String path) =>
       _firebaseStorageAPI.deleteReferenceFile(userId, path);
+
+  //Supporting Material Methods
+
+  Future<List<String>> getOnlyPassportUrl(String userId, List<String> path) =>
+      _firebaseStorageAPI.getOnlyPassportUrl(userId, path);
+
+  Future<List<String>> getOnlyStatementUrl(String userId, List<String> path) =>
+      _firebaseStorageAPI.getOnlyStatementUrl(userId, path);
+
+  Future<List<String>> getOnlyOthersUrl(String userId, List<String> path) =>
+      _firebaseStorageAPI.getOnlyOthersUrl(userId, path);
+
+  Future<void> deletePassportFile(String userId, String path) =>
+      _firebaseStorageAPI.deletePassportFile(userId, path);
+
+  Future<void> deleteStatementFile(String userId, String path) =>
+      _firebaseStorageAPI.deleteStatementFile(userId, path);
+
+  Future<void> deleteOtherFile(String userId, String path) =>
+      _firebaseStorageAPI.deleteOtherFile(userId, path);
+
+  Future<String> getUploadPassportUrl(String userId, File files) =>
+      _firebaseStorageAPI.getUploadPassportUrl(userId, files);
+
+  Future<String> getUploadStatementsUrl(String userId, File files) =>
+      _firebaseStorageAPI.getUploadStatementsUrl(userId, files);
+
+  Future<String> getUploadOthersUrl(String userId, File files) =>
+      _firebaseStorageAPI.getUploadOthersUrl(userId, files);
+  //Ends Here
+
 }

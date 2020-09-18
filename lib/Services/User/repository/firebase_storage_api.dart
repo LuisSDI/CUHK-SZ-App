@@ -38,6 +38,32 @@ class FirebaseStorageAPI {
         .putFile(file);
   }
 
+  // Supporting Materials Methods
+
+  Future<StorageUploadTask> uploadPassportFile(String userId, File file) async {
+    String filename = path.basename(file.path);
+    return _storageReference
+        .child('supporting_materials/passports/$userId/$filename')
+        .putFile(file);
+  }
+
+  Future<StorageUploadTask> uploadStatementFile(
+      String userId, File file) async {
+    String filename = path.basename(file.path);
+    return _storageReference
+        .child('supporting_materials/personal_statements/$userId/$filename')
+        .putFile(file);
+  }
+
+  Future<StorageUploadTask> uploadOtherFile(String userId, File file) async {
+    String filename = path.basename(file.path);
+    return _storageReference
+        .child('supporting_materials/others/$userId/$filename')
+        .putFile(file);
+  }
+
+  //Ends Here
+
   Future<void> deleteLanguageFile(String userId, String path) async {
     return _storageReference
         .child('language_qualifications/$userId/$path')
@@ -51,6 +77,28 @@ class FirebaseStorageAPI {
   Future<void> deleteTranscriptFile(String userId, String path) async {
     return _storageReference.child('school_transcripts/$userId/$path').delete();
   }
+
+  //Supporting Material Methods
+
+  Future<void> deletePassportFile(String userId, String path) async {
+    return _storageReference
+        .child('supporting_materials/passports/$userId/$path')
+        .delete();
+  }
+
+  Future<void> deleteStatementFile(String userId, String path) async {
+    return _storageReference
+        .child('supporting_materials/personal_statements/$userId/$path')
+        .delete();
+  }
+
+  Future<void> deleteOtherFile(String userId, String path) async {
+    return _storageReference
+        .child('supporting_materials/others/$userId/$path')
+        .delete();
+  }
+
+  //Ends Here
 
   Future<void> deleteApplicationPhoto(String path) async {
     return _storageReference.child('application_pictures/$path').delete();
@@ -86,6 +134,24 @@ class FirebaseStorageAPI {
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }
 
+  //Supporting Materials Methods
+  Future<String> getUploadPassportUrl(String userId, File files) async {
+    StorageUploadTask uploadTask = await uploadPassportFile(userId, files);
+    return await (await uploadTask.onComplete).ref.getDownloadURL();
+  }
+
+  Future<String> getUploadStatementsUrl(String userId, File files) async {
+    StorageUploadTask uploadTask = await uploadStatementFile(userId, files);
+    return await (await uploadTask.onComplete).ref.getDownloadURL();
+  }
+
+  Future<String> getUploadOthersUrl(String userId, File files) async {
+    StorageUploadTask uploadTask = await uploadOtherFile(userId, files);
+    return await (await uploadTask.onComplete).ref.getDownloadURL();
+  }
+
+  //Ends Here
+
   Future<List<String>> getOnlyTranscriptsUrl(
       String userId, List<String> path) async {
     List<String> urls = [];
@@ -118,4 +184,39 @@ class FirebaseStorageAPI {
     }
     return urls;
   }
+  //Supporting Material Methods
+
+  Future<List<String>> getOnlyPassportUrl(
+      String userId, List<String> path) async {
+    List<String> urls = [];
+    for (var filename in path) {
+      urls.add(await _storageReference
+          .child('supporting_materials/passports/$userId/$filename')
+          .getDownloadURL());
+    }
+    return urls;
+  }
+
+  Future<List<String>> getOnlyStatementUrl(
+      String userId, List<String> path) async {
+    List<String> urls = [];
+    for (var filename in path) {
+      urls.add(await _storageReference
+          .child('supporting_materials/personal_statements/$userId/$filename')
+          .getDownloadURL());
+    }
+    return urls;
+  }
+
+  Future<List<String>> getOnlyOthersUrl(
+      String userId, List<String> path) async {
+    List<String> urls = [];
+    for (var filename in path) {
+      urls.add(await _storageReference
+          .child('supporting_materials/others/$userId/$filename')
+          .getDownloadURL());
+    }
+    return urls;
+  }
+  //Ends Here
 }

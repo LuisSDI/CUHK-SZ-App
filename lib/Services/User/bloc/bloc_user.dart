@@ -341,6 +341,28 @@ class UserBloc implements Bloc {
   Stream<DocumentSnapshot> getWorkExpirience(String userID) =>
       _cloudFirestoreRepository.getWorkExpirience(userID);
 
+  //Supporting Material Methods
+
+  Future<void> registerPassportUrl(String userID, List<String> referenceUrls,
+          List<String> referenceNames) =>
+      _cloudFirestoreRepository.registerPassportUrl(
+          userID, referenceUrls, referenceNames);
+
+  Future<void> registerStatementUrl(String userID, List<String> referenceUrls,
+          List<String> referenceNames) =>
+      _cloudFirestoreRepository.registerStatementUrl(
+          userID, referenceUrls, referenceNames);
+
+  Future<void> registerOtherUrl(String userID, List<String> referenceUrls,
+          List<String> referenceNames) =>
+      _cloudFirestoreRepository.registerOtherUrl(
+          userID, referenceUrls, referenceNames);
+
+  Stream<DocumentSnapshot> getSupportingMaterials(String userID) =>
+      _cloudFirestoreRepository.getSupportingMaterials(userID);
+
+  //Ends Here
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
@@ -384,6 +406,36 @@ class UserBloc implements Bloc {
 
   Future<void> deleterReferenceFile(String userId, String path) =>
       _firebaseStorageRepository.deleteReferenceFile(userId, path);
+
+  //Supporting Material Methods
+
+  Future<List<String>> getOnlyPassportUrl(String userId, List<String> path) =>
+      _firebaseStorageRepository.getOnlyPassportUrl(userId, path);
+
+  Future<List<String>> getOnlyStatementUrl(String userId, List<String> path) =>
+      _firebaseStorageRepository.getOnlyStatementUrl(userId, path);
+
+  Future<List<String>> getOnlyOthersUrl(String userId, List<String> path) =>
+      _firebaseStorageRepository.getOnlyOthersUrl(userId, path);
+
+  Future<void> deletePassportFile(String userId, String path) =>
+      _firebaseStorageRepository.deletePassportFile(userId, path);
+
+  Future<void> deleteStatementFile(String userId, String path) =>
+      _firebaseStorageRepository.deleteStatementFile(userId, path);
+
+  Future<void> deleteOtherFile(String userId, String path) =>
+      _firebaseStorageRepository.deleteOtherFile(userId, path);
+
+  Future<String> getUploadPassportUrl(String userId, File files) =>
+      _firebaseStorageRepository.getUploadPassportUrl(userId, files);
+
+  Future<String> getUploadStatementsUrl(String userId, File files) =>
+      _firebaseStorageRepository.getUploadStatementsUrl(userId, files);
+
+  Future<String> getUploadOthersUrl(String userId, File files) =>
+      _firebaseStorageRepository.getUploadOthersUrl(userId, files);
+  //Ends Here
 
   signOut() {
     _auth_repository.signOut();
