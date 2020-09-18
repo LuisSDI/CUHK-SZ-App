@@ -324,4 +324,7 @@ class CloudFirestoreRepository {
       _cloudFirestoreAPI.getSupportingMaterials(userID);
 
   //Ends Here
+
+  Future<void> registerApplication(String userID) =>
+      _cloudFirestoreAPI.registerApplication(userID);
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuhkszapp/MainPages/ApplyPages/declaration_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -497,12 +498,12 @@ class _SupportingDocumentsPageState extends State<SupportingDocumentsPage> {
                         onTap: () async {
                           if (passportFilenames.isNotEmpty &&
                               statementFilenames.isNotEmpty) {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ReferencesPage(
-                            //               userId: widget.userId,
-                            //             )));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DeclarationPage(
+                                          userId: widget.userId,
+                                        )));
                           } else {
                             _scaffkey.currentState.showSnackBar(SnackBar(
                               duration: Duration(seconds: 2),

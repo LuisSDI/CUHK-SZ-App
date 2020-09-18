@@ -547,6 +547,13 @@ class CloudFireStoreAPI {
   }
 
   //Ends Here
+
+  Future<void> registerApplication(String userID) async {
+    return await userInfo
+        .document(userID)
+        .setData({'status of application': 'Finish'}, merge: true);
+  }
+
   Future<void> addMessage(Message message, User sender, User receiver) async {
     Map map = message.toMap();
 

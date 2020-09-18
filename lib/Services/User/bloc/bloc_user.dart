@@ -363,6 +363,9 @@ class UserBloc implements Bloc {
 
   //Ends Here
 
+  Future<void> registerApplication(String userID) =>
+      _cloudFirestoreRepository.registerApplication(userID);
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
