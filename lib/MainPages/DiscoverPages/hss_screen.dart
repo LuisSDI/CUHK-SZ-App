@@ -1,4 +1,5 @@
 import 'package:cuhkszapp/resources/major_buttom.dart';
+import 'package:cuhkszapp/resources/placeholder_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -58,6 +59,7 @@ and Social Science''',
                 detail: '''Translation'''.trim(),
                 image: "assets/images_sse_majors/CSE.png",
                 alignment: Alignment(-.3, 0),
+                screen: PlaceHolderPage(),
               ),
             ),
             //PSI Button
@@ -72,6 +74,7 @@ and Social Science''',
 Psychology'''
                     .trim(),
                 image: "assets/images_sse_majors/EIE.png",
+                screen: PlaceHolderPage(),
               ),
             ),
             //ENG Button
@@ -86,6 +89,7 @@ Psychology'''
 Studies'''
                     .trim(),
                 image: "assets/images_sse_majors/NES.png",
+                screen: PlaceHolderPage(),
                 alignment: Alignment(.8, 0),
               ),
             ),

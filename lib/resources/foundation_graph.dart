@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+//import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FoundationGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenScaler scaler = ScreenScaler()..init(context);
+    //ScreenScaler scaler = ScreenScaler()..init(context);
     return Container(
       child: Column(
         children: [

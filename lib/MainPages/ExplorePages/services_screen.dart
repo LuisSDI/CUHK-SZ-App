@@ -1,5 +1,6 @@
 import 'package:cuhkszapp/MainPages/ExplorePages/ServicesPages/sall_screen.dart';
 import 'package:cuhkszapp/resources/image_slider.dart';
+import 'package:cuhkszapp/resources/placeholder_page.dart';
 import 'package:cuhkszapp/resources/screen_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -68,6 +69,7 @@ class ServicesScreen extends StatelessWidget {
                       ScreenButtom(
                         detail: '''CIDE'''.trim(),
                         iconData: Icons.business,
+                        screen: PlaceHolderPage(),
                       ),
                       ScreenButtom(
                         detail: '''SALL 
@@ -88,12 +90,14 @@ Center'''
                       ScreenButtom(
                         detail: '''Career Service Center'''.trim(),
                         iconData: MaterialCommunityIcons.briefcase,
+                        screen: PlaceHolderPage(),
                       ),
                       ScreenButtom(
                         detail: '''Health 
 Center'''
                             .trim(),
                         iconData: FontAwesome.hospital_o,
+                        screen: PlaceHolderPage(),
                       ),
                     ],
                   ),

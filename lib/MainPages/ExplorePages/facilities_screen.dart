@@ -1,4 +1,5 @@
 import 'package:cuhkszapp/resources/image_slider.dart';
+import 'package:cuhkszapp/resources/placeholder_page.dart';
 import 'package:cuhkszapp/resources/screen_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -76,6 +77,7 @@ class FacilitiesScreen extends StatelessWidget {
                       ScreenButtom(
                         detail: '''Sports'''.trim(),
                         iconData: FontAwesome.soccer_ball_o,
+                        screen: PlaceHolderPage(),
                       ),
                     ],
                   ),
@@ -89,10 +91,12 @@ class FacilitiesScreen extends StatelessWidget {
                       ScreenButtom(
                         detail: '''Stores'''.trim(),
                         iconData: Icons.store,
+                        screen: PlaceHolderPage(),
                       ),
                       ScreenButtom(
                         detail: 'Entertainment',
                         iconData: Icons.local_play,
+                        screen: PlaceHolderPage(),
                       ),
                     ],
                   ),

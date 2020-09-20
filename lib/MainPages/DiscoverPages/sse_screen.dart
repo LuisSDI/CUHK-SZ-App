@@ -1,5 +1,6 @@
 import 'package:cuhkszapp/resources/major_buttom.dart';
 import 'package:cuhkszapp/resources/major_screen.dart';
+import 'package:cuhkszapp/resources/placeholder_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -181,6 +182,7 @@ Information
 Engineering'''
                     .trim(),
                 image: "assets/images_sse_majors/EIE.png",
+                screen: PlaceHolderPage(),
               ),
             ),
             //NES Button
@@ -197,6 +199,7 @@ Engineering'''
                     .trim(),
                 image: "assets/images_sse_majors/NES.png",
                 alignment: Alignment(.8, 0),
+                screen: PlaceHolderPage(),
               ),
             ),
             //Math Button
@@ -212,6 +215,7 @@ and Applied
 Mathematics'''
                     .trim(),
                 image: 'assets/images_sse_majors/Math.png',
+                screen: PlaceHolderPage(),
               ),
             ),
             //STAT Button
@@ -224,6 +228,7 @@ Mathematics'''
               child: MajorButtom(
                 detail: '''Statistics'''.trim(),
                 image: "assets/images_sse_majors/STAT.png",
+                screen: PlaceHolderPage(),
               ),
             ),
           ],

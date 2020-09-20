@@ -1,4 +1,5 @@
 import 'package:cuhkszapp/resources/major_buttom.dart';
+import 'package:cuhkszapp/resources/placeholder_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -58,6 +59,7 @@ Health Science''',
                 detail: '''Bioinformatic'''.trim(),
                 image: "assets/images_lhs_majors/INF.jpg",
                 alignment: Alignment(-.3, 0),
+                screen: PlaceHolderPage(),
               ),
             ),
             //BIO Button
@@ -74,6 +76,7 @@ Engineering'''
                     .trim(),
                 image: "assets/images_lhs_majors/BIO.png",
                 alignment: Alignment(.5, 0),
+                screen: PlaceHolderPage(),
               ),
             ),
           ],

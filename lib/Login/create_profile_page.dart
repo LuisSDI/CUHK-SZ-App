@@ -30,20 +30,21 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String dropdownValue = 'Student';
   String name, phone, description;
-  String country_code = '86';
+  String countryCode = '86';
   String countryField = 'China';
   GlobalKey<ScaffoldState> scaffkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     ScreenScaler scaler = ScreenScaler()..init(context);
-    Country country_phone = CountryPickerUtils.getCountryByPhoneCode(country_code);
+    Country country_phone =
+        CountryPickerUtils.getCountryByPhoneCode(countryCode);
     Country country = CountryPickerUtils.getCountryByName(countryField);
     print(countryField);
-    print(country_code);
+    print(countryCode);
     return BlocProvider(
       bloc: UserBloc(),
       child: Scaffold(
-        key: scaffkey,
+          key: scaffkey,
           body: Form(
               key: _formKey,
               child: SingleChildScrollView(
@@ -137,9 +138,9 @@ you can change this info later"""
                             style: GoogleFonts.lato(
                                 textStyle: TextStyle(fontSize: 16)),
                             decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.only(left: scaler.getHeight(1),
-                                  ),
+                              contentPadding: EdgeInsets.only(
+                                left: scaler.getHeight(1),
+                              ),
                               counterText: '',
                               hintText: 'Aa',
                               hintStyle: GoogleFonts.lato(
@@ -147,9 +148,9 @@ you can change this info later"""
                                 fontSize: 14,
                               )),
                               errorStyle: GoogleFonts.lato(
-                              textStyle: TextStyle(
-    fontSize: 16,
-    )),
+                                  textStyle: TextStyle(
+                                fontSize: 16,
+                              )),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide:
@@ -170,7 +171,8 @@ you can change this info later"""
                         Container(
                           height: scaler.getWidth(5),
                           margin: EdgeInsets.only(
-                              top: scaler.getWidth(1),),
+                            top: scaler.getWidth(1),
+                          ),
                           child: FittedBox(
                               fit: BoxFit.contain,
                               child: Text(
@@ -195,7 +197,7 @@ you can change this info later"""
                                     height: scaler.getWidth(4),
                                     margin: EdgeInsets.only(
                                         top: scaler.getWidth(1),
-                                    bottom: scaler.getWidth(.5)),
+                                        bottom: scaler.getWidth(.5)),
                                     child: FittedBox(
                                         fit: BoxFit.contain,
                                         child: Text(
@@ -208,44 +210,49 @@ you can change this info later"""
                                   ),
                                   // Country Code Field
                                   Container(
-                                      padding:
-                                      EdgeInsets.only(right: scaler.getHeight(.5)),
+                                      padding: EdgeInsets.only(
+                                          right: scaler.getHeight(.5)),
                                       alignment: Alignment.centerRight,
                                       height: scaler.getHeight(5),
                                       decoration: BoxDecoration(
                                           border: Border.all(
                                             color: Color(0xff6747CD),
                                           ),
-                                          borderRadius: BorderRadius.circular(10)),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: Container(
                                         width: scaler.getHeight(18),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             SizedBox(width: 8.0),
-                                            CountryPickerUtils.getDefaultFlagImage(
-                                                country_phone),
+                                            CountryPickerUtils
+                                                .getDefaultFlagImage(
+                                                    country_phone),
                                             SizedBox(width: 8.0),
                                             Expanded(
                                                 child: Container(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    '+' + country_phone.phoneCode,
-                                                    textAlign: TextAlign.right,
-                                                    style: GoogleFonts.lato(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 16,
-                                                            color: Colors.black,
-                                                            fontWeight: FontWeight.bold)),
-                                                  ),
-                                                )),
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                '+' + country_phone.phoneCode,
+                                                textAlign: TextAlign.right,
+                                                style: GoogleFonts.lato(
+                                                    textStyle: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                            )),
                                             SizedBox(width: 8.0),
                                             GestureDetector(
                                               child: Icon(
                                                 Icons.keyboard_arrow_down,
                                                 color: Color(0xff6747CD),
                                               ),
-                                              onTap: _openCountryPickerPhoneDialog,
+                                              onTap:
+                                                  _openCountryPickerPhoneDialog,
                                             )
                                           ],
                                         ),
@@ -254,7 +261,8 @@ you can change this info later"""
                               ),
                               // Number Container
                               Container(
-                                margin: EdgeInsets.only(left: scaler.getWidth(4)),
+                                margin:
+                                    EdgeInsets.only(left: scaler.getWidth(4)),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,7 +280,8 @@ you can change this info later"""
                                             style: GoogleFonts.lato(
                                                 textStyle: TextStyle(
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.bold)),
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                           )),
                                     ),
                                     //  Number Field
@@ -282,7 +291,8 @@ you can change this info later"""
                                         child: TextFormField(
                                           validator: (input) {
                                             if (input.length < 8) {
-                                              scaffkey.currentState.showSnackBar(SnackBar(
+                                              scaffkey.currentState
+                                                  .showSnackBar(SnackBar(
                                                 content: Container(
                                                   alignment: Alignment.center,
                                                   height: scaler.getHeight(2),
@@ -290,8 +300,8 @@ you can change this info later"""
                                                     "Please type a valid number",
                                                     style: GoogleFonts.lato(
                                                         textStyle: TextStyle(
-                                                          fontSize: 14,
-                                                        )),
+                                                      fontSize: 14,
+                                                    )),
                                                   ),
                                                 ),
                                               ));
@@ -304,14 +314,13 @@ you can change this info later"""
                                           keyboardType: TextInputType.number,
                                           maxLength: 13,
                                           style: GoogleFonts.lato(
-                                              textStyle: TextStyle(fontSize: 16)),
+                                              textStyle:
+                                                  TextStyle(fontSize: 16)),
                                           decoration: InputDecoration(
                                             contentPadding: EdgeInsets.only(
                                                 left: scaler.getWidth(1)),
                                             hintText: '123456789',
-                                            errorStyle: TextStyle(
-                                              height: 0
-                                            ),
+                                            errorStyle: TextStyle(height: 0),
                                             counterText: '',
                                             hintStyle: GoogleFonts.lato(
                                                 textStyle: TextStyle(
@@ -337,11 +346,10 @@ you can change this info later"""
                                                     width: 1)),
                                             errorBorder: OutlineInputBorder(
                                                 borderRadius:
-                                                BorderRadius.circular(10),
+                                                    BorderRadius.circular(10),
                                                 borderSide: BorderSide(
                                                     width: 1,
-                                                  color: Colors.red
-                                                )),
+                                                    color: Colors.red)),
                                           ),
                                         ),
                                       ),
@@ -364,8 +372,8 @@ you can change this info later"""
                                 Container(
                                   height: scaler.getWidth(5),
                                   margin: EdgeInsets.only(
-                                    top: scaler.getWidth(1),
-                                  bottom: scaler.getWidth(.5)),
+                                      top: scaler.getWidth(1),
+                                      bottom: scaler.getWidth(.5)),
                                   child: FittedBox(
                                       fit: BoxFit.contain,
                                       child: Text(
@@ -378,26 +386,28 @@ you can change this info later"""
                                 ),
                                 // Country Code Field
                                 Container(
-                                    padding:
-                                    EdgeInsets.only(right: scaler.getHeight(.5)),
+                                    padding: EdgeInsets.only(
+                                        right: scaler.getHeight(.5)),
                                     alignment: Alignment.centerRight,
                                     height: scaler.getHeight(5),
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                           color: Color(0xff6747CD),
                                         ),
-                                        borderRadius: BorderRadius.circular(10)),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     child: Container(
                                       width: scaler.getWidth(80),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: <Widget>[
                                           SizedBox(width: 8.0),
-                                          CountryPickerUtils.getDefaultFlagImage(
-                                              country),
+                                          CountryPickerUtils
+                                              .getDefaultFlagImage(country),
                                           SizedBox(width: 8.0),
                                           Container(
-                                            width: scaler.getWidth(60),
+                                              width: scaler.getWidth(60),
                                               child: Text(
                                                 country.name,
                                                 textAlign: TextAlign.left,
@@ -405,7 +415,8 @@ you can change this info later"""
                                                     textStyle: TextStyle(
                                                         fontSize: 16,
                                                         color: Colors.black,
-                                                        fontWeight: FontWeight.bold)),
+                                                        fontWeight:
+                                                            FontWeight.bold)),
                                               )),
                                           Expanded(child: SizedBox(width: 8.0)),
                                           GestureDetector(
@@ -551,15 +562,9 @@ you can change this info later"""
                                   top: scaler.getWidth(1)),
                               hintText: 'Aa',
                               errorStyle: GoogleFonts.lato(
-                                textStyle: TextStyle(
-                                  fontSize: 14
-                                )
-                              ),
+                                  textStyle: TextStyle(fontSize: 14)),
                               counterStyle: GoogleFonts.lato(
-                                textStyle: TextStyle(
-                                  fontSize: 14
-                                )
-                              ),
+                                  textStyle: TextStyle(fontSize: 14)),
                               hintStyle: GoogleFonts.lato(
                                   textStyle: TextStyle(
                                 fontSize: 16,
@@ -594,72 +599,71 @@ you can change this info later"""
   }
 
   Widget _buildDialogItem(Country country) => Row(
-    children: <Widget>[
-      CountryPickerUtils.getDefaultFlagImage(country),
-      SizedBox(width: 8.0),
-      Flexible(
-        child: Text(
-          country.name,
-          style: GoogleFonts.lato(
-              textStyle: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold)),
-        ),
-      )
-    ],
-  );
+        children: <Widget>[
+          CountryPickerUtils.getDefaultFlagImage(country),
+          SizedBox(width: 8.0),
+          Flexible(
+            child: Text(
+              country.name,
+              style: GoogleFonts.lato(
+                  textStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
+            ),
+          )
+        ],
+      );
   Widget _buildDialogItemPhone(Country country) => Row(
-    children: <Widget>[
-      CountryPickerUtils.getDefaultFlagImage(country),
-      SizedBox(width: 8.0),
-      Flexible(
-        child: Text(
-          '+' + country.phoneCode,
-          style: GoogleFonts.lato(
-              textStyle: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold)),
-        ),
-      )
-    ],
-  );
-
+        children: <Widget>[
+          CountryPickerUtils.getDefaultFlagImage(country),
+          SizedBox(width: 8.0),
+          Flexible(
+            child: Text(
+              '+' + country.phoneCode,
+              style: GoogleFonts.lato(
+                  textStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
+            ),
+          )
+        ],
+      );
 
   void _openCountryPickerDialog() => showDialog(
-    context: context,
-    builder: (context) => Theme(
-      data: Theme.of(context).copyWith(primaryColor: Color(0xff6747CD)),
-      child: CountryPickerDialog(
-        titlePadding: EdgeInsets.all(8.0),
-        searchCursorColor: Color(0xff6747CD),
-        searchInputDecoration: InputDecoration(hintText: 'Search...'),
-        isSearchable: true,
-        title: Text('Select country'),
-        onValuePicked: (Country country) =>
-            setState(() => countryField = country.name),
-        itemBuilder: _buildDialogItem,
-      ),
-    ),
-  );
+        context: context,
+        builder: (context) => Theme(
+          data: Theme.of(context).copyWith(primaryColor: Color(0xff6747CD)),
+          child: CountryPickerDialog(
+            titlePadding: EdgeInsets.all(8.0),
+            searchCursorColor: Color(0xff6747CD),
+            searchInputDecoration: InputDecoration(hintText: 'Search...'),
+            isSearchable: true,
+            title: Text('Select country'),
+            onValuePicked: (Country country) =>
+                setState(() => countryField = country.name),
+            itemBuilder: _buildDialogItem,
+          ),
+        ),
+      );
 
   void _openCountryPickerPhoneDialog() => showDialog(
-    context: context,
-    builder: (context) => Theme(
-      data: Theme.of(context).copyWith(primaryColor: Color(0xff6747CD)),
-      child: CountryPickerDialog(
-        titlePadding: EdgeInsets.all(8.0),
-        searchCursorColor: Color(0xff6747CD),
-        searchInputDecoration: InputDecoration(hintText: 'Search...'),
-        isSearchable: true,
-        title: Text('Select country'),
-        onValuePicked: (Country country) =>
-            setState(() => country_code = country.phoneCode),
-        itemBuilder: _buildDialogItemPhone,
-      ),
-    ),
-  );
+        context: context,
+        builder: (context) => Theme(
+          data: Theme.of(context).copyWith(primaryColor: Color(0xff6747CD)),
+          child: CountryPickerDialog(
+            titlePadding: EdgeInsets.all(8.0),
+            searchCursorColor: Color(0xff6747CD),
+            searchInputDecoration: InputDecoration(hintText: 'Search...'),
+            isSearchable: true,
+            title: Text('Select country'),
+            onValuePicked: (Country country) =>
+                setState(() => countryCode = country.phoneCode),
+            itemBuilder: _buildDialogItemPhone,
+          ),
+        ),
+      );
 
   Future<void> registerUser() async {
     {
@@ -688,7 +692,7 @@ you can change this info later"""
               uid: firebaseUser.uid,
               country: countryField,
               description: description,
-              phone: '+$country_code $phone',
+              phone: '+$countryCode $phone',
               type: dropdownValue);
           widget.userBloc.setUserData(user);
         } catch (e) {

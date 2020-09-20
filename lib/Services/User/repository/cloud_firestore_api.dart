@@ -554,6 +554,10 @@ class CloudFireStoreAPI {
         .setData({'status of application': 'Finish'}, merge: true);
   }
 
+  Stream<DocumentSnapshot> getUserInfo(String userID) {
+    return userInfo.document(userID).snapshots();
+  }
+
   Future<void> addMessage(Message message, User sender, User receiver) async {
     Map map = message.toMap();
 

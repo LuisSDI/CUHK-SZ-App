@@ -1,5 +1,4 @@
 import 'package:cuhkszapp/Login/sign_in_page.dart';
-import 'package:cuhkszapp/resources/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -52,9 +51,8 @@ class OnboardingScreen extends StatelessWidget {
             children: <Widget>[
               Container(
                 height: scaler.getWidth(8),
-                margin:
-                    EdgeInsets.only(bottom: scaler.getWidth(3),
-                    top: scaler.getWidth(5)),
+                margin: EdgeInsets.only(
+                    bottom: scaler.getWidth(3), top: scaler.getWidth(5)),
                 child: FittedBox(
                     fit: BoxFit.contain,
                     child: Text(
@@ -70,8 +68,7 @@ class OnboardingScreen extends StatelessWidget {
             children: <Widget>[
               Container(
                 height: scaler.getWidth(22),
-                padding: EdgeInsets.symmetric(
-                    vertical: scaler.getWidth(1)),
+                padding: EdgeInsets.symmetric(vertical: scaler.getWidth(1)),
                 child: FittedBox(
                     fit: BoxFit.contain,
                     child: Text(

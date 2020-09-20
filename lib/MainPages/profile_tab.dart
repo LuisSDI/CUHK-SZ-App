@@ -41,7 +41,7 @@ class ProfileTab extends StatelessWidget {
                       photoUrL: value.data['photoURL'],
                       email: value.data['email'],
                     );
-                    return Profile(scaler, user, context);
+                    return profile(scaler, user, context);
                   } else {
                     return Scaffold(
                       body: Center(
@@ -62,7 +62,7 @@ class ProfileTab extends StatelessWidget {
     );
   }
 
-  Widget Profile(ScreenScaler scaler, User user, BuildContext context) {
+  Widget profile(ScreenScaler scaler, User user, BuildContext context) {
     Country country = CountryPickerUtils.getCountryByName(user.country);
     return SafeArea(
       top: false,
@@ -140,9 +140,9 @@ class ProfileTab extends StatelessWidget {
                               child: Center(
                                 child: CircularProgressIndicator(
                                   value: loadingProgress.expectedTotalBytes !=
-                                      null
+                                          null
                                       ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes
+                                          loadingProgress.expectedTotalBytes
                                       : null,
                                 ),
                               ),
@@ -393,7 +393,7 @@ class ProfileTab extends StatelessWidget {
                         await FirebaseAuth.instance
                             .signOut()
                             .then((value) => print("Sesion Cerrada"));
-                        },
+                      },
                       icon: Icon(
                         Icons.exit_to_app,
                         color: Colors.white,

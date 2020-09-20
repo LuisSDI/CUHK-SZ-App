@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cuhkszapp/MainPages/home_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
-import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:cuhkszapp/resources/check_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';

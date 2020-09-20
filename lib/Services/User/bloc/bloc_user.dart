@@ -12,7 +12,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 class UserBloc implements Bloc {
-  final _auth_repository = AuthRepository();
+  final authRepository = AuthRepository();
 
   //Flujo de datos -Streams
   //Stream - Firebase
@@ -25,22 +25,22 @@ class UserBloc implements Bloc {
   //Firebase Auth
   //1.SignIn
   Future<FirebaseUser> signIn(String email, String password) =>
-      _auth_repository.signInFirebase(email, password);
+      authRepository.signInFirebase(email, password);
   //2.SignIn Credential
   Future<AuthResult> signInCredential(AuthCredential credential) =>
-      _auth_repository.signInCredential(credential);
+      authRepository.signInCredential(credential);
   //Google
   Future<AuthCredential> credentialGoogle() =>
-      _auth_repository.credentialGoogle();
+      authRepository.credentialGoogle();
   //Facebook
   Future<AuthCredential> credentialFacebook() =>
-      _auth_repository.credentialFacebook();
+      authRepository.credentialFacebook();
   //3.Sign Up
   Future<FirebaseUser> signUp(String email, String password) =>
-      _auth_repository.signUpFirebase(email, password);
+      authRepository.signUpFirebase(email, password);
 
   Future sendRecoveryPassword(String email) =>
-      _auth_repository.sendRecoveryPassword(email);
+      authRepository.sendRecoveryPassword(email);
 
   // Firebase Cloud Firestore
 
@@ -366,6 +366,9 @@ class UserBloc implements Bloc {
   Future<void> registerApplication(String userID) =>
       _cloudFirestoreRepository.registerApplication(userID);
 
+  Stream<DocumentSnapshot> getUserInfo(String userID) =>
+      _cloudFirestoreRepository.getUserInfo(userID);
+
   //Firebase Storage
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
@@ -441,11 +444,9 @@ class UserBloc implements Bloc {
   //Ends Here
 
   signOut() {
-    _auth_repository.signOut();
+    authRepository.signOut();
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-  }
+  void dispose() {}
 }

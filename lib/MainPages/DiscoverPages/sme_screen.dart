@@ -1,4 +1,5 @@
 import 'package:cuhkszapp/resources/major_buttom.dart';
+import 'package:cuhkszapp/resources/placeholder_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -57,6 +58,7 @@ and Economics''',
               child: MajorButtom(
                 detail: '''Economics'''.trim(),
                 image: "assets/images_sme_majors/ECO.jpg",
+                screen: PlaceHolderPage(),
               ),
             ),
             //MAR Button
@@ -69,6 +71,7 @@ and Economics''',
               child: MajorButtom(
                 detail: '''Marketing'''.trim(),
                 image: "assets/images_sme_majors/MAR.jpg",
+                screen: PlaceHolderPage(),
               ),
             ),
             //FIN Button
@@ -81,6 +84,7 @@ and Economics''',
               child: MajorButtom(
                 detail: '''Finance'''.trim(),
                 image: "assets/images_sme_majors/FIN.jpg",
+                screen: PlaceHolderPage(),
               ),
             ),
             //BUS Button
@@ -97,6 +101,7 @@ Studies'''
                     .trim(),
                 image: "assets/images_sme_majors/BUS.jpg",
                 alignment: Alignment(-.8, 0),
+                screen: PlaceHolderPage(),
               ),
             ),
 
@@ -112,6 +117,7 @@ Studies'''
 Accounting'''
                     .trim(),
                 image: "assets/images_sme_majors/MAR.jpg",
+                screen: PlaceHolderPage(),
               ),
             ),
             //FIN ENG Button
@@ -126,6 +132,7 @@ Accounting'''
 Engineering'''
                     .trim(),
                 image: "assets/images_sme_majors/ECO.jpg",
+                screen: PlaceHolderPage(),
               ),
             ),
           ],

@@ -327,4 +327,7 @@ class CloudFirestoreRepository {
 
   Future<void> registerApplication(String userID) =>
       _cloudFirestoreAPI.registerApplication(userID);
+
+  Stream<DocumentSnapshot> getUserInfo(String userID) =>
+      _cloudFirestoreAPI.getUserInfo(userID);
 }
