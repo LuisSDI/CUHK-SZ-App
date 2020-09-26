@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'apply_tab.dart';
 
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }

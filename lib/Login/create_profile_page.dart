@@ -3,6 +3,7 @@ import 'package:country_pickers/country_pickers.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
+import 'package:cuhkszapp/resources/async_loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -39,8 +40,6 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
     Country country_phone =
         CountryPickerUtils.getCountryByPhoneCode(countryCode);
     Country country = CountryPickerUtils.getCountryByName(countryField);
-    print(countryField);
-    print(countryCode);
     return BlocProvider(
       bloc: UserBloc(),
       child: Scaffold(
@@ -493,7 +492,6 @@ you can change this info later"""
                                     elevation: 16,
                                     onChanged: (String newValue) {
                                       setState(() {
-                                        print(newValue);
                                         dropdownValue = newValue;
                                       });
                                     },
@@ -670,33 +668,130 @@ you can change this info later"""
       final formState = _formKey.currentState;
       widget.userBloc = BlocProvider.of(context);
       AuthResult authResult;
-      FirebaseUser firebaseUser;
       if (formState.validate()) {
         formState.save();
         try {
-          print(widget.credential);
           if (widget.credential != null) {
-            authResult =
-                await widget.userBloc.signInCredential(widget.credential);
-            firebaseUser = authResult.user;
+            authResult = await widget.userBloc
+                .signInCredential(widget.credential)
+                .then((value) {
+              Async_Loader.showLoadingDialog(context);
+              if (value == null) {
+                scaffkey.currentState.showSnackBar(SnackBar(
+                  duration: Duration(seconds: 3),
+                  content: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Text(
+                      widget.userBloc.getError(),
+                      style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                        fontSize: 14,
+                      )),
+                    ),
+                  ),
+                ));
+                widget.userBloc.resetError();
+              } else {
+                User user = User(
+                    email: value.user.email,
+                    name: name,
+                    photoUrL: (value.user.photoUrl == null)
+                        ? 'https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/no_photo.png?alt=media&token=f444bdb5-4857-4c54-9268-2c7cf3970ca2'
+                        : value.user.photoUrl,
+                    uid: value.user.uid,
+                    country: countryField,
+                    description: description,
+                    phone: '+$countryCode $phone',
+                    type: dropdownValue);
+                widget.userBloc.setUserData(user).whenComplete(() {
+                  if (widget.userBloc.getErrorCloud() == null) {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  } else {
+                    value.user.delete();
+                    widget.userBloc.signOut();
+                    scaffkey.currentState.showSnackBar(SnackBar(
+                      duration: Duration(seconds: 3),
+                      content: Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        child: Text(
+                          widget.userBloc.getErrorCloud(),
+                          style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                            fontSize: 14,
+                          )),
+                        ),
+                      ),
+                    ));
+                    widget.userBloc.resetErrorCloud();
+                  }
+                });
+              }
+            });
           } else {
-            firebaseUser =
-                await widget.userBloc.signUp(widget.email, widget.password);
+            Async_Loader.showLoadingDialog(context);
+            await widget.userBloc
+                .signUp(widget.email, widget.password)
+                .then((value) {
+              if (value == null) {
+                scaffkey.currentState.showSnackBar(SnackBar(
+                  duration: Duration(seconds: 3),
+                  content: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Text(
+                      widget.userBloc.getError(),
+                      style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                        fontSize: 14,
+                      )),
+                    ),
+                  ),
+                ));
+                widget.userBloc.resetError();
+              } else {
+                User user = User(
+                    email: value.email,
+                    name: name,
+                    photoUrL: (value.photoUrl == null)
+                        ? 'https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/no_photo.png?alt=media&token=f444bdb5-4857-4c54-9268-2c7cf3970ca2'
+                        : value.photoUrl,
+                    uid: value.uid,
+                    country: countryField,
+                    description: description,
+                    phone: '+$countryCode $phone',
+                    type: dropdownValue);
+                widget.userBloc.setUserData(user).whenComplete(() {
+                  if (widget.userBloc.getErrorCloud() == null) {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  } else {
+                    widget.userBloc.deleteUser();
+                    widget.userBloc.signOut();
+                    scaffkey.currentState.showSnackBar(SnackBar(
+                      duration: Duration(seconds: 3),
+                      content: Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        child: Text(
+                          widget.userBloc.getErrorCloud(),
+                          style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                            fontSize: 14,
+                          )),
+                        ),
+                      ),
+                    ));
+                    widget.userBloc.resetErrorCloud();
+                  }
+                });
+              }
+            });
           }
-          User user = User(
-              email: firebaseUser.email,
-              name: name,
-              photoUrL: (firebaseUser.photoUrl == null)
-                  ? 'https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/no_photo.png?alt=media&token=f444bdb5-4857-4c54-9268-2c7cf3970ca2'
-                  : firebaseUser.photoUrl,
-              uid: firebaseUser.uid,
-              country: countryField,
-              description: description,
-              phone: '+$countryCode $phone',
-              type: dropdownValue);
-          widget.userBloc.setUserData(user);
         } catch (e) {
-          print(e.message);
+          print(e);
           Navigator.of(context).pop();
         }
       }

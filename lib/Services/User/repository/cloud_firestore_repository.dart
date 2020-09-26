@@ -6,7 +6,12 @@ import 'package:cuhkszapp/Services/User/repository/cloud_firestore_api.dart';
 class CloudFirestoreRepository {
   final _cloudFirestoreAPI = CloudFireStoreAPI();
 
-  void setUserDataFirestore(User user) => _cloudFirestoreAPI.setUserData(user);
+  String getErrorCloud() => _cloudFirestoreAPI.getErrorCloud();
+
+  void resetErrorCloud() => _cloudFirestoreAPI.resetErrorCloud();
+
+  Future<void> setUserDataFirestore(User user) =>
+      _cloudFirestoreAPI.setUserData(user);
 
   void updateUserDataFirestore(User user) =>
       _cloudFirestoreAPI.updateUserData(user);

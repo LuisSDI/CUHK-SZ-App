@@ -3,6 +3,7 @@ import 'package:cuhkszapp/Login/sign_in_content.dart';
 import 'package:cuhkszapp/Login/sign_up_content.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
+import 'package:cuhkszapp/resources/async_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +20,7 @@ class SignInPageState extends State<SignInPage> {
   String email, password;
   UserBloc userBloc;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> scaffkey = GlobalKey();
   Widget _myAnimatedWidget;
   bool isSignIn = true;
   final GlobalKey<State> keyLoader = new GlobalKey<State>();
@@ -34,6 +36,7 @@ class SignInPageState extends State<SignInPage> {
       _myAnimatedWidget = SignInContent(this);
     }
     return Scaffold(
+      key: scaffkey,
       body: Form(
         key: _formKey,
         child: Container(
@@ -161,16 +164,29 @@ class SignInPageState extends State<SignInPage> {
     if (formState.validate()) {
       formState.save();
       try {
-        //Async_Loader.showLoadingDialog(context, keyLoader);
+        Async_Loader.showLoadingDialog(context);
         userBloc = BlocProvider.of(context);
-        userBloc.signIn(email, password);
-        //Navigator.of(context).pop();
-//        Navigator.pushReplacement(
-//            context,
-//            MaterialPageRoute(
-//                builder: (context) => HomePage(
-//                      user: user.user,
-//                    )));
+        userBloc.signIn(email, password).then((value) {
+          print(value);
+          Navigator.pop(context);
+          if (value == null) {
+            scaffkey.currentState.showSnackBar(SnackBar(
+              duration: Duration(seconds: 3),
+              content: Container(
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.height * 0.05,
+                child: Text(
+                  userBloc.getError(),
+                  style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                    fontSize: 14,
+                  )),
+                ),
+              ),
+            ));
+            userBloc.resetError();
+          }
+        });
       } catch (e) {
         print(e.message);
       }

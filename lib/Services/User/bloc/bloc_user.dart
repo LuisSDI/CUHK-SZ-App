@@ -23,6 +23,13 @@ class UserBloc implements Bloc {
   Future<FirebaseUser> get currentUser => FirebaseAuth.instance.currentUser();
 
   //Firebase Auth
+
+  // Error Methods
+  String getError() => authRepository.getError();
+
+  void resetError() => authRepository.resetError();
+  //Delete User
+  void deleteUser() => authRepository.deleteUser();
   //1.SignIn
   Future<FirebaseUser> signIn(String email, String password) =>
       authRepository.signInFirebase(email, password);
@@ -44,8 +51,14 @@ class UserBloc implements Bloc {
 
   // Firebase Cloud Firestore
 
+  //Error Methods
+
+  String getErrorCloud() => _cloudFirestoreRepository.getErrorCloud();
+
+  void resetErrorCloud() => _cloudFirestoreRepository.resetErrorCloud();
+
   final _cloudFirestoreRepository = CloudFirestoreRepository();
-  void setUserData(User user) =>
+  Future<void> setUserData(User user) =>
       _cloudFirestoreRepository.setUserDataFirestore(user);
 
   void updateUserData(User user) =>

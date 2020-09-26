@@ -112,20 +112,41 @@ class _SignInContentState extends State<SignInContent> {
                     userBloc = BlocProvider.of(context);
                     AuthCredential credential =
                         await userBloc.credentialFacebook();
-                    AuthResult authResult =
-                        await userBloc.signInCredential(credential);
-                    if (authResult.additionalUserInfo.isNewUser) {
-                      authResult.user.delete();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CreateProfilePage(
-                                    auth: FirebaseAuth.instance,
-                                    credential: credential,
-                                  )));
+                    if (credential == null) {
+                      widget.parent.scaffkey.currentState.showSnackBar(SnackBar(
+                        duration: Duration(seconds: 3),
+                        content: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: Text(
+                            userBloc.getError(),
+                            style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                              fontSize: 14,
+                            )),
+                          ),
+                        ),
+                      ));
+                      userBloc.resetError();
                     } else {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      AuthResult authResult =
+                          await userBloc.signInCredential(credential);
+                      print(authResult);
+                      if (authResult.additionalUserInfo.isNewUser) {
+                        authResult.user.delete();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateProfilePage(
+                                      auth: FirebaseAuth.instance,
+                                      credential: credential,
+                                    )));
+                      } else {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      }
                     }
                   },
                   child: Container(
@@ -149,20 +170,41 @@ class _SignInContentState extends State<SignInContent> {
                     userBloc = BlocProvider.of(context);
                     AuthCredential credential =
                         await userBloc.credentialGoogle();
-                    AuthResult authResult =
-                        await userBloc.signInCredential(credential);
-                    if (authResult.additionalUserInfo.isNewUser) {
-                      authResult.user.delete();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CreateProfilePage(
-                                    auth: FirebaseAuth.instance,
-                                    credential: credential,
-                                  )));
+                    if (credential == null) {
+                      widget.parent.scaffkey.currentState.showSnackBar(SnackBar(
+                        duration: Duration(seconds: 3),
+                        content: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: Text(
+                            userBloc.getError(),
+                            style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                              fontSize: 14,
+                            )),
+                          ),
+                        ),
+                      ));
+                      userBloc.resetError();
                     } else {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      AuthResult authResult =
+                          await userBloc.signInCredential(credential);
+                      print(authResult);
+                      if (authResult.additionalUserInfo.isNewUser) {
+                        authResult.user.delete();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateProfilePage(
+                                      auth: FirebaseAuth.instance,
+                                      credential: credential,
+                                    )));
+                      } else {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      }
                     }
                   },
                   child: Container(
@@ -188,7 +230,7 @@ class _SignInContentState extends State<SignInContent> {
             ),
             // Forgot password Text
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -203,8 +245,8 @@ class _SignInContentState extends State<SignInContent> {
                     child: Text(
                       'Forgot password?',
                       style: GoogleFonts.lato(
-                          textStyle:
-                              TextStyle(fontSize: 16, color: Color(0xff62626C))),
+                          textStyle: TextStyle(
+                              fontSize: 16, color: Color(0xff62626C))),
                     )),
               ),
             ),

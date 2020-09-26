@@ -12,6 +12,16 @@ class CloudFireStoreAPI {
   final CollectionReference applications =
       Firestore.instance.collection('applications');
 
+  String errorMessage;
+
+  String getErrorCloud() {
+    return errorMessage;
+  }
+
+  void resetErrorCloud() {
+    errorMessage = null;
+  }
+
   Future<User> getUserData(String userUid) async {
     User user;
     Future<DocumentSnapshot> document = userInfo.document(userUid).get();
@@ -149,18 +159,29 @@ class CloudFireStoreAPI {
     return userInfo.document(userUid).snapshots();
   }
 
-  void setUserData(User user) async {
-    return await userInfo.document(user.uid).setData({
-      'uid': user.uid,
-      'full name': user.name,
-      'email': user.email,
-      'photoURL': user.photoUrL,
-      'phone': user.phone,
-      'country': user.country,
-      'type': user.type,
-      'description': user.description,
-      'lastSignIn': DateTime.now()
-    }, merge: true);
+  Future<void> setUserData(User user) async {
+    try {
+      return await userInfo.document(user.uid).setData({
+        'uid': user.uid,
+        'full name': user.name,
+        'email': user.email,
+        'photoURL': user.photoUrL,
+        'phone': user.phone,
+        'country': user.country,
+        'type': user.type,
+        'description': user.description,
+        'lastSignIn': DateTime.now()
+      }, merge: true);
+    } catch (error) {
+      print(error.code);
+      switch (error.code) {
+        case "ERROR_NETWORK_REQUEST_FAILED":
+          errorMessage = "You are unable to connect";
+          break;
+        default:
+          errorMessage = "An undefined Error happened.";
+      }
+    }
   }
 
   void updateUserData(User user) async {
