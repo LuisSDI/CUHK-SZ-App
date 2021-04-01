@@ -104,20 +104,26 @@ class _SupportingDocumentsPageState extends State<SupportingDocumentsPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            FilePickerResult result = await FilePicker.platform.pickFiles(
+                                allowMultiple: true,
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
                             );
-                            List<File> filesToUpload = [];
-                            for (var file in files) {
-                              String filename = path.basename(file.path);
-                              if (passportFilenames.contains(filename)) {
-                              } else {
-                                passportFilenames.add(filename);
-                                filesToUpload.add(file);
+                            if(result != null) {
+                              List<File> files = result.paths.map((path) => File(path)).toList();
+                              List<File> filesToUpload = [];
+                              for (var file in files) {
+                                String filename = path.basename(file.path);
+                                if (passportFilenames.contains(filename)) {
+                                } else {
+                                  passportFilenames.add(filename);
+                                  filesToUpload.add(file);
+                                }
                               }
+                              uploadPassport(filesToUpload, passportFilenames);
+                            } else {
+                              // User canceled the picker
                             }
-                            uploadPassport(filesToUpload, passportFilenames);
                           },
                           child: Container(
                             height: scaler.getWidth(10),
@@ -170,20 +176,27 @@ class _SupportingDocumentsPageState extends State<SupportingDocumentsPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            FilePickerResult result = await FilePicker.platform.pickFiles(
+                                allowMultiple: true,
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
                             );
-                            List<File> filesToUpload = [];
-                            for (var file in files) {
-                              String filename = path.basename(file.path);
-                              if (statementFilenames.contains(filename)) {
-                              } else {
-                                statementFilenames.add(filename);
-                                filesToUpload.add(file);
+
+                            if(result != null) {
+                              List<File> files = result.paths.map((path) => File(path)).toList();
+                              List<File> filesToUpload = [];
+                              for (var file in files) {
+                                String filename = path.basename(file.path);
+                                if (statementFilenames.contains(filename)) {
+                                } else {
+                                  statementFilenames.add(filename);
+                                  filesToUpload.add(file);
+                                }
                               }
+                              uploadStatement(filesToUpload, statementFilenames);
+                            } else {
+                              // User canceled the picker
                             }
-                            uploadStatement(filesToUpload, statementFilenames);
                           },
                           child: Container(
                             height: scaler.getWidth(10),
@@ -236,20 +249,28 @@ class _SupportingDocumentsPageState extends State<SupportingDocumentsPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+
+                            FilePickerResult result = await FilePicker.platform.pickFiles(
+                                allowMultiple: true,
                               type: FileType.custom,
-                              allowedExtensions: ['pdf'],
-                            );
-                            List<File> filesToUpload = [];
-                            for (var file in files) {
-                              String filename = path.basename(file.path);
-                              if (othersFilenames.contains(filename)) {
-                              } else {
-                                othersFilenames.add(filename);
-                                filesToUpload.add(file);
+                              allowedExtensions: ['pdf'],);
+
+                            if(result != null) {
+                              List<File> files = result.paths.map((path) => File(path)).toList();
+                              List<File> filesToUpload = [];
+                              for (var file in files) {
+                                String filename = path.basename(file.path);
+                                if (othersFilenames.contains(filename)) {
+                                } else {
+                                  othersFilenames.add(filename);
+                                  filesToUpload.add(file);
+                                }
                               }
+                              uploadOthers(filesToUpload, othersFilenames);
+                            } else {
+                              // User canceled the picker
                             }
-                            uploadOthers(filesToUpload, othersFilenames);
+
                           },
                           child: Container(
                             height: scaler.getWidth(10),

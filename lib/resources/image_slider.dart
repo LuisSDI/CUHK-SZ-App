@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -21,10 +22,16 @@ class _ImageSliderState extends State<ImageSlider> {
         child: CarouselSlider(
           items: widget.imgList
               .map((item) => Container(
-                    child: Image(
-                      image: AssetImage(item),
+                    width: scaler.getWidth(80),
+                    child: CachedNetworkImage(
+                      imageUrl: item,
                       fit: BoxFit.cover,
-                      width: scaler.getWidth(100),
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => Center(
+                        child: CircularProgressIndicator(
+                            value: downloadProgress.progress),
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ))
               .toList(),

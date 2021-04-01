@@ -76,22 +76,30 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            FilePickerResult result = await FilePicker.platform.pickFiles(
+                                allowMultiple: true,
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
                             );
-                            List<File> filesToUpload = [];
-                            for (var file in files) {
-                              String filename = path.basename(file.path);
-                              if(transcriptFilenames.contains(filename)){
+                            if(result != null) {
+                              List<File> files = result.paths.map((path) => File(path)).toList();
+                              List<File> filesToUpload = [];
+                              for (var file in files) {
+                                String filename = path.basename(file.path);
+                                if(transcriptFilenames.contains(filename)){
 
+                                }
+                                else{
+                                  transcriptFilenames.add(filename);
+                                  filesToUpload.add(file);
+                                }
                               }
-                              else{
-                              transcriptFilenames.add(filename);
-                              filesToUpload.add(file);
-                              }
+                              uploadTranscripts(filesToUpload, transcriptFilenames);
+                            } else {
+                              // User canceled the picker
                             }
-                            uploadTranscripts(filesToUpload, transcriptFilenames);
+
+
                           },
                           child: Container(
                             height: scaler.getWidth(10),

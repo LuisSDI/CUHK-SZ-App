@@ -17,7 +17,7 @@ class ChatScreen extends StatelessWidget {
   bool isWritting = false;
 
 
-  final User user;
+  final UserApp user;
   final String currentUserUid;
 
   final GlobalKey<ScaffoldState> _scaffkey = GlobalKey();
@@ -111,8 +111,8 @@ class ChatScreen extends StatelessWidget {
                         }
                         else{
                           UserBloc userBloc = BlocProvider.of(context);
-                          FirebaseUser currentUser = await userBloc.currentUser;
-                          User sender = await userBloc.getUserData(currentUser.uid);
+                          User currentUser =  userBloc.currentUser;
+                          UserApp sender = await userBloc.getUserData(currentUser.uid);
                           Message _message = Message(
                             receiverId: user.uid,
                             senderId: currentUser.uid,

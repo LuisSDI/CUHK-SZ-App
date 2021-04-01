@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseStorageRepository {
   final _firebaseStorageAPI = FirebaseStorageAPI();
-  Future<StorageUploadTask> uploadProfilePic(String path, File image) =>
+  UploadTask uploadProfilePic(String path, File image) =>
       _firebaseStorageAPI.uploadProfilePic(path, image);
   Future<String> getImageUrl(String imageId) =>
       _firebaseStorageAPI.getImageUrl(imageId);

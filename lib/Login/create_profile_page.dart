@@ -667,7 +667,7 @@ you can change this info later"""
     {
       final formState = _formKey.currentState;
       widget.userBloc = BlocProvider.of(context);
-      AuthResult authResult;
+      var authResult;
       if (formState.validate()) {
         formState.save();
         try {
@@ -693,7 +693,7 @@ you can change this info later"""
                 ));
                 widget.userBloc.resetError();
               } else {
-                User user = User(
+                UserApp user = UserApp(
                     email: value.user.email,
                     name: name,
                     photoUrL: (value.user.photoUrl == null)
@@ -752,7 +752,7 @@ you can change this info later"""
                 ));
                 widget.userBloc.resetError();
               } else {
-                User user = User(
+                UserApp user = UserApp(
                     email: value.email,
                     name: name,
                     photoUrL: (value.photoUrl == null)

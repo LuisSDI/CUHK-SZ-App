@@ -7,7 +7,7 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChatButton extends StatelessWidget {
-  final User user;
+  final UserApp user;
   final String currentUserUid;
 
   const ChatButton({Key key, @required this.user, this.currentUserUid}) : super(key: key);
