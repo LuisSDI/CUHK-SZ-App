@@ -667,7 +667,7 @@ you can change this info later"""
     {
       final formState = _formKey.currentState;
       widget.userBloc = BlocProvider.of(context);
-      AuthResult authResult;
+      UserCredential authResult;
       if (formState.validate()) {
         formState.save();
         try {
@@ -693,12 +693,12 @@ you can change this info later"""
                 ));
                 widget.userBloc.resetError();
               } else {
-                User user = User(
+                UserModel user = UserModel(
                     email: value.user.email,
                     name: name,
-                    photoUrL: (value.user.photoUrl == null)
+                    photoUrL: (value.user.photoURL == null)
                         ? 'https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/no_photo.png?alt=media&token=f444bdb5-4857-4c54-9268-2c7cf3970ca2'
-                        : value.user.photoUrl,
+                        : value.user.photoURL,
                     uid: value.user.uid,
                     country: countryField,
                     description: description,
@@ -752,7 +752,7 @@ you can change this info later"""
                 ));
                 widget.userBloc.resetError();
               } else {
-                User user = User(
+                UserModel user = UserModel(
                     email: value.email,
                     name: name,
                     photoUrL: (value.photoUrl == null)

@@ -156,12 +156,12 @@ class CloudFireStoreAPI {
   }
 
   Stream<DocumentSnapshot> listenUserData(String userUid) {
-    return userInfo.document(userUid).snapshots();
+    return userInfo.doc(userUid).snapshots();
   }
 
-  Future<void> setUserData(User user) async {
+  Future<void> setUserData(UserModel user) async {
     try {
-      return await userInfo.document(user.uid).setData({
+      return await userInfo.doc(user.uid).set({
         'uid': user.uid,
         'full name': user.name,
         'email': user.email,

@@ -31,10 +31,10 @@ class UserBloc implements Bloc {
   //Delete User
   void deleteUser() => authRepository.deleteUser();
   //1.SignIn
-  Future<FirebaseUser> signIn(String email, String password) =>
+  Future<User> signIn(String email, String password) =>
       authRepository.signInFirebase(email, password);
   //2.SignIn Credential
-  Future<AuthResult> signInCredential(AuthCredential credential) =>
+  Future<UserCredential> signInCredential(AuthCredential credential) =>
       authRepository.signInCredential(credential);
   //Google
   Future<AuthCredential> credentialGoogle() =>
@@ -58,7 +58,7 @@ class UserBloc implements Bloc {
   void resetErrorCloud() => _cloudFirestoreRepository.resetErrorCloud();
 
   final _cloudFirestoreRepository = CloudFirestoreRepository();
-  Future<void> setUserData(User user) =>
+  Future<void> setUserData(UserModel user) =>
       _cloudFirestoreRepository.setUserDataFirestore(user);
 
   void updateUserData(User user) =>

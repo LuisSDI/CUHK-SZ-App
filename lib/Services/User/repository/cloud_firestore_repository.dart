@@ -10,7 +10,7 @@ class CloudFirestoreRepository {
 
   void resetErrorCloud() => _cloudFirestoreAPI.resetErrorCloud();
 
-  Future<void> setUserDataFirestore(User user) =>
+  Future<void> setUserDataFirestore(UserModel user) =>
       _cloudFirestoreAPI.setUserData(user);
 
   void updateUserDataFirestore(User user) =>

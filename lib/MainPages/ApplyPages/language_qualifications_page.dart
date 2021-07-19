@@ -123,12 +123,12 @@ class _LanguageQualificationsPageState
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
-                              type: FileType.custom,
+                            FilePickerResult files = await FilePicker.platform.pickFiles(
+                              type:FileType.custom,
                               allowedExtensions: ['pdf'],
                             );
-                            List<File> filesToUpload = [];
-                            for (var file in files) {
+                            List<PlatformFile> filesToUpload = [];
+                            for (var file in files.files) {
                               String filename = path.basename(file.path);
                               if (languageFilenames.contains(filename)) {
                               } else {
@@ -1662,7 +1662,7 @@ Qualifications'''
   }
 
   Future<void> uploadLanguages(
-      List<File> files, List<String> transcriptFilenames) async {
+      List<PlatformFile> files, List<String> transcriptFilenames) async {
     widget.userBloc = BlocProvider.of(context);
     try {
       for (int i = 0; i < files.length; i++) {

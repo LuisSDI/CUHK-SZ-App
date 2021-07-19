@@ -11,6 +11,7 @@
         </shape>
     </item>
     <item>
+
         <bitmap
             android:gravity="center"
             android:src="@drawable/icon_splash" />

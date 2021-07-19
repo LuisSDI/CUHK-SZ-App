@@ -129,7 +129,7 @@ class _SignInContentState extends State<SignInContent> {
                       ));
                       userBloc.resetError();
                     } else {
-                      AuthResult authResult =
+                      UserCredential authResult =
                           await userBloc.signInCredential(credential);
                       print(authResult);
                       if (authResult.additionalUserInfo.isNewUser) {
@@ -187,7 +187,7 @@ class _SignInContentState extends State<SignInContent> {
                       ));
                       userBloc.resetError();
                     } else {
-                      AuthResult authResult =
+                      UserCredential authResult =
                           await userBloc.signInCredential(credential);
                       print(authResult);
                       if (authResult.additionalUserInfo.isNewUser) {

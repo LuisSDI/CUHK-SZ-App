@@ -4,15 +4,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FirebaseStorageAPI {
-  final StorageReference _storageReference = FirebaseStorage.instance.ref();
+  final Reference _storageReference = FirebaseStorage.instance.ref();
 
-  Future<StorageUploadTask> uploadProfilePic(String path, File image) async {
-    return _storageReference.child('profile_pictures/$path').putFile(image);
+  Future<TaskSnapshot> uploadProfilePic(String path, File image) async {
+    return await _storageReference.child('profile_pictures/$path').putFile(image);
   }
 
-  Future<StorageUploadTask> uploadApplicationPhoto(
+  Future<UploadTask> uploadApplicationPhoto(
       String path, File image) async {
-    return _storageReference.child('application_pictures/$path').putFile(image);
+    return  _storageReference.child('application_pictures/$path').putFile(image);
   }
 
   Future<StorageUploadTask> uploadTranscriptFile(
