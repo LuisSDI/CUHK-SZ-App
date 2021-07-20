@@ -9,7 +9,7 @@ class FirebaseStorageRepository {
       _firebaseStorageAPI.uploadProfilePic(path, image);
   Future<String> getImageUrl(String imageId) =>
       _firebaseStorageAPI.getImageUrl(imageId);
-  Future<String> getApplicationPhotoUrl(String imageId, File imageFile) =>
+  Future<String> getApplicationPhotoUrl(String imageId, PlatformFile imageFile) =>
       _firebaseStorageAPI.getApplicationPhotoUrl(imageId, imageFile);
   Future<String> getUploadTranscriptsUrl(String userId, File files) =>
       _firebaseStorageAPI.getUploadTranscriptsUrl(userId, files);

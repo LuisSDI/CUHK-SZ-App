@@ -6,61 +6,11 @@ import 'package:image_picker/image_picker.dart';
 class FirebaseStorageAPI {
   final Reference _storageReference = FirebaseStorage.instance.ref();
 
-  Future<TaskSnapshot> uploadProfilePic(String path, File image) async {
-    return await _storageReference.child('profile_pictures/$path').putFile(image);
-  }
 
-  Future<UploadTask> uploadApplicationPhoto(
-      String path, File image) async {
-    return  _storageReference.child('application_pictures/$path').putFile(image);
-  }
 
-  Future<StorageUploadTask> uploadTranscriptFile(
-      String userId, File file) async {
-    String filename = path.basename(file.path);
-    return _storageReference
-        .child('school_transcripts/$userId/$filename')
-        .putFile(file);
-  }
-
-  Future<StorageUploadTask> uploadLanguageFile(String userId, File file) async {
-    String filename = path.basename(file.path);
-    return _storageReference
-        .child('language_qualifications/$userId/$filename')
-        .putFile(file);
-  }
-
-  Future<StorageUploadTask> uploadReferenceFile(
-      String userId, File file) async {
-    String filename = path.basename(file.path);
-    return _storageReference
-        .child('references/$userId/$filename')
-        .putFile(file);
-  }
 
   // Supporting Materials Methods
 
-  Future<StorageUploadTask> uploadPassportFile(String userId, File file) async {
-    String filename = path.basename(file.path);
-    return _storageReference
-        .child('supporting_materials/passports/$userId/$filename')
-        .putFile(file);
-  }
-
-  Future<StorageUploadTask> uploadStatementFile(
-      String userId, File file) async {
-    String filename = path.basename(file.path);
-    return _storageReference
-        .child('supporting_materials/personal_statements/$userId/$filename')
-        .putFile(file);
-  }
-
-  Future<StorageUploadTask> uploadOtherFile(String userId, File file) async {
-    String filename = path.basename(file.path);
-    return _storageReference
-        .child('supporting_materials/others/$userId/$filename')
-        .putFile(file);
-  }
 
   //Ends Here
 
@@ -106,48 +56,71 @@ class FirebaseStorageAPI {
 
   Future<String> getImageUrl(String imageId) async {
     ImagePicker picker = ImagePicker();
-    PickedFile imagePicked =
-        await picker.getImage(source: ImageSource.gallery, imageQuality: 80);
+    XFile imagePicked =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
     File imageFile = File(imagePicked.path);
-    StorageUploadTask uploadTask = await uploadProfilePic(imageId, imageFile);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    await _storageReference.child('profile_pictures/$imageId').putFile(imageFile);
+    return await _storageReference.child('profile_pictures/$imageId').getDownloadURL();
   }
 
   Future<String> getApplicationPhotoUrl(String imageId, File imageFile) async {
-    StorageUploadTask uploadTask =
-        await uploadApplicationPhoto(imageId, imageFile);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+   await _storageReference.child('application_pictures/$imageId').putFile(imageFile);
+    return await _storageReference.child('application_pictures/$imageId').getDownloadURL();
   }
 
   Future<String> getUploadTranscriptsUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadTranscriptFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    String filename = path.basename(files.path);
+    _storageReference
+        .child('school_transcripts/$userId/$filename')
+        .putFile(files);
+    return await _storageReference.child('school_transcripts/$userId/$filename').getDownloadURL();
   }
 
   Future<String> getUploadLanguageUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadLanguageFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    String filename = path.basename(files.path);
+    await _storageReference
+        .child('language_qualifications/$userId/$filename')
+        .putFile(files);
+    return await _storageReference
+        .child('language_qualifications/$userId/$filename').getDownloadURL();
   }
 
   Future<String> getUploadReferenceUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadReferenceFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    String filename = path.basename(files.path);
+    await _storageReference
+        .child('references/$userId/$filename')
+        .putFile(files);
+    return await _storageReference
+        .child('references/$userId/$filename').getDownloadURL();
   }
 
   //Supporting Materials Methods
   Future<String> getUploadPassportUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadPassportFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    String filename = path.basename(files.path);
+    await _storageReference
+        .child('supporting_materials/passports/$userId/$filename')
+        .putFile(files);
+
+    return await _storageReference
+        .child('supporting_materials/passports/$userId/$filename').getDownloadURL();
   }
 
   Future<String> getUploadStatementsUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadStatementFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    String filename = path.basename(files.path);
+    await _storageReference
+        .child('supporting_materials/personal_statements/$userId/$filename')
+        .putFile(files);
+    return await _storageReference
+        .child('supporting_materials/personal_statements/$userId/$filename').getDownloadURL();
   }
 
   Future<String> getUploadOthersUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadOtherFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    String filename = path.basename(files.path);
+    await _storageReference
+        .child('supporting_materials/others/$userId/$filename')
+        .putFile(files);
+    return await _storageReference
+        .child('supporting_materials/others/$userId/$filename').getDownloadURL();
   }
 
   //Ends Here

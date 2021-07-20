@@ -4,6 +4,7 @@ import 'package:cuhkszapp/MainPages/ApplyPages/study_preference_page.dart';
 import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 import 'package:cuhkszapp/resources/arrow_button.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -24,7 +25,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
 
   GlobalKey<ScaffoldState> _scaffkey = GlobalKey();
   String photoUrl = '';
-  File image;
+  PlatformFile image;
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +185,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
                                           onTap: () async {
                                             ImagePicker picker = ImagePicker();
                                             await picker.getImage(source: ImageSource.gallery,imageQuality: 80,).then((imagePicked) {
-                                              image = File(imagePicked.path);
+                                              image = PlatformFile(path: imagePicked.path);
                                               uploadApplicationPhoto(image);
                                             });
 
@@ -335,7 +336,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
     );
   }
 
-  Future<void> uploadApplicationPhoto(File imageFile) async {
+  Future<void> uploadApplicationPhoto(PlatformFile imageFile) async {
     {
       widget.userBloc = BlocProvider.of(context);
         try {
