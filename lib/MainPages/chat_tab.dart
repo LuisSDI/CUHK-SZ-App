@@ -23,7 +23,7 @@ class _ChatTabState extends State<ChatTab> {
           future: userBloc.getListUsers(FirebaseAuth.instance.currentUser.uid),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              List<User> users = snapshot.data;
+              List<UserModel> users = snapshot.data;
               return SingleChildScrollView(
                 child: Column(
                   children: [

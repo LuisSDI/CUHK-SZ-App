@@ -10,7 +10,9 @@ class FirebaseStorageAPI {
 
 
   // Supporting Materials Methods
-
+  Future<void> uploadProfilePic(String path, File image) async {
+    await _storageReference.child('profile_pictures/$path').putFile(image);
+  }
 
   //Ends Here
 

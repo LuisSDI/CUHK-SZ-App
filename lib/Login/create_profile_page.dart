@@ -672,64 +672,62 @@ you can change this info later"""
         formState.save();
         try {
           if (widget.credential != null) {
-            authResult = await widget.userBloc
-                .signInCredential(widget.credential)
-                .then((value) {
-              Async_Loader.showLoadingDialog(context);
-              if (value == null) {
-                scaffkey.currentState.showSnackBar(SnackBar(
-                  duration: Duration(seconds: 3),
-                  content: Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Text(
-                      widget.userBloc.getError(),
-                      style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                        fontSize: 14,
-                      )),
-                    ),
+            authResult =
+                await widget.userBloc.signInCredential(widget.credential);
+            Async_Loader.showLoadingDialog(context);
+            if (authResult == null) {
+              scaffkey.currentState.showSnackBar(SnackBar(
+                duration: Duration(seconds: 3),
+                content: Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  child: Text(
+                    widget.userBloc.getError(),
+                    style: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                      fontSize: 14,
+                    )),
                   ),
-                ));
-                widget.userBloc.resetError();
-              } else {
-                UserModel user = UserModel(
-                    email: value.user.email,
-                    name: name,
-                    photoUrL: (value.user.photoURL == null)
-                        ? 'https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/no_photo.png?alt=media&token=f444bdb5-4857-4c54-9268-2c7cf3970ca2'
-                        : value.user.photoURL,
-                    uid: value.user.uid,
-                    country: countryField,
-                    description: description,
-                    phone: '+$countryCode $phone',
-                    type: dropdownValue);
-                widget.userBloc.setUserData(user).whenComplete(() {
-                  if (widget.userBloc.getErrorCloud() == null) {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  } else {
-                    value.user.delete();
-                    widget.userBloc.signOut();
-                    scaffkey.currentState.showSnackBar(SnackBar(
-                      duration: Duration(seconds: 3),
-                      content: Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        child: Text(
-                          widget.userBloc.getErrorCloud(),
-                          style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                            fontSize: 14,
-                          )),
-                        ),
+                ),
+              ));
+              widget.userBloc.resetError();
+            } else {
+              UserModel user = UserModel(
+                  email: authResult.user.email,
+                  name: name,
+                  photoUrL: (authResult.user.photoURL == null)
+                      ? 'https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/no_photo.png?alt=media&token=f444bdb5-4857-4c54-9268-2c7cf3970ca2'
+                      : authResult.user.photoURL,
+                  uid: authResult.user.uid,
+                  country: countryField,
+                  description: description,
+                  phone: '+$countryCode $phone',
+                  type: dropdownValue);
+              widget.userBloc.setUserData(user).whenComplete(() {
+                if (widget.userBloc.getErrorCloud() == null) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                } else {
+                  authResult.user.delete();
+                  widget.userBloc.signOut();
+                  scaffkey.currentState.showSnackBar(SnackBar(
+                    duration: Duration(seconds: 3),
+                    content: Container(
+                      alignment: Alignment.center,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      child: Text(
+                        widget.userBloc.getErrorCloud(),
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                          fontSize: 14,
+                        )),
                       ),
-                    ));
-                    widget.userBloc.resetErrorCloud();
-                  }
-                });
-              }
-            });
+                    ),
+                  ));
+                  widget.userBloc.resetErrorCloud();
+                }
+              });
+            }
           } else {
             Async_Loader.showLoadingDialog(context);
             await widget.userBloc
@@ -755,9 +753,9 @@ you can change this info later"""
                 UserModel user = UserModel(
                     email: value.email,
                     name: name,
-                    photoUrL: (value.photoUrl == null)
+                    photoUrL: (value.photoURL == null)
                         ? 'https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/no_photo.png?alt=media&token=f444bdb5-4857-4c54-9268-2c7cf3970ca2'
-                        : value.photoUrl,
+                        : value.photoURL,
                     uid: value.uid,
                     country: countryField,
                     description: description,

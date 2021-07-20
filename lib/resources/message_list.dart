@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 class MessageList extends StatelessWidget {
 
   final String currentUserId;
-  final User receiverUser;
+  final UserModel receiverUser;
 
   const MessageList({Key key, this.currentUserId, this.receiverUser}) : super(key: key);
 
@@ -16,7 +16,7 @@ class MessageList extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenScaler scaler = ScreenScaler()..init(context);
     return StreamBuilder(
-      stream: Firestore.instance.collection('messages').document(currentUserId)
+      stream: FirebaseFirestore.instance.collection('messages').doc(currentUserId)
           .collection(receiverUser.uid).orderBy('timeStamp',descending: true).snapshots()
       ,
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
@@ -28,9 +28,9 @@ class MessageList extends StatelessWidget {
          return ListView.builder(
            padding: EdgeInsets.all(scaler.getWidth(2)),
            itemBuilder: (context, index) {
-             return chatMessageItem(context, snapshot.data.documents[index]);
+             return chatMessageItem(context, snapshot.data.docs[index]);
            },
-           itemCount: snapshot.data.documents.length,
+           itemCount: snapshot.data.docs.length,
            reverse: true,
          );
       },

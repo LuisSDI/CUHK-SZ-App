@@ -127,13 +127,13 @@ class _LanguageQualificationsPageState
                               type:FileType.custom,
                               allowedExtensions: ['pdf'],
                             );
-                            List<PlatformFile> filesToUpload = [];
+                            List<File> filesToUpload = [];
                             for (var file in files.files) {
                               String filename = path.basename(file.path);
                               if (languageFilenames.contains(filename)) {
                               } else {
                                 languageFilenames.add(filename);
-                                filesToUpload.add(file);
+                                filesToUpload.add(File(file.path));
                               }
                             }
                             uploadLanguages(filesToUpload, languageFilenames);
@@ -1662,7 +1662,7 @@ Qualifications'''
   }
 
   Future<void> uploadLanguages(
-      List<PlatformFile> files, List<String> transcriptFilenames) async {
+      List<File> files, List<String> transcriptFilenames) async {
     widget.userBloc = BlocProvider.of(context);
     try {
       for (int i = 0; i < files.length; i++) {

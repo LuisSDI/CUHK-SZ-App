@@ -21,7 +21,7 @@ class FirebaseAuthAPI {
 
   void deleteUser() async {
     try {
-      FirebaseUser firebaseUser = await _auth.currentUser();
+      User firebaseUser = _auth.currentUser;
       firebaseUser.delete();
     } catch (error) {
       switch (error.code) {
@@ -34,11 +34,11 @@ class FirebaseAuthAPI {
     }
   }
 
-  Future<FirebaseUser> signIn(String email, String password) async {
+  Future<User> signIn(String email, String password) async {
     try {
-      AuthResult authResult = await FirebaseAuth.instance
+      UserCredential authResult = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = authResult.user;
+      User user = authResult.user;
       return user;
     } catch (error) {
       switch (error.code) {
@@ -69,11 +69,11 @@ class FirebaseAuthAPI {
     }
   }
 
-  Future<FirebaseUser> signUp(String email, String password) async {
+  Future<User> signUp(String email, String password) async {
     try {
-      AuthResult authResult = await FirebaseAuth.instance
+      UserCredential authResult = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = authResult.user;
+      User user = authResult.user;
       return user;
     } catch (error) {
       print(error.code);
@@ -105,15 +105,15 @@ class FirebaseAuthAPI {
     }
   }
 
-  Future<AuthResult> signInUsingCredential(AuthCredential credential) async {
-    AuthResult authResult;
+  Future<UserCredential> signInUsingCredential(AuthCredential credential) async {
+    UserCredential authResult;
     try {
       authResult = await _auth.signInWithCredential(credential);
-      final FirebaseUser user = authResult.user;
+      final User user = authResult.user;
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
 
-      final FirebaseUser currentUser = await _auth.currentUser();
+      final User currentUser =  _auth.currentUser;
       assert(user.uid == currentUser.uid);
       return authResult;
     } catch (error) {
@@ -129,7 +129,7 @@ class FirebaseAuthAPI {
           await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
-      credential = GoogleAuthProvider.getCredential(
+      credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
@@ -160,8 +160,7 @@ class FirebaseAuthAPI {
       if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
         FacebookAccessToken facebookAccessToken =
             facebookLoginResult.accessToken;
-        credential = FacebookAuthProvider.getCredential(
-            accessToken: facebookAccessToken.token);
+        credential = FacebookAuthProvider.credential(facebookAccessToken.token);
         facebookLogin.logOut();
       }
       return credential;

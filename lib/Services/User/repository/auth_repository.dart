@@ -10,13 +10,13 @@ class AuthRepository {
 
   void deleteUser() => _firebaseAuthAPI.deleteUser();
 
-  Future<FirebaseUser> signInFirebase(String email, String password) =>
+  Future<User> signInFirebase(String email, String password) =>
       _firebaseAuthAPI.signIn(email, password);
 
-  Future<FirebaseUser> signUpFirebase(String email, String password) =>
+  Future<User> signUpFirebase(String email, String password) =>
       _firebaseAuthAPI.signUp(email, password);
 
-  Future<AuthResult> signInCredential(AuthCredential credential) =>
+  Future<UserCredential> signInCredential(AuthCredential credential) =>
       _firebaseAuthAPI.signInUsingCredential(credential);
 
   Future<AuthCredential> credentialGoogle() =>

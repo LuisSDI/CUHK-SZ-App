@@ -13,10 +13,10 @@ class CloudFirestoreRepository {
   Future<void> setUserDataFirestore(UserModel user) =>
       _cloudFirestoreAPI.setUserData(user);
 
-  void updateUserDataFirestore(User user) =>
+  void updateUserDataFirestore(UserModel user) =>
       _cloudFirestoreAPI.updateUserData(user);
 
-  Future<User> getUserData(String userUid) async {
+  Future<UserModel> getUserData(String userUid) async {
     return _cloudFirestoreAPI.getUserData(userUid);
   }
 
@@ -24,7 +24,7 @@ class CloudFirestoreRepository {
     return _cloudFirestoreAPI.listenUserData(userUid);
   }
 
-  Future<void> addMessage(Message message, User sender, User receiver) =>
+  Future<void> addMessage(Message message, UserModel sender, UserModel receiver) =>
       _cloudFirestoreAPI.addMessage(message, sender, receiver);
 
   Future<void> registerPersonalDetails(
@@ -305,7 +305,7 @@ class CloudFirestoreRepository {
   Stream<DocumentSnapshot> getWorkExpirience(String userID) =>
       _cloudFirestoreAPI.getWorkExpirience(userID);
 
-  Future<List<User>> getListUsers(String userUid) =>
+  Future<List<UserModel>> getListUsers(String userUid) =>
       _cloudFirestoreAPI.getListUsers(userUid);
 
   //Supporting Material Methods

@@ -17,10 +17,10 @@ class UserBloc implements Bloc {
   //Flujo de datos -Streams
   //Stream - Firebase
   //StreamController
-  Stream<FirebaseUser> streamFirebase =
-      FirebaseAuth.instance.onAuthStateChanged;
-  Stream<FirebaseUser> get authStatus => streamFirebase;
-  Future<FirebaseUser> get currentUser => FirebaseAuth.instance.currentUser();
+  Stream<User> streamFirebase =
+      FirebaseAuth.instance.authStateChanges();
+  Stream<User> get authStatus => streamFirebase;
+   User get currentUser => FirebaseAuth.instance.currentUser;
 
   //Firebase Auth
 
@@ -43,7 +43,7 @@ class UserBloc implements Bloc {
   Future<AuthCredential> credentialFacebook() =>
       authRepository.credentialFacebook();
   //3.Sign Up
-  Future<FirebaseUser> signUp(String email, String password) =>
+  Future<User> signUp(String email, String password) =>
       authRepository.signUpFirebase(email, password);
 
   Future sendRecoveryPassword(String email) =>
@@ -61,19 +61,19 @@ class UserBloc implements Bloc {
   Future<void> setUserData(UserModel user) =>
       _cloudFirestoreRepository.setUserDataFirestore(user);
 
-  void updateUserData(User user) =>
+  void updateUserData(UserModel user) =>
       _cloudFirestoreRepository.updateUserDataFirestore(user);
 
-  Future<User> getUserData(String userUid) async =>
+  Future<UserModel> getUserData(String userUid) async =>
       _cloudFirestoreRepository.getUserData(userUid);
   Stream<DocumentSnapshot> listenUserData(String userUid) {
     return _cloudFirestoreRepository.listenUserData(userUid);
   }
 
-  Future<List<User>> getListUsers(String userUid) =>
+  Future<List<UserModel>> getListUsers(String userUid) =>
       _cloudFirestoreRepository.getListUsers(userUid);
 
-  Future<void> addMessage(Message message, User sender, User receiver) =>
+  Future<void> addMessage(Message message, UserModel sender, UserModel receiver) =>
       _cloudFirestoreRepository.addMessage(message, sender, receiver);
 
   Future<void> registerPersonalDetails(
@@ -386,7 +386,7 @@ class UserBloc implements Bloc {
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 
-  Future<StorageUploadTask> uploadFile(String path, File image) =>
+  Future<void> uploadFile(String path, File image) =>
       _firebaseStorageRepository.uploadProfilePic(path, image);
 
   Future<String> getImageUrl(String imageId) =>

@@ -150,17 +150,17 @@ class _ReferencesPageState extends State<ReferencesPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            List<PlatformFile> files = (await FilePicker.platform.pickFiles(
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
-                            );
+                            )).files;
                             List<File> filesToUpload = [];
                             for (var file in files) {
                               String filename = path.basename(file.path);
                               if (referenceFilenames.contains(filename)) {
                               } else {
                                 referenceFilenames.add(filename);
-                                filesToUpload.add(file);
+                                filesToUpload.add(File(file.path));
                               }
                             }
                             uploadLanguages(filesToUpload, referenceFilenames);

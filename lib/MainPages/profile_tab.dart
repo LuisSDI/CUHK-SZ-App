@@ -17,52 +17,37 @@ class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scaler = ScreenScaler()..init(context);
+    UserBloc userBloc = BlocProvider.of(context);
     return BlocProvider(
-      bloc: UserBloc(),
-      child: FutureBuilder(
-        future: FirebaseAuth.instance.currentUser(),
-        builder: (context, snapshot) {
-          userBloc = BlocProvider.of(context);
-          User user;
-          if (snapshot.hasData) {
-            FirebaseUser firebaseUser = snapshot.data;
-            return StreamBuilder(
-                stream: userBloc.listenUserData(firebaseUser.uid),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.active) {
-                    DocumentSnapshot value = snapshot.data;
-                    user = User(
-                      name: value.data['full name'],
-                      type: value.data['type'],
-                      phone: value.data['phone'],
-                      description: value.data['description'],
-                      country: value.data['country'],
-                      uid: value.data['uid'],
-                      photoUrL: value.data['photoURL'],
-                      email: value.data['email'],
-                    );
-                    return profile(scaler, user, context);
-                  } else {
-                    return Scaffold(
-                      body: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                });
-          } else {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        },
-      ),
+      bloc: userBloc,
+      child: StreamBuilder(
+          stream: userBloc.listenUserData(FirebaseAuth.instance.currentUser.uid),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              DocumentSnapshot value = snapshot.data;
+              UserModel user = UserModel(
+                name: value.get('full name'),
+                type: value.get('type'),
+                phone: value.get('phone'),
+                description: value.get('description'),
+                country: value.get('country'),
+                uid: value.get('uid'),
+                photoUrL: value.get('photoURL'),
+                email: value.get('email'),
+              );
+              return profile(scaler, user, context);
+            } else {
+              return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          })
     );
   }
 
-  Widget profile(ScreenScaler scaler, User user, BuildContext context) {
+  Widget profile(ScreenScaler scaler, UserModel user, BuildContext context) {
     Country country = CountryPickerUtils.getCountryByName(user.country);
     return SafeArea(
       top: false,

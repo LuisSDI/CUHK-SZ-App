@@ -25,7 +25,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
 
   GlobalKey<ScaffoldState> _scaffkey = GlobalKey();
   String photoUrl = '';
-  PlatformFile image;
+  File image;
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +185,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
                                           onTap: () async {
                                             ImagePicker picker = ImagePicker();
                                             await picker.getImage(source: ImageSource.gallery,imageQuality: 80,).then((imagePicked) {
-                                              image = PlatformFile(path: imagePicked.path);
+                                              image = File(imagePicked.path);
                                               uploadApplicationPhoto(image);
                                             });
 
@@ -336,7 +336,7 @@ class _ApplicationPhotoPageState extends State<ApplicationPhotoPage> {
     );
   }
 
-  Future<void> uploadApplicationPhoto(PlatformFile imageFile) async {
+  Future<void> uploadApplicationPhoto(File imageFile) async {
     {
       widget.userBloc = BlocProvider.of(context);
         try {

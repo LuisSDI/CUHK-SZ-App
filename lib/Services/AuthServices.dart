@@ -9,9 +9,9 @@ class AuthService with ChangeNotifier {
   ///
   /// return the Future with firebase user object FirebaseUser if one exists
   ///
-  Future<FirebaseUser> getUser() {
-    return _auth.currentUser();
-  }
+  // Future<User> getUser() {
+  //   return _auth.currentUser;
+  // }
 
   // wrapping the firebase calls
   Future logout() async {

@@ -5,11 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseStorageRepository {
   final _firebaseStorageAPI = FirebaseStorageAPI();
-  Future<StorageUploadTask> uploadProfilePic(String path, File image) =>
+  Future<void> uploadProfilePic(String path, File image) =>
       _firebaseStorageAPI.uploadProfilePic(path, image);
   Future<String> getImageUrl(String imageId) =>
       _firebaseStorageAPI.getImageUrl(imageId);
-  Future<String> getApplicationPhotoUrl(String imageId, PlatformFile imageFile) =>
+  Future<String> getApplicationPhotoUrl(String imageId, File imageFile) =>
       _firebaseStorageAPI.getApplicationPhotoUrl(imageId, imageFile);
   Future<String> getUploadTranscriptsUrl(String userId, File files) =>
       _firebaseStorageAPI.getUploadTranscriptsUrl(userId, files);

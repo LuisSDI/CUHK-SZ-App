@@ -76,10 +76,10 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            List<PlatformFile> files = (await FilePicker.platform.pickFiles(
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
-                            );
+                            )).files;
                             List<File> filesToUpload = [];
                             for (var file in files) {
                               String filename = path.basename(file.path);
@@ -88,7 +88,7 @@ class _SchoolTranscriptPageState extends State<SchoolTranscriptPage> {
                               }
                               else{
                               transcriptFilenames.add(filename);
-                              filesToUpload.add(file);
+                              filesToUpload.add(File(file.path));
                               }
                             }
                             uploadTranscripts(filesToUpload, transcriptFilenames);

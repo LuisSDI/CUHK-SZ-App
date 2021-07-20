@@ -9,7 +9,7 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditProfile extends StatefulWidget {
-  final User user;
+  final UserModel user;
   UserBloc userBloc;
 
   EditProfile({Key key, this.user}) : super(key: key);
@@ -554,7 +554,7 @@ class _EditProfileState extends State<EditProfile> {
       if (formState.validate()) {
         formState.save();
         try {
-          User user = User(
+          UserModel user = UserModel(
               email: widget.user.email,
               name: name,
               photoUrL: photoUrL,

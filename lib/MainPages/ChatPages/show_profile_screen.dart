@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ShowProfileScreen extends StatelessWidget {
 
-  final User user;
+  final UserModel user;
 
   const ShowProfileScreen({Key key, @required this.user}) : super(key: key);
 

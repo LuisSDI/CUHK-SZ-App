@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
 
-  final User user;
+  final UserModel user;
 
   const CustomAppBar({Key key, this.user}) : super(key: key);
 

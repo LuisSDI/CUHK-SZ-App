@@ -104,17 +104,17 @@ class _SupportingDocumentsPageState extends State<SupportingDocumentsPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            List<PlatformFile> files = (await FilePicker.platform.pickFiles(
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
-                            );
+                            )).files;
                             List<File> filesToUpload = [];
                             for (var file in files) {
                               String filename = path.basename(file.path);
                               if (passportFilenames.contains(filename)) {
                               } else {
                                 passportFilenames.add(filename);
-                                filesToUpload.add(file);
+                                filesToUpload.add(File(file.path));
                               }
                             }
                             uploadPassport(filesToUpload, passportFilenames);
@@ -170,17 +170,17 @@ class _SupportingDocumentsPageState extends State<SupportingDocumentsPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            List<PlatformFile> files = (await FilePicker.platform.pickFiles(
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
-                            );
+                            )).files;
                             List<File> filesToUpload = [];
                             for (var file in files) {
                               String filename = path.basename(file.path);
                               if (statementFilenames.contains(filename)) {
                               } else {
                                 statementFilenames.add(filename);
-                                filesToUpload.add(file);
+                                filesToUpload.add(File(file.path));
                               }
                             }
                             uploadStatement(filesToUpload, statementFilenames);
@@ -236,17 +236,17 @@ class _SupportingDocumentsPageState extends State<SupportingDocumentsPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            List<PlatformFile> files = (await FilePicker.platform.pickFiles(
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
-                            );
+                            )).files;
                             List<File> filesToUpload = [];
                             for (var file in files) {
                               String filename = path.basename(file.path);
                               if (othersFilenames.contains(filename)) {
                               } else {
                                 othersFilenames.add(filename);
-                                filesToUpload.add(file);
+                                filesToUpload.add(File(file.path));
                               }
                             }
                             uploadOthers(filesToUpload, othersFilenames);
