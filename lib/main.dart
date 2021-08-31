@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) {
             UserBloc userBloc = BlocProvider.of(context);
-            return StreamBuilder<FirebaseUser>(
+            return StreamBuilder<User>(
               stream: userBloc.authStatus,
               builder: (context, snapshot) {
                 print(snapshot);

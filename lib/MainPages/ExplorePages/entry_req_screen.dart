@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cuhkszapp/resources/expandable_tile.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +54,15 @@ class EntryReqScreen extends StatelessWidget {
           child: Container(
             height: scaler.getHeight(30),
             width: scaler.getWidth(100),
-            child: Image(
-              image:
-                  AssetImage("assets/images_entry_screen/entry_picture_1.png"),
+            child: CachedNetworkImage(
+              imageUrl:
+                  "https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/app_assets%2Fentry_requirements%2Fentry_picture_1.png?alt=media&token=586ba1c3-e20e-4451-a2f0-6360cc3bd680",
               fit: BoxFit.cover,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress)),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
         ),

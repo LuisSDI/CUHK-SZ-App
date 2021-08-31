@@ -50,10 +50,10 @@ class WhyScreen extends StatelessWidget {
             //Image Carousel
             ImageSlider(
               imgList: [
-                "assets/images_why_screen/why_picture_2.jpg",
-                "assets/images_why_screen/why_picture_1.jpg",
-                "assets/images_why_screen/why_picture_3.jpg",
-                "assets/images_why_screen/why_picture_4.jpg",
+                "https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/app_assets%2Fwhy_screen%2Fwhy_picture_2.jpg?alt=media&token=cee3605b-e5c1-40dc-87e5-3d533197b818",
+                "https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/app_assets%2Fwhy_screen%2Fwhy_picture_1.jpg?alt=media&token=764e3474-0d82-4340-a95c-3907701cf80b",
+                "https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/app_assets%2Fwhy_screen%2Fwhy_picture_3.jpg?alt=media&token=1dce3f41-bdd2-4d77-a077-74fb96624bea",
+                "https://firebasestorage.googleapis.com/v0/b/cuhk-shenzhen-app.appspot.com/o/app_assets%2Fwhy_screen%2Fwhy_picture_4.jpg?alt=media&token=c5f41dae-7b44-4dfb-8a3c-72badde5236a",
               ],
             ),
             //Intro Text

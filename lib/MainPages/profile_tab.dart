@@ -3,6 +3,7 @@ import 'package:country_pickers/country.dart';
 import 'package:country_pickers/utils/utils.dart';
 import 'package:cuhkszapp/MainPages/edit_profile.dart';
 import 'package:cuhkszapp/Services/User/model/user.dart';
+import 'package:cuhkszapp/Services/User/repository/firebase_auth_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,32 +15,29 @@ import 'package:cuhkszapp/Services/User/bloc/bloc_user.dart';
 
 class ProfileTab extends StatelessWidget {
   UserBloc userBloc;
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scaler = ScreenScaler()..init(context);
+    User firebaseUser = FirebaseAuth.instance.currentUser;
+    userBloc = BlocProvider.of(context);
     return BlocProvider(
-      bloc: UserBloc(),
-      child: FutureBuilder(
-        future: FirebaseAuth.instance.currentUser(),
-        builder: (context, snapshot) {
-          userBloc = BlocProvider.of(context);
-          User user;
-          if (snapshot.hasData) {
-            FirebaseUser firebaseUser = snapshot.data;
-            return StreamBuilder(
+      bloc: userBloc,
+      child: StreamBuilder(
                 stream: userBloc.listenUserData(firebaseUser.uid),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.active) {
                     DocumentSnapshot value = snapshot.data;
-                    user = User(
-                      name: value.data['full name'],
-                      type: value.data['type'],
-                      phone: value.data['phone'],
-                      description: value.data['description'],
-                      country: value.data['country'],
-                      uid: value.data['uid'],
-                      photoUrL: value.data['photoURL'],
-                      email: value.data['email'],
+                    Map<String, dynamic> data =value.data();
+                    UserApp user = UserApp(
+                      name: data['full name'],
+                      type: data['type'],
+                      phone: data['phone'],
+                      description: data['description'],
+                      country: data['country'],
+                      uid: data['uid'],
+                      photoUrL: data['photoURL'],
+                      email: data['email'],
                     );
                     return profile(scaler, user, context);
                   } else {
@@ -49,20 +47,10 @@ class ProfileTab extends StatelessWidget {
                       ),
                     );
                   }
-                });
-          } else {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        },
-      ),
-    );
+                }));
   }
 
-  Widget profile(ScreenScaler scaler, User user, BuildContext context) {
+  Widget profile(ScreenScaler scaler, UserApp user, BuildContext context) {
     Country country = CountryPickerUtils.getCountryByName(user.country);
     return SafeArea(
       top: false,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class User {
+class UserApp {
   final String uid;
   final String name;
   final String email;
@@ -10,7 +10,7 @@ class User {
   final String type;
   final String description;
 
-  User({
+  UserApp({
     Key key,
     @required this.uid,
     @required this.name,

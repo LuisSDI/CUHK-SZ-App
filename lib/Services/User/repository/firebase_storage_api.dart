@@ -4,34 +4,35 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FirebaseStorageAPI {
-  final StorageReference _storageReference = FirebaseStorage.instance.ref();
+  final Reference _storageReference = FirebaseStorage.instance.ref();
 
-  Future<StorageUploadTask> uploadProfilePic(String path, File image) async {
-    return _storageReference.child('profile_pictures/$path').putFile(image);
+  UploadTask uploadProfilePic(String path, File image)  {
+    Reference ref =_storageReference.child('profile_pictures/$path');
+    return  ref.putFile(image);
   }
 
-  Future<StorageUploadTask> uploadApplicationPhoto(
-      String path, File image) async {
+  UploadTask uploadApplicationPhoto(
+      String path, File image)  {
     return _storageReference.child('application_pictures/$path').putFile(image);
   }
 
-  Future<StorageUploadTask> uploadTranscriptFile(
-      String userId, File file) async {
+  UploadTask uploadTranscriptFile(
+      String userId, File file)  {
     String filename = path.basename(file.path);
     return _storageReference
         .child('school_transcripts/$userId/$filename')
         .putFile(file);
   }
 
-  Future<StorageUploadTask> uploadLanguageFile(String userId, File file) async {
+  UploadTask uploadLanguageFile(String userId, File file)  {
     String filename = path.basename(file.path);
     return _storageReference
         .child('language_qualifications/$userId/$filename')
         .putFile(file);
   }
 
-  Future<StorageUploadTask> uploadReferenceFile(
-      String userId, File file) async {
+  UploadTask uploadReferenceFile(
+      String userId, File file)  {
     String filename = path.basename(file.path);
     return _storageReference
         .child('references/$userId/$filename')
@@ -40,22 +41,22 @@ class FirebaseStorageAPI {
 
   // Supporting Materials Methods
 
-  Future<StorageUploadTask> uploadPassportFile(String userId, File file) async {
+  UploadTask uploadPassportFile(String userId, File file)  {
     String filename = path.basename(file.path);
     return _storageReference
         .child('supporting_materials/passports/$userId/$filename')
         .putFile(file);
   }
 
-  Future<StorageUploadTask> uploadStatementFile(
-      String userId, File file) async {
+  UploadTask uploadStatementFile(
+      String userId, File file) {
     String filename = path.basename(file.path);
     return _storageReference
         .child('supporting_materials/personal_statements/$userId/$filename')
         .putFile(file);
   }
 
-  Future<StorageUploadTask> uploadOtherFile(String userId, File file) async {
+  UploadTask uploadOtherFile(String userId, File file)  {
     String filename = path.basename(file.path);
     return _storageReference
         .child('supporting_materials/others/$userId/$filename')
@@ -109,45 +110,45 @@ class FirebaseStorageAPI {
     PickedFile imagePicked =
         await picker.getImage(source: ImageSource.gallery, imageQuality: 80);
     File imageFile = File(imagePicked.path);
-    StorageUploadTask uploadTask = await uploadProfilePic(imageId, imageFile);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    UploadTask uploadTask =  uploadProfilePic(imageId, imageFile);
+    return  await ( await uploadTask).ref.getDownloadURL();
   }
 
   Future<String> getApplicationPhotoUrl(String imageId, File imageFile) async {
-    StorageUploadTask uploadTask =
-        await uploadApplicationPhoto(imageId, imageFile);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    UploadTask uploadTask =
+         uploadApplicationPhoto(imageId, imageFile);
+    return await (await uploadTask).ref.getDownloadURL();
   }
 
   Future<String> getUploadTranscriptsUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadTranscriptFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    UploadTask uploadTask = uploadTranscriptFile(userId, files);
+    return await (await uploadTask).ref.getDownloadURL();
   }
 
   Future<String> getUploadLanguageUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadLanguageFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    UploadTask uploadTask = uploadLanguageFile(userId, files);
+    return await (await uploadTask).ref.getDownloadURL();
   }
 
   Future<String> getUploadReferenceUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadReferenceFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    UploadTask uploadTask = uploadReferenceFile(userId, files);
+    return await (await uploadTask).ref.getDownloadURL();
   }
 
   //Supporting Materials Methods
   Future<String> getUploadPassportUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadPassportFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    UploadTask uploadTask =  uploadPassportFile(userId, files);
+    return await (await uploadTask).ref.getDownloadURL();
   }
 
   Future<String> getUploadStatementsUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadStatementFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    UploadTask uploadTask =  uploadStatementFile(userId, files);
+    return await (await uploadTask).ref.getDownloadURL();
   }
 
   Future<String> getUploadOthersUrl(String userId, File files) async {
-    StorageUploadTask uploadTask = await uploadOtherFile(userId, files);
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
+    UploadTask uploadTask = uploadOtherFile(userId, files);
+    return await (await uploadTask).ref.getDownloadURL();
   }
 
   //Ends Here

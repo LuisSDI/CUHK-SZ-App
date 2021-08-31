@@ -123,20 +123,26 @@ class _LanguageQualificationsPageState
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            FilePickerResult result = await FilePicker.platform.pickFiles(
+                              allowMultiple: true,
                               type: FileType.custom,
                               allowedExtensions: ['pdf'],
                             );
-                            List<File> filesToUpload = [];
-                            for (var file in files) {
-                              String filename = path.basename(file.path);
-                              if (languageFilenames.contains(filename)) {
-                              } else {
-                                languageFilenames.add(filename);
-                                filesToUpload.add(file);
+                            if(result != null) {
+                              List<File> files = result.paths.map((path) => File(path)).toList();
+                              List<File> filesToUpload = [];
+                              for (var file in files) {
+                                String filename = path.basename(file.path);
+                                if (languageFilenames.contains(filename)) {
+                                } else {
+                                  languageFilenames.add(filename);
+                                  filesToUpload.add(file);
+                                }
                               }
+                              uploadLanguages(filesToUpload, languageFilenames);
+                            } else {
+                              // User canceled the picker
                             }
-                            uploadLanguages(filesToUpload, languageFilenames);
                           },
                           child: Container(
                             height: scaler.getWidth(10),

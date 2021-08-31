@@ -17,10 +17,10 @@ class UserBloc implements Bloc {
   //Flujo de datos -Streams
   //Stream - Firebase
   //StreamController
-  Stream<FirebaseUser> streamFirebase =
-      FirebaseAuth.instance.onAuthStateChanged;
-  Stream<FirebaseUser> get authStatus => streamFirebase;
-  Future<FirebaseUser> get currentUser => FirebaseAuth.instance.currentUser();
+  Stream<User> streamFirebase = FirebaseAuth.instance.authStateChanges();
+  Stream<User> get authStatus => streamFirebase;
+  User get currentUser  => FirebaseAuth.instance.currentUser;
+  //authStateChanges();
 
   //Firebase Auth
 
@@ -31,10 +31,10 @@ class UserBloc implements Bloc {
   //Delete User
   void deleteUser() => authRepository.deleteUser();
   //1.SignIn
-  Future<FirebaseUser> signIn(String email, String password) =>
+  Future<dynamic> signIn(String email, String password) =>
       authRepository.signInFirebase(email, password);
   //2.SignIn Credential
-  Future<AuthResult> signInCredential(AuthCredential credential) =>
+  Future<dynamic> signInCredential(AuthCredential credential) =>
       authRepository.signInCredential(credential);
   //Google
   Future<AuthCredential> credentialGoogle() =>
@@ -43,7 +43,7 @@ class UserBloc implements Bloc {
   Future<AuthCredential> credentialFacebook() =>
       authRepository.credentialFacebook();
   //3.Sign Up
-  Future<FirebaseUser> signUp(String email, String password) =>
+  Future<dynamic> signUp(String email, String password) =>
       authRepository.signUpFirebase(email, password);
 
   Future sendRecoveryPassword(String email) =>
@@ -58,22 +58,22 @@ class UserBloc implements Bloc {
   void resetErrorCloud() => _cloudFirestoreRepository.resetErrorCloud();
 
   final _cloudFirestoreRepository = CloudFirestoreRepository();
-  Future<void> setUserData(User user) =>
+  Future<void> setUserData(UserApp user) =>
       _cloudFirestoreRepository.setUserDataFirestore(user);
 
-  void updateUserData(User user) =>
+  void updateUserData(UserApp user) =>
       _cloudFirestoreRepository.updateUserDataFirestore(user);
 
-  Future<User> getUserData(String userUid) async =>
+  Future<UserApp> getUserData(String userUid) async =>
       _cloudFirestoreRepository.getUserData(userUid);
   Stream<DocumentSnapshot> listenUserData(String userUid) {
     return _cloudFirestoreRepository.listenUserData(userUid);
   }
 
-  Future<List<User>> getListUsers(String userUid) =>
+  Future<List<UserApp>> getListUsers(String userUid) =>
       _cloudFirestoreRepository.getListUsers(userUid);
 
-  Future<void> addMessage(Message message, User sender, User receiver) =>
+  Future<void> addMessage(Message message, UserApp sender, UserApp receiver) =>
       _cloudFirestoreRepository.addMessage(message, sender, receiver);
 
   Future<void> registerPersonalDetails(
@@ -386,7 +386,7 @@ class UserBloc implements Bloc {
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 
-  Future<StorageUploadTask> uploadFile(String path, File image) =>
+  Future<dynamic> uploadFile(String path, File image) =>
       _firebaseStorageRepository.uploadProfilePic(path, image);
 
   Future<String> getImageUrl(String imageId) =>

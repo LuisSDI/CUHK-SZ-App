@@ -153,7 +153,7 @@ or login with a social account"""
                       ));
                       userBloc.resetError();
                     } else {
-                      AuthResult authResult =
+                      var authResult =
                           await userBloc.signInCredential(credential);
                       print(authResult);
                       if (authResult.additionalUserInfo.isNewUser) {
@@ -211,7 +211,7 @@ or login with a social account"""
                       ));
                       userBloc.resetError();
                     } else {
-                      AuthResult authResult =
+                      var authResult =
                           await userBloc.signInCredential(credential);
                       print(authResult);
                       if (authResult.additionalUserInfo.isNewUser) {

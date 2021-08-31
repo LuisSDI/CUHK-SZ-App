@@ -150,20 +150,26 @@ class _ReferencesPageState extends State<ReferencesPage> {
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () async {
-                            List<File> files = await FilePicker.getMultiFile(
+                            FilePickerResult result = await FilePicker.platform.pickFiles(
+                                allowMultiple: true,
                               type: FileType.custom,
-                              allowedExtensions: ['pdf'],
-                            );
-                            List<File> filesToUpload = [];
-                            for (var file in files) {
-                              String filename = path.basename(file.path);
-                              if (referenceFilenames.contains(filename)) {
-                              } else {
-                                referenceFilenames.add(filename);
-                                filesToUpload.add(file);
+                              allowedExtensions: ['pdf'],);
+
+                            if(result != null) {
+                              List<File> files = result.paths.map((path) => File(path)).toList();
+                              List<File> filesToUpload = [];
+                              for (var file in files) {
+                                String filename = path.basename(file.path);
+                                if (referenceFilenames.contains(filename)) {
+                                } else {
+                                  referenceFilenames.add(filename);
+                                  filesToUpload.add(file);
+                                }
                               }
+                              uploadLanguages(filesToUpload, referenceFilenames);
+                            } else {
+                              // User canceled the picker
                             }
-                            uploadLanguages(filesToUpload, referenceFilenames);
                           },
                           child: Container(
                             height: scaler.getWidth(10),
