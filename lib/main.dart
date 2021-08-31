@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
             return StreamBuilder<User>(
               stream: userBloc.authStatus,
               builder: (context, snapshot) {
+                print(snapshot);
                 if (snapshot.hasData) {
                   return HomePage();
                 } else if (snapshot.hasError) {
