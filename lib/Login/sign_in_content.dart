@@ -225,8 +225,10 @@ class _SignInContentState extends State<SignInContent> {
                 ),
               ],
             ),
-            SizedBox(
-              height: scaler.getWidth(10),
+            Expanded(
+              child: SizedBox(
+                height: scaler.getWidth(1),
+              ),
             ),
             // Forgot password Text
             GestureDetector(
@@ -238,7 +240,7 @@ class _SignInContentState extends State<SignInContent> {
               },
               child: Container(
                 alignment: Alignment.centerLeft,
-                height: scaler.getWidth(4),
+                //height: scaler.getWidth(4),
                 margin: EdgeInsets.only(bottom: scaler.getWidth(3.5)),
                 child: FittedBox(
                     fit: BoxFit.contain,
